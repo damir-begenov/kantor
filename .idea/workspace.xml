@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/DossierApplication.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/configuration/DossierDataSourceConfiguration.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/controller/DoseirController.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/extractor/Mv_fl_extractor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/AdvocateListEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/AuditorsListEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/BailiffListEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Children.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/CommodityProducer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Credentials.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Equipment.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/EsfAll2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/EsfNew.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FLRiskDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlContacts.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlFirstRowDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlPensionContr.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlPensionFinal.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlPensionMini.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlRelatives.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlRelativesLevelDto.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/FlRelativiesDTO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/IpgoEmailEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Lawyers.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Logs.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MilitaryAccounting2Entity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MillitaryAccount.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Msh.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvAutoFl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvFl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvIinDoc.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvRnOld.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvUl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvUlFounderFl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvUlFounderUl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvUlLeader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/MvUlLeaderEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/NdsEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/NodesFL.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/NodesUL.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/PhotoDb.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/QoldauSubsidy.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/RegAddressFl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/RegAddressUlEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/School.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/SearchResultModelFL.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/SearchResultModelUl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/SvedenyaObUchastnikovUlEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/TIpEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/TaxOutEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsDossier/Universities.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/AccountantListEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Adm.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Bankrot.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/BeneficiariesList.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/BlockEsf.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/ConvictsAbroad.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/ConvictsJustified.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/ConvictsTerminatedByRehab.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Criminals.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Dismissal.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Dormant.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/DrugAddicts.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/FirstCreditBureauEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/FpgTempEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/ImmoralLifestyle.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Incapacitated.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Kuis.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/MzEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Omn.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/OpgEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Orphans.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/Pdl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/modelsRisk/WantedListEntity.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/AccountantListEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/AdmRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/AdvocateListEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/AuditorsListEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/BailiffListEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/BankrotRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/BeneficiariesListRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/BlockEsfRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/CommodityProducerRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/ConvictsAbroadRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/ConvictsJustifiedRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/ConvictsTerminatedtByRehabRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/CredentialsRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/CriminalsRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/DismissalRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/DormantRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/DrugAddictsRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/EquipmentRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/EsfAll2Repo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/FirstCreditBureauEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/FlContactsRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/FlPensionContrRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/FlPensionMiniRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/FlRelativesRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/FpgTempEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/ImmoralLifestlyeRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/IncapacitatedRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/IpgoEmailEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/KuisRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/LogsRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MilitaryAccounting2Repo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MshRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvAutoFlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvFlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvIinDocRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvRnOldRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvUlFounderFlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvUlFounderUlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvUlLeaderEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvUlLeaderRepository.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MvUlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/MzEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/NdsEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/NewPhotoRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/OmnRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/OpgRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/OrphansRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/PdlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/QoldauRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/RegAddressFlRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/RegAddressUlEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/SchoolRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/TIpEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/TaxOutEntityRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/UniversitiesRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/WantedListRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/repositoryDossier/militaryAccountRepo.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/service/FlRiskServiceImpl.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/service/PhotoService.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/classes/com/example/dossier/tools/PdfGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/dossier-0.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/surefire-reports/TEST-com.example.dossier.DossierApplicationTests.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/surefire-reports/com.example.dossier.DossierApplicationTests.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier/target/test-classes/com/example/dossier/DossierApplicationTests.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/security/HELP.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/security/target/maven-archiver/pom.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/security/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/security/target/security-0.0.1-SNAPSHOT.jar" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 1
+}]]></component>
+  <component name="ProjectId" id="2jPob7bMB77eO3Pieumw7sqYrew" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/damirbegenov/Desktop/moduleBasedPandora",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="" />
+      <created>1721298141321</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721298141321</updated>
+      <workItem from="1721298142399" duration="160000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

@@ -10,13 +10,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dossier" />
-        <module name="security" />
+        <module name="dossier-app" />
+        <module name="dossier-esf" />
+        <module name="dossier-main" />
+        <module name="dossier-common" />
+        <module name="dossier-vizual" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="dossier (1)" target="1.8" />
       <module name="dossier (2)" target="1.8" />
+      <module name="dsa" target="17" />
       <module name="multiModel" target="17" />
     </bytecodeTargetLevel>
   </component>
@@ -24,6 +28,12 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dossier" options="-parameters" />
       <module name="dossier (2)" options="-parameters" />
+      <module name="dossier-app" options="-parameters" />
+      <module name="dossier-common" options="-parameters" />
+      <module name="dossier-esf" options="-parameters" />
+      <module name="dossier-main" options="-parameters" />
+      <module name="dossier-vizual" options="-parameters" />
+      <module name="dsa" options="-parameters" />
       <module name="security" options="-parameters" />
     </option>
   </component>

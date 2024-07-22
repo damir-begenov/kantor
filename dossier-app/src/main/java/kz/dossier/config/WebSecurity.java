@@ -60,7 +60,8 @@ public class WebSecurity { // extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/api/pandora/auth/**").permitAll()
+                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
                         .anyRequest().authenticated()
                 );
 

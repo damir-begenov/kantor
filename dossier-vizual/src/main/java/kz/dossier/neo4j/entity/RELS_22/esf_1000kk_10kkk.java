@@ -7,7 +7,7 @@ import org.springframework.data.neo4j.core.schema.*;
 public class esf_1000kk_10kkk {
     @Id
     @GeneratedValue
-    public Long id;
+    public String id;
     @Property("Вид связи")
     public String Vid_svyaziey;
     @Property("Сумма")
@@ -26,11 +26,11 @@ public class esf_1000kk_10kkk {
         this.company = company;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

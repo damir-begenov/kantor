@@ -18,10 +18,13 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "kz.dossier.security.repository",
+@EnableJpaRepositories(
+        basePackages = "kz.dossier.security.repository",
         entityManagerFactoryRef = "mainEntityManagerFactory",
-        transactionManagerRef = "mainTransactionManager")
+        transactionManagerRef = "mainTransactionManager"
+)
 public class MainDataSourceConfiguration {
+
     @Bean
     @ConfigurationProperties("spring.datasource.main")
     public DataSourceProperties mainDataSourceProperties() {
@@ -32,21 +35,20 @@ public class MainDataSourceConfiguration {
     @ConfigurationProperties("spring.datasource.main.configuration")
     public DataSource mainDataSource() {
         return mainDataSourceProperties().initializeDataSourceBuilder()
-                .type( HikariDataSource.class).build();
+                .type(HikariDataSource.class).build();
     }
 
     @Bean(name = "mainEntityManagerFactory")
-    public LocalContainerEntityManagerFactoryBean mainEntityManagerFactory(
-            EntityManagerFactoryBuilder builder) {
+    public LocalContainerEntityManagerFactoryBean mainEntityManagerFactory(EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(mainDataSource())
-                .packages( ERole.class, log.class, Role.class, User.class, user_roles.class)
+                .packages(ERole.class, log.class, Role.class, User.class, user_roles.class)
                 .build();
     }
 
     @Bean(name = "mainTransactionManager")
     public PlatformTransactionManager mainTransactionManager(
-            final @Qualifier("mainEntityManagerFactory") LocalContainerEntityManagerFactoryBean mainEntityManagerFactory) {
+            @Qualifier("mainEntityManagerFactory") LocalContainerEntityManagerFactoryBean mainEntityManagerFactory) {
         return new JpaTransactionManager(mainEntityManagerFactory.getObject());
     }
 }

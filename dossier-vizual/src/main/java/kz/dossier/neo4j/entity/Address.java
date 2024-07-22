@@ -9,7 +9,7 @@ import org.springframework.data.neo4j.core.schema.Property;
 public class Address {
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
     public String PersonID;
     @Property("Адрес")
     public String Adress;
@@ -91,11 +91,11 @@ public class Address {
         Adress = adress;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

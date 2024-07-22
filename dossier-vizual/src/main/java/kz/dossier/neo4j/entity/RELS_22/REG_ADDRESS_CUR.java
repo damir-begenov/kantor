@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.core.schema.*;
 public class REG_ADDRESS_CUR {
     @Id
     @GeneratedValue
-    public Long id;
+    public String id;
     @Property("Вид связи")
     public String Vid_svyaziey;
     @TargetNode
@@ -22,11 +22,11 @@ public class REG_ADDRESS_CUR {
         this.address = address;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

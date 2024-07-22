@@ -1,5 +1,7 @@
 package kz.dossier.security.models;
 
+import jakarta.persistence.Enumerated;
+
 public enum ERole {
   ADMIN,
   VIP,

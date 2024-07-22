@@ -5,12 +5,12 @@ import kz.dossier.neo4j.entity.RELS_22.BUHGALTER;
 import org.springframework.data.neo4j.core.schema.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Node("Person")
 public class Persons {
     @Id
-    @GeneratedValue
-    public Long id;
+    public String id;
     @Property("ИИН")
     public String IIN;
     @Property("Имя")
@@ -73,11 +73,12 @@ public class Persons {
     public String StatusPFR;
     @Property("Статус смерти")
     public String Death_Status;
-    public Long getId() {
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

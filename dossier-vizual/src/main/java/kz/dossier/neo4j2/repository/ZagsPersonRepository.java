@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 
-public interface ZagsPersonRepository extends Neo4jRepository<PersonZags,Long> {
+public interface ZagsPersonRepository extends Neo4jRepository<PersonZags,String> {
     @Query("MATCH (startNode:Person_zags) WHERE startNode.`ИИН` = ($PERSON) OPTIONAL MATCH p = (startNode)-[*1..1]-(endNode) WHERE ALL(rel in relationships(p) WHERE type(rel) in $RELS) AND length(p)<=1 WITH DISTINCT p as paths LIMIT $LIMIT RETURN COLLECT(distinct paths)")
     List<PersonZags> getPersonTreeDepthOne(String PERSON, int LIMIT, List<String> RELS);
     @Query("MATCH (startNode:Person_zags) WHERE startNode.`ИИН` = ($PERSON) OPTIONAL MATCH p = (startNode)-[*1..2]-(endNode) WHERE ALL(rel in relationships(p) WHERE type(rel) in $RELS) AND length(p)<=2 WITH DISTINCT p as paths LIMIT $LIMIT RETURN COLLECT(distinct paths)")

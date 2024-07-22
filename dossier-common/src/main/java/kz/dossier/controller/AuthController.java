@@ -1,5 +1,6 @@
 package kz.dossier.controller;
 
+import jakarta.validation.Valid;
 import kz.dossier.payload.request.LoginRequest;
 import kz.dossier.payload.request.SignupRequest;
 import kz.dossier.payload.response.JwtResponse;
@@ -21,7 +22,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
@@ -69,7 +69,6 @@ public class AuthController {
   }
   @PostMapping("/changePassword")
   public void changePassword( @RequestParam String password, Principal principal, @RequestParam String username){
-//    System.out.println(userDetailsService.loadUserByUsernamek(principal));
     Optional<User> user = userRepository.findByUsername(username);
     if (user.isPresent()) {
       user.get().setPassword(encoder.encode(password));
@@ -93,41 +92,12 @@ public class AuthController {
               .body(new MessageResponse("Error: Email is already in use!"));
     }
 
-    // Create new user's account
     User user = new User(signUpRequest.getEmail(),
             signUpRequest.getUsername(),
             encoder.encode(signUpRequest.getPassword()));
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
-    ;
-
-//    if (strRoles == null) {
-//      Role userRole = roleRepository.findByName(ERole.ADMIN)
-//          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//      roles.add(userRole);
-//    } else {
-//      strRoles.forEach(role -> {
-//        switch (role) {
-//        case "admin":
-//          Role adminRole = roleRepository.findByName(ERole.ADMIN)
-//              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//          roles.add(adminRole);
-//
-//          break;
-//        case "mod":
-//          Role modRole = roleRepository.findByName(ERole.VIP)
-//              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//          roles.add(modRole);
-//
-//          break;
-//        default:
-//          Role userRole = roleRepository.findByName(ERole.LEVEL_3_USER)
-//              .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//          roles.add(userRole);
-//        }
-//      });
-//    }
 
     if (signUpRequest.getLevel().equals("2")) {
       Role userRole = roleRepository.findByName(ERole.LEVEL_2_USER)
@@ -147,16 +117,6 @@ public class AuthController {
               .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
       roles.add(userRole);  }
     user.setActive(true);
-//    String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-//    if(fileName.contains(".."))
-//    {
-//      System.out.println("not a a valid file");
-//    }
-//    try {
-//      user.setUser_photo(Base64.getEncoder().encodeToString(file.getBytes()));
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
     user.setRoles(roles);
     userRepository.save(user);
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));

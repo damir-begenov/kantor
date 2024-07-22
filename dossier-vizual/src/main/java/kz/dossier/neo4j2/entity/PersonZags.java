@@ -16,7 +16,7 @@ import java.util.List;
 public class PersonZags {
     @Id
     @GeneratedValue
-    private Long id;
+    private String id;
     @Property("key_person")
     public String key_person;
     @Property("Дата рождения")
@@ -35,11 +35,11 @@ public class PersonZags {
     @Relationship(type="new_zags")
     private List<NewZags> zagsList;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

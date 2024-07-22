@@ -9,6 +9,7 @@ import kz.dossier.repositoryDossier.MvUlRepo;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +32,10 @@ public class PdfGenerator {
         Document document = new Document(PageSize.A4.rotate());
         PdfWriter.getInstance(document, response);
         document.open();
+        InputStream is = getClass().getResourceAsStream("/fonts/fontstimes.ttf");
+        if (is == null) {
+            throw new IOException("Font file not found");
+        }
         BaseFont baseFont = BaseFont.createFont("/fonts/fontstimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
         PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100f);

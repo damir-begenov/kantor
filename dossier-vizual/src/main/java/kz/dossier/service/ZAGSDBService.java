@@ -274,7 +274,7 @@ public class ZAGSDBService {
         Map<String, Object> properties = new HashMap<>();
         Field[] fields = obj.getClass().getDeclaredFields();
         Role currRole = roleRepository.findRoleById(id);
-        if (currRole.getPerson_properties() == null) {
+//        if (currRole.getPerson_properties() == null) {
             for (Field field: fields) {
                 try {
                     Object value = field.get(obj);
@@ -283,18 +283,18 @@ public class ZAGSDBService {
 //                    e.printStackTrace();
                 }
             }
-        } else {
-            for (Field field: fields) {
-                try {
-                    if (currRole.getPerson_properties().contains(field.getName()) || currRole.getCompany_properties().contains(field.getName())) {
-                        Object value = field.get(obj);
-                        properties.put(field.getName(), value);
-                    }
-                } catch (IllegalAccessException e){
-//                    e.printStackTrace();
-                }
-            }
-        }
+//        } else {
+//            for (Field field: fields) {
+//                try {
+//                    if (currRole.getPerson_properties().contains(field.getName()) || currRole.getCompany_properties().contains(field.getName())) {
+//                        Object value = field.get(obj);
+//                        properties.put(field.getName(), value);
+//                    }
+//                } catch (IllegalAccessException e){
+////                    e.printStackTrace();
+//                }
+//            }
+//        }
 
         return properties;
     }
@@ -302,7 +302,7 @@ public class ZAGSDBService {
     private doubleReturn ConstructDoubleReturn(Long User, List<PersonZags> personsList) {
         List<Nodes> nodes = new ArrayList<>();
         List<relationModel> edges = new ArrayList<>();
-        List<Long> ids = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
         for (PersonZags object : personsList) {
             if (!ids.contains(object.getId())) {
                 ids.add(object.getId());
@@ -334,7 +334,7 @@ public class ZAGSDBService {
 
         }
         doubleReturn doubleReturn = new doubleReturn(nodes, edges);
-        for (Long id : ids) {
+        for (String id : ids) {
             System.out.println(id);
         }
         return doubleReturn;

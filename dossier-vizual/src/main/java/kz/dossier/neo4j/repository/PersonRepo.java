@@ -8,14 +8,16 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
+
 @Repository
-public interface PersonRepo extends Neo4jRepository<Persons,Long> {
+public interface PersonRepo extends Neo4jRepository<Persons, String> {
 //    final String query1 = "with 3 as d MATCH p=(n:Person)-[*1..3]-() RETURN p LIMIT 20";
 //    @Query("WITH {0} as d MATCH (startNode:Person) WHERE startNode.`ИИН` = {1} OPTIONAL MATCH p = (startNode)-[r*1..{0}]-(endNode) WHERE ALL(rel in relationships(p) WHERE type(rel) in {2}) AND length(p)<=d WITH DISTINCT p as paths LIMIT {3} RETURN COLLECT(distinct paths)")
 //    List<Persons2> getPersonTreee(int depth, String person, List<String> relations, int limit);
     @Query("MATCH (startNode)-[r]-(f)\n" +
             "WHERE id(startNode) = $ID return count(r)")
-    Long countRels(Long ID);
+    Long countRels(String ID);
     @Query("MATCH p=(n:Person)-[*1..2]-() where n.`ИИН`= '040210551264' RETURN p LIMIT 20")
     List<Persons> getPersons();
 //GETPERSONTREE different depth

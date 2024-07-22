@@ -1,11 +1,17 @@
 package kz.dossier.security.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "user_roles")
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class user_roles {
     @Id
     private Long user_id;

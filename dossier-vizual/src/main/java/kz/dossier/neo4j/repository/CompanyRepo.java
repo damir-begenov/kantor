@@ -6,7 +6,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 
 import java.util.List;
 
-public interface CompanyRepo extends Neo4jRepository<Company,Long> {
+public interface CompanyRepo extends Neo4jRepository<Company,String> {
     @Query("MATCH p=(n:Person)-[]-() RETURN p LIMIT 10")
     List<Company> getCompany();
 

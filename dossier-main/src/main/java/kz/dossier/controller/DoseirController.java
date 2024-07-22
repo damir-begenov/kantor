@@ -2,6 +2,7 @@ package kz.dossier.controller;
 
 
 import com.lowagie.text.*;
+import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsDossier.FlRelativesLevelDto;
 import kz.dossier.repositoryDossier.EsfAll2Repo;
@@ -18,7 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -73,7 +73,6 @@ public class DoseirController {
 
     @GetMapping("/pensionUl")
     public List<Map<String, Object>> pensionUl(@RequestParam String bin, @RequestParam String year, @RequestParam(required = false,defaultValue = "0") int page, @RequestParam(required = false,defaultValue = "10") int size) {
-//        return myService.taxOutEntities(bin,PageRequest.of(page,size));
         return myService.pensionEntityUl(bin, year, PageRequest.of(page,size));
     }
 
@@ -150,11 +149,16 @@ public class DoseirController {
         return myService.searchUlByName(name.replace('$', '%'));
     }
 
-    @GetMapping(value = "/download/{iin}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin) throws IOException, DocumentException {
+    @GetMapping(value = "/download/{iin}/{type}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin,@PathVariable String type) throws IOException, DocumentException {
         response.setContentType("application/pdf");
         String headerkey = "Content-Disposition";
-        String headervalue = "attachment; filename=doc" + ".pdf";
+        String headervalue = "";
+        if(type.equals("pdf")) {
+            headervalue = "attachment; filename=doc" + ".pdf";
+        }else if(type.equals("docx")){
+            headervalue = "attachment; filename=doc" + ".docx";
+        }
         response.setHeader(headerkey, headervalue);
         NodesFL r =  myService.getNode(iin);
         PdfGenerator generator = new PdfGenerator();

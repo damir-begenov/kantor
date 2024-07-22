@@ -16,12 +16,19 @@ import kz.dossier.security.repository.LogRepo;
 import kz.dossier.service.FlRiskServiceImpl;
 import kz.dossier.service.MyService;
 import kz.dossier.tools.PdfGenerator;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -48,7 +55,8 @@ public class DoseirController {
     LogRepo logRepo;
     @Autowired
     FlRiskServiceImpl flRiskService;
-
+    @Autowired
+    PdfGenerator pdfGenerator;
 
 
     @GetMapping("/sameAddressFl")
@@ -163,21 +171,27 @@ public class DoseirController {
         return myService.searchUlByName(name.replace('$', '%'));
     }
 
-    @GetMapping(value = "/download/{iin}/{type}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin,@PathVariable String type) throws IOException, DocumentException {
+    @GetMapping(value = "/download/{iin}", produces = MediaType.APPLICATION_PDF_VALUE)
+    public @ResponseBody byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin)throws IOException, DocumentException {
         response.setContentType("application/pdf");
         String headerkey = "Content-Disposition";
-        String headervalue = "";
-        if(type.equals("pdf")) {
-            headervalue = "attachment; filename=doc" + ".pdf";
-        }else if(type.equals("docx")){
-            headervalue = "attachment; filename=doc" + ".docx";
-        }
+        String headervalue = "attachment; filename=doc" + ".pdf";
         response.setHeader(headerkey, headervalue);
         NodesFL r =  myService.getNode(iin);
-        PdfGenerator generator = new PdfGenerator();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        generator.generate(r, baos);
+        pdfGenerator.generate(r, baos);
+        return baos.toByteArray();
+    }
+
+    @GetMapping("/downloadDoc/{iin}")
+    public byte[] generateDoc(@PathVariable String iin, HttpServletResponse response) throws IOException, InvalidFormatException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        String headerkey = "Content-Disposition";
+        String headervalue = "attachment; filename=document.docx";
+        response.setHeader(headerkey,headervalue);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        NodesFL result =  myService.getNode(iin);
+        pdfGenerator.generateDoc(result,baos);
         return baos.toByteArray();
     }
 

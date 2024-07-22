@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 @Repository
 
 public interface MvUlRepo extends JpaRepository<MvUl, Long> {
@@ -15,4 +16,7 @@ public interface MvUlRepo extends JpaRepository<MvUl, Long> {
     List<MvUl> getUlsByName(String name);
     @Query(value="select short_name from initial_data.ul where bin = ?1 limit 1", nativeQuery = true)
     String getNameByBin(String bin);
+    @Query(value= "select * from initial_data.ul mv_ul0_ where mv_ul0_.bin = ?1 limit 1 ", nativeQuery = true)
+    Optional<MvUl> getUlByBin(String bin);
+    
 }

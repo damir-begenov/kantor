@@ -3,6 +3,8 @@ package kz.dossier.service;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.*;
+import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.UlAddressInfo;
 import kz.dossier.extractor.Mv_fl_extractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -178,6 +180,36 @@ public class MyService {
             return result;
         }
     }
+
+    public List<SearchResultModelFL> getByAddress(AddressInfo addressInfo) {
+        List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+        List<MvFl> fls = new ArrayList<>();
+        for (RegAddressFl ad : units) {
+            Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+            if (fl.isPresent()) {
+                fls.add(fl.get());
+            }
+        }
+        List<SearchResultModelFL> result = findWithPhoto(fls);
+        return result;
+    }
+
+    public List<SearchResultModelUl> getByAddress(UlAddressInfo addressInfo) {
+        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressInfo.getReg_addr_region_ru(), 
+        addressInfo.getReg_addr_district_ru(),addressInfo.getReg_addr_rural_district_ru(), addressInfo.getReg_addr_locality_ru(), addressInfo.getReg_addr_street_ru(), addressInfo.getReg_addr_bulding_num(), addressInfo.getReg_addr_block_num(), addressInfo.getReg_addr_builing_body_num(), addressInfo.getReg_addr_office());
+        List<SearchResultModelUl> list = new ArrayList<>();
+        for (RegAddressUlEntity l: units) {
+            Optional<MvUl> ul = mv_ul_repo.getUlByBin(l.getBin());
+            if (ul.isPresent()) {
+                SearchResultModelUl res = new SearchResultModelUl();
+                res.setBin(ul.get().getBin());
+                res.setName(ul.get().getShort_name());
+                list.add(res);
+            }
+        }
+        return list;
+    }
+
     private String createAdditionSQL(HashMap<String, String> req) {
         String sql = "select * from ser.mv_fl where first_name like '" + req.get("i").replace('$', '%') + "' and  patronymic like '" + req.get("o").replace('$', '%') + "' and last_name like '" + req.get("f").replace('$', '%') + "' ";
         if (req.get("dateFrom") != "") {

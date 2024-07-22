@@ -2,8 +2,10 @@ package kz.dossier.controller;
 
 
 import com.lowagie.text.*;
+
+import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.UlAddressInfo;
 import kz.dossier.modelsDossier.*;
-import kz.dossier.modelsDossier.FlRelativesLevelDto;
 import kz.dossier.repositoryDossier.EsfAll2Repo;
 import kz.dossier.repositoryDossier.FlRelativesRepository;
 import kz.dossier.repositoryDossier.MvAutoFlRepo;
@@ -27,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @CrossOrigin(origins = "*", maxAge = 3000)
 @RestController
 @RequestMapping("/api/pandora/dossier")
@@ -47,6 +50,17 @@ public class DoseirController {
     FlRiskServiceImpl flRiskService;
 
 
+
+    @GetMapping("/sameAddressFl")
+    public List<SearchResultModelFL> sameAddressFls(@RequestBody AddressInfo params) {
+        return myService.getByAddress(params);
+    }
+
+    @GetMapping("/sameAddressUl")
+    public List<SearchResultModelUl> sameAddressFls(@RequestBody UlAddressInfo params) {
+        return myService.getByAddress(params);
+    }
+    
 
     @GetMapping("/profile")
     public NodesFL getProfile(@RequestParam String iin) {

@@ -5,174 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/MainDataSourceConfiguration.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-app/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-app/src/main/resources/fonts/fontstimes.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/controller/LogController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/payload/request/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/payload/request/SignupRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/payload/response/JwtResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/payload/response/MessageResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/jwt/AuthEntryPointJwt.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/jwt/AuthTokenFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/jwt/JwtUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/models/ERole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/models/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/models/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/models/log.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/models/user_roles.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/repository/LogRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/repository/RoleRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/repository/UserRolesRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/services/LogsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/services/UserDetailsImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-common/src/main/java/kz/dossier/security/services/UserDetailsServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/extractor/Mv_fl_extractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/AdvocateListEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/AuditorsListEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/BailiffListEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Children.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/CommodityProducer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Credentials.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Equipment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/EsfAll2.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/EsfNew.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FLRiskDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlContacts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlFirstRowDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlPensionContr.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlPensionFinal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlPensionMini.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlRelatives.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlRelativesLevelDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FlRelativiesDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/IpgoEmailEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Lawyers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Logs.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MilitaryAccounting2Entity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MillitaryAccount.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Msh.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvAutoFl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvFl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvIinDoc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvRnOld.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvUl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvUlFounderFl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvUlFounderUl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvUlLeader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/MvUlLeaderEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NdsEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NodesFL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NodesUL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/PhotoDb.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/QoldauSubsidy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/RegAddressFl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/RegAddressUlEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/School.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/SearchResultModelFL.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/SearchResultModelUl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/SvedenyaObUchastnikovUlEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/TIpEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/TaxOutEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Universities.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/AccountantListEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Adm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Bankrot.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/BeneficiariesList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/BlockEsf.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsAbroad.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsJustified.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsTerminatedByRehab.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Criminals.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Dismissal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Dormant.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/DrugAddicts.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/FirstCreditBureauEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/FpgTempEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ImmoralLifestyle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Incapacitated.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Kuis.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/MzEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Omn.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/OpgEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Orphans.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Pdl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/WantedListEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/AccountantListEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/AdmRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/AdvocateListEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/AuditorsListEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/BailiffListEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/BankrotRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/BeneficiariesListRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/BlockEsfRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/CommodityProducerRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/ConvictsAbroadRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/ConvictsJustifiedRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/ConvictsTerminatedtByRehabRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/CredentialsRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/CriminalsRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/DismissalRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/DormantRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/DrugAddictsRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/EquipmentRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/EsfAll2Repo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FirstCreditBureauEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FlContactsRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FlPensionContrRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FlPensionMiniRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FlRelativesRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FpgTempEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/ImmoralLifestlyeRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/IncapacitatedRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/IpgoEmailEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/KuisRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/LogsRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MilitaryAccounting2Repo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MshRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvAutoFlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvFlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvIinDocRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvRnOldRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvUlFounderFlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvUlFounderUlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvUlLeaderEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvUlLeaderRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvUlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MzEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/NdsEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/NewPhotoRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/OmnRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/OpgRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/OrphansRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/PdlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/QoldauRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegAddressFlRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegAddressUlEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/SchoolRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/TIpEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/TaxOutEntityRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/UniversitiesRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/WantedListRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/militaryAccountRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/FlRiskServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/PhotoService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools/PdfGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jpa-buddy.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-app/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/WebSecurity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-common/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-common/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dossier-main/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -199,26 +35,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "v001",
-    "jdk.selected.JAVA_MODULE": "21",
-    "last_opened_file_path": "/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-vizual",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;v001&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/derzeet/Documents/dossier-multi-test&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/dossier-vizual" />
@@ -297,6 +133,8 @@
       <workItem from="1721298142399" duration="160000" />
       <workItem from="1721303709904" duration="40000" />
       <workItem from="1721303804916" duration="5774000" />
+      <workItem from="1721625448627" duration="52000" />
+      <workItem from="1721643303652" duration="69000" />
     </task>
     <servers />
   </component>

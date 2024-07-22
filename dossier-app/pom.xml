@@ -95,7 +95,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>kz.dossier.DossierApplication</mainClass>
+                            <mainClass>dossier.DossierApplication</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

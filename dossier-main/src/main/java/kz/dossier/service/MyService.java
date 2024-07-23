@@ -648,26 +648,6 @@ public class MyService {
             System.out.println("mv_ul_leader WRAP Error:" + e);
         }
         try {
-            List<ImmoralLifestyle> amoral =  immoral_lifestlyeRepo.getImmoByIIN(IIN);
-            try {
-                myNode.setAmoral(amoral);
-            } catch (Exception e) {
-                System.out.println("amoral Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("amoral WRAP Error:" + e);
-        }
-        try {
-            List<Dismissal> dismissals =  dismissalRepo.getDismissalByIIN(IIN);
-            try {
-                myNode.setDismissals(dismissals);
-            } catch (Exception e) {
-                System.out.println("dismissals Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("dismissals WRAP Error:" + e);
-        }
-        try {
             List<BeneficiariesList> beneficiariesLists =  beneficiariesListRepo.getBenByIIN(IIN);
             try {
                 myNode.setBeneficiariesLists(beneficiariesLists);
@@ -698,27 +678,6 @@ public class MyService {
             System.out.println("mv_fl WRAP Error:" + e);
         }
         try {
-            List<ConvictsAbroad> convictsAbroads =  convictsAbroadRepo.getConvictsAbroadByIIN(IIN);
-            try {
-                myNode.setConvictsAbroads(convictsAbroads);
-            } catch (Exception e) {
-                System.out.println("convictsAbroads Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("convictsAbroads WRAP Error:" + e);
-        }
-        try {
-            List<Incapacitated> incapacitateds =  incapacitatedRepo.getIncapacitatedByIIN(IIN);
-            try {
-                myNode.setIncapacitateds(incapacitateds);
-            } catch (Exception e) {
-                System.out.println("incapacitateds Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("incapacitateds WRAP Error:" + e);
-        }
-
-        try {
             List<Kuis> kuis =  kuisRepo.getKuisByIIN(IIN);
             try {
                 myNode.setKuis(kuis);
@@ -728,28 +687,7 @@ public class MyService {
         } catch (Exception e){
             System.out.println("kuis WRAP Error:" + e);
         }
-        try {
-            List<DrugAddicts> drugAddicts =  drugAddictsRepo.getDrugAddictsByIIN(IIN);
-            try {
-                myNode.setDrugAddicts(drugAddicts);
-            } catch (Exception e) {
-                System.out.println("drugAddicts Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("drugAddicts WRAP Error:" + e);
-        }
-        try {
-            List<Omn> myOmn =  omn_repos.getUsersByLike(IIN);
-            try {
-                Omn myOmns =  omn_repos.getUsersByLikeIin_bins(IIN);
-                myOmn.add(myOmns);
-                myNode.setOmns(myOmn);
-            } catch (Exception e) {
-                System.out.println("myOmn Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("myOmn WRAP Error:" + e);
-        }
+
         try {
             List<Orphans> myOrphans =  orphans_repo.getUsersByLike(IIN);
             try {
@@ -759,56 +697,6 @@ public class MyService {
             }
         } catch (Exception e){
             System.out.println("orphans WRAP Error:" + e);
-        }
-        try {
-            List<Bankrot> bankrots = bankrotRepo.getbankrotByByIIN(IIN);
-            try {
-                myNode.setBankrots(bankrots);
-            } catch (Exception e) {
-                System.out.println("bankrot Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("bankrot WRAP Error:" + e);
-        }
-        try {
-            List<ConvictsJustified> convictsJustifieds = convicts_justifiedRepo.getconvicts_justifiedByByIIN(IIN);
-            try {
-                myNode.setConvictsJustifieds(convictsJustifieds);
-            } catch (Exception e) {
-                System.out.println("convicts_justified Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("convicts_justified WRAP Error:" + e);
-        }
-        try {
-            List<ConvictsTerminatedByRehab> convictsTerminatedByRehabs = convicts_terminated_by_rehabRepo.getconvicts_terminated_by_rehabByByIIN(IIN);
-            try {
-                myNode.setConvictsTerminatedByRehabs(convictsTerminatedByRehabs);
-            } catch (Exception e) {
-                System.out.println("convicts_terminated_by_rehab Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("convicts_terminated_by_rehab WRAP Error:" + e);
-        }
-        try {
-            List<Criminals> criminals = criminalsRepo.getcriminalsByByIIN(IIN);
-            try {
-                myNode.setCriminals(criminals);
-            } catch (Exception e) {
-                System.out.println("criminals Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("criminals WRAP Error:" + e);
-        }
-        try {
-            List<Adm> MyAdm =  admRepo.getUsersByLike(IIN);
-            try {
-                myNode.setAdms(MyAdm);
-            } catch (Exception e) {
-                System.out.println("adm Error: " + e);
-            }
-        } catch (Exception e){
-            System.out.println("adm WRAP Error:" + e);
         }
         try {
             List<Dormant> myDormant =  dormantRepo.getUsersByLike(IIN);
@@ -1076,12 +964,6 @@ public class MyService {
             System.out.println("Error:" + e);
         }
         try {
-            List<FirstCreditBureauEntity> firstCreditBureauEntities = FirstCreditBureauEntityRepo.getUsersByLike(IIN);
-            myNode.setFirstCreditBureauEntities(firstCreditBureauEntities);
-        } catch (Exception e){
-            System.out.println("Error:" + e);
-        }
-        try {
             List<TIpEntity> TIpEntity = TIpEntityRepo.getUsersByLike(IIN);
             try {
                 myNode.setTIpEntity(TIpEntity);
@@ -1136,19 +1018,7 @@ public class MyService {
             myNode.setNdsEntities(ndsEntities);
         } catch (Exception e){
             System.out.println("Error:" + e);
-        }
-        try {
-            List<MzEntity> mzEntities = MzEntityRepo.getopgByIIN(IIN);
-            myNode.setMzEntities(mzEntities);
-        } catch (Exception e){
-            System.out.println("Error:" + e);
-        }
-        try {
-            List<WantedListEntity> wantedListEntities =  wantedListRepo.getByIIN(IIN);
-            myNode.setWantedListEntities(wantedListEntities);
-        } catch (Exception e){
-            System.out.println("Error:" + e);
-        }
+        } .
         try {
             List<CommodityProducer> commodityProducers = commodityProducerRepo.getiin_binByIIN(IIN);
             myNode.setCommodityProducers(commodityProducers);
@@ -1649,15 +1519,6 @@ public class MyService {
             } catch (Exception e){
                 System.out.println("mvIinDocs WRAP Error:" + e);
             }try {
-                List<MvAutoFl> mvAutoFls =  mvAutoFlRepo.getUsersByLike(IIN);
-                try {
-                    flFirstRowDto.setMvAutoFls(mvAutoFls);
-                } catch (Exception e) {
-                    System.out.println("mvIinDocs Error: " + e);
-                }
-            } catch (Exception e){
-                System.out.println("mvIinDocs WRAP Error:" + e);
-            }try {
                 FLRiskDto flRiskDto =  flRiskService.findFlRiskByIin(IIN);
                 try {
                     flFirstRowDto.setRiskPercentage(flRiskDto.getPercentage());
@@ -1666,6 +1527,11 @@ public class MyService {
                 }
             } catch (Exception e){
                 System.out.println("mvIinDocs WRAP Error:" + e);
+            }try {
+                List<RegAddressFl> addressFls = regAddressFlRepo.getByIIN(IIN);
+                flFirstRowDto.setRegAddressFls(addressFls);
+            } catch (Exception e){
+                System.out.println("Error:" + e);
             }
             flFirstRowDto = tryAddPhoto(flFirstRowDto,IIN);
 

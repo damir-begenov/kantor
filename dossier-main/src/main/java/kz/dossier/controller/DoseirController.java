@@ -15,6 +15,7 @@ import kz.dossier.security.models.log;
 import kz.dossier.security.repository.LogRepo;
 import kz.dossier.service.FlRiskServiceImpl;
 import kz.dossier.service.MyService;
+import kz.dossier.tools.DocxGenerator;
 import kz.dossier.tools.PdfGenerator;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -57,7 +58,8 @@ public class DoseirController {
     FlRiskServiceImpl flRiskService;
     @Autowired
     PdfGenerator pdfGenerator;
-
+    @Autowired
+    DocxGenerator docxGenerator;
 
     @GetMapping("/sameAddressFl")
     public List<SearchResultModelFL> sameAddressFls(@RequestBody AddressInfo params) {
@@ -191,7 +193,7 @@ public class DoseirController {
         response.setHeader(headerkey,headervalue);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         NodesFL result =  myService.getNode(iin);
-        pdfGenerator.generateDoc(result,baos);
+        docxGenerator.generateDoc(result,baos);
         return baos.toByteArray();
     }
 
@@ -205,6 +207,17 @@ public class DoseirController {
         PdfGenerator generator = new PdfGenerator();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         generator.generate(r, baos);
+        return baos.toByteArray();
+    }
+    @GetMapping(value = "/downloadbinword/{bin}")
+    public @ResponseBody byte[] generateUlWordFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        String headerkey = "Content-Disposition";
+        String headervalue = "attachment; filename=document.docx";
+        response.setHeader(headerkey,headervalue);
+        NodesUL r =  myService.getNodeUL(bin);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        docxGenerator.generate(r, baos);
         return baos.toByteArray();
     }
 }

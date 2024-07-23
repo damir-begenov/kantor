@@ -15,6 +15,7 @@ import kz.dossier.security.models.log;
 import kz.dossier.security.repository.LogRepo;
 import kz.dossier.service.FlRiskServiceImpl;
 import kz.dossier.service.MyService;
+import kz.dossier.service.RnService;
 import kz.dossier.tools.DocxGenerator;
 import kz.dossier.tools.PdfGenerator;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -36,6 +37,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 @CrossOrigin(origins = "*", maxAge = 3000)
@@ -60,6 +62,8 @@ public class DoseirController {
     PdfGenerator pdfGenerator;
     @Autowired
     DocxGenerator docxGenerator;
+    @Autowired
+    RnService rnService;
 
     @GetMapping("/sameAddressFl")
     public List<SearchResultModelFL> sameAddressFls(@RequestBody AddressInfo params) {
@@ -70,6 +74,12 @@ public class DoseirController {
     public List<SearchResultModelUl> sameAddressFls(@RequestBody UlAddressInfo params) {
         return myService.getByAddress(params);
     }
+    
+    // @GetMapping("/rnDetails")
+    // public String getMethodName(@RequestParam String cadastral, @RequestParam String address) {
+    //     rnService.getDetailedRnView(cadastral, address);
+    //     return new String();
+    // }
     
 
     @GetMapping("/profile")

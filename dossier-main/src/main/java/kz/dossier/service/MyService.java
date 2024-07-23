@@ -1018,7 +1018,7 @@ public class MyService {
             myNode.setNdsEntities(ndsEntities);
         } catch (Exception e){
             System.out.println("Error:" + e);
-        } .
+        }
         try {
             List<CommodityProducer> commodityProducers = commodityProducerRepo.getiin_binByIIN(IIN);
             myNode.setCommodityProducers(commodityProducers);

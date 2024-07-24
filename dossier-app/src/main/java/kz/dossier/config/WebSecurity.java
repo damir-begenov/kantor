@@ -63,7 +63,7 @@ public class WebSecurity { // extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/**").permitAll();
 //        .anyRequest().authenticated();
                 .authorizeHttpRequests((authz) -> authz
-                        .requestMatchers("/**").permitAll()
+                        .requestMatchers("/api/pandora/auth/**").permitAll()
                         .requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
                         .anyRequest().authenticated()
                 );

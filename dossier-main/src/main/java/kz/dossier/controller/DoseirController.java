@@ -227,7 +227,7 @@ public class DoseirController {
         response.setHeader(headerkey,headervalue);
         NodesUL r =  myService.getNodeUL(bin);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        docxGenerator.generate(r, baos);
+        docxGenerator.generateUl(r, baos);
         return baos.toByteArray();
     }
 }

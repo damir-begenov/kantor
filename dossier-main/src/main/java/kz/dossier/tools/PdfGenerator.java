@@ -36,10 +36,6 @@ public class PdfGenerator {
     }
 
 
-
-
-
-
     public Document generate(NodesFL result, ByteArrayOutputStream response) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4.rotate());
         PdfWriter.getInstance(document, response);

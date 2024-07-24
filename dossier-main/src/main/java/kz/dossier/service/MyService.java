@@ -3,7 +3,10 @@ package kz.dossier.service;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.*;
+import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.GeneralInfoDTO;
+import kz.dossier.dto.PensionListDTO;
 import kz.dossier.dto.UlAddressInfo;
 import kz.dossier.extractor.Mv_fl_extractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -181,7 +184,18 @@ public class MyService {
         }
     }
 
-    public List<SearchResultModelFL> getByAddress(AddressInfo addressInfo) {
+    public List<SearchResultModelFL> getByAddressUsingIin(String iin) {
+        List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
+        AddressInfo addressInfo = new AddressInfo();
+        if (address.size() > 0) {
+            addressInfo.setRegion(address.get(0).getRegion());
+            addressInfo.setDistrict(address.get(0).getDistrict());
+            addressInfo.setCity(address.get(0).getCity());
+            addressInfo.setStreet(address.get(0).getStreet());
+            addressInfo.setBuilding(address.get(0).getBuilding());
+            addressInfo.setKorpus(address.get(0).getKorpus());
+            addressInfo.setApartment_number(address.get(0).getApartment_number());
+        }
         List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
         List<MvFl> fls = new ArrayList<>();
         for (RegAddressFl ad : units) {
@@ -327,6 +341,19 @@ public class MyService {
         }
         return result;
     }
+    private List<SearchResultModelFL> findWithoutPhoto(List<MvFl> fls) {
+        List<SearchResultModelFL> result = new ArrayList<>();
+        for (MvFl fl: fls) {
+            SearchResultModelFL person = new SearchResultModelFL();
+            person.setFirst_name(fl.getFirst_name());
+            person.setLast_name(fl.getLast_name());
+            person.setPatronymic(fl.getPatronymic());
+            person.setIin(fl.getIin());
+
+            result.add(person);
+        }
+        return result;
+    }
 
     private SearchResultModelFL tryAddPhoto(SearchResultModelFL fl, String IIN) {
         try {
@@ -398,6 +425,150 @@ public class MyService {
         return properties;
     }
 
+    //General info by iin
+    public GeneralInfoDTO generalInfoByIin(String iin) {
+        GeneralInfoDTO generalInfoDTO = new GeneralInfoDTO();
+        try {
+            generalInfoDTO.setContacts(flContactsRepo.findAllByIin(iin));
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
+        AddressInfo addressInfo = new AddressInfo();
+        if (address.size() > 0) {
+            addressInfo.setRegion(address.get(0).getRegion());
+            addressInfo.setDistrict(address.get(0).getDistrict());
+            addressInfo.setCity(address.get(0).getCity());
+            addressInfo.setStreet(address.get(0).getStreet());
+            addressInfo.setBuilding(address.get(0).getBuilding());
+            addressInfo.setKorpus(address.get(0).getKorpus());
+            addressInfo.setApartment_number(address.get(0).getApartment_number());
+        }
+        List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+        List<MvFl> fls = new ArrayList<>();
+        for (RegAddressFl ad : units) {
+            Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+            if (fl.isPresent()) {
+                fls.add(fl.get());
+            }
+        }
+        List<SearchResultModelFL> result = findWithoutPhoto(fls);
+        generalInfoDTO.setSameAddressFls(result);
+        return generalInfoDTO;
+    }
+
+    //Additional Info by iin
+    public AdditionalInfoDTO additionalInfoByIin(String iin) {
+        AdditionalInfoDTO additionalInfoDTO = new AdditionalInfoDTO();
+        try {
+            List<MilitaryAccounting2Entity> militaryAccounting2Entities = MilitaryAccounting2Repo.getUsersByLike(iin);
+            try {
+                additionalInfoDTO.setMilitaryAccounting2Entities(militaryAccounting2Entities);
+            } catch (Exception e) {
+            }
+        } catch (Exception e){
+        }
+        try {
+            List<MillitaryAccount> militaryAccounts = militaryAccountRepo.findAllByIin(iin);
+            try {
+                additionalInfoDTO.setMillitaryAccounts(militaryAccounts);
+            } catch (Exception e) {
+            }
+        } catch (Exception e){
+        }
+        try {
+            List<MvRnOld> mvRnOlds = mv_rn_oldRepo.getUsersByLike(iin);
+            additionalInfoDTO.setMvRnOlds(mvRnOlds);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            List<MvAutoFl> myMv_auto_fl =  mvAutoFlRepo.getUsersByLike(iin);
+            try {
+                additionalInfoDTO.setMvAutoFls(myMv_auto_fl);
+            } catch (Exception e) {
+                System.out.println("mv_auto_fl Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("mv_auto_fl WRAP Error:" + e);
+        }
+        try {
+            List<Equipment> myEquipment =  equipment_repo.getUsersByLike(iin);
+            additionalInfoDTO.setEquipment(myEquipment);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            additionalInfoDTO.setUniversities(uniRepo.getByIIN(iin));
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            additionalInfoDTO.setSchools(schoolRepo.getByIIN(iin));
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            List<MvUlLeader> mv_ul_leaders =  mvUlLeaderRepository.findAllByIin(iin);
+            try {
+                additionalInfoDTO.setUl_leaderList(mv_ul_leaders);
+            } catch (Exception e) {
+                System.out.println("mv_ul_leader Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("mv_ul_leader WRAP Error:" + e);
+        }
+        try {
+            List<String> companyBins = flPensionContrRepo.getUsersByLikeCompany(iin);
+        
+            List<PensionListDTO> pensions = new ArrayList<>();
+            for (String bin : companyBins) {
+                List<Map<String, Object>> fl_pension_contrss = new ArrayList<>();
+                fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin);
+
+                List<String> distinctPayDates = fl_pension_contrss.stream()
+                        .map(pension -> pension.get("pay_date").toString())
+                        .distinct()
+                        .collect(Collectors.toList());
+
+                for (String year : distinctPayDates) {
+                    PensionListDTO pensionListEntity = new PensionListDTO();
+                    pensionListEntity.setBin(bin);
+                    pensionListEntity.setName((String)fl_pension_contrss.get(0).get("P_NAME"));
+                    pensionListEntity.setPeriod(year);
+                    try {
+                        double knp010 = fl_pension_contrss.stream()
+                            .filter(pension -> pension.get("pay_date").toString().equals(year) && pension.get("KNP").toString().equals("010"))
+                            .mapToDouble(pension -> Double.parseDouble(pension.get("AMOUNT").toString()))
+                            .sum();
+
+                        pensionListEntity.setSum010(knp010);
+
+                    } catch (Exception e) {
+
+                    }
+                    try {
+                        double knp012 = fl_pension_contrss.stream()
+                        .filter(pension -> pension.get("pay_date").toString().equals(year) && pension.get("KNP").toString().equals("012"))
+                        .mapToDouble(pension -> Double.parseDouble(pension.get("AMOUNT").toString()))
+                        .sum();
+
+                        pensionListEntity.setSum012(knp012);
+                    } catch (Exception e) {
+
+                    }
+                   
+
+                    pensions.add(pensionListEntity);
+                }
+            }
+
+            additionalInfoDTO.setPensions(pensions);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        return additionalInfoDTO;
+    }
 
 
     public FlRelativesLevelDto createHierarchyObject(String IIN) throws SQLException {

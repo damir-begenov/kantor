@@ -3,7 +3,9 @@ package kz.dossier.controller;
 
 import com.lowagie.text.*;
 
+import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.UlAddressInfo;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
@@ -37,6 +39,10 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 
 
@@ -66,8 +72,8 @@ public class DoseirController {
     RnService rnService;
 
     @GetMapping("/sameAddressFl")
-    public List<SearchResultModelFL> sameAddressFls(@RequestBody AddressInfo params) {
-        return myService.getByAddress(params);
+    public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {
+        return myService.getByAddressUsingIin(iin);
     }
 
     @GetMapping("/sameAddressUl")
@@ -80,6 +86,17 @@ public class DoseirController {
     //     rnService.getDetailedRnView(cadastral, address);
     //     return new String();
     // }
+
+    @GetMapping("/generalInfo")
+    public GeneralInfoDTO getGeneralInfo(@RequestParam String iin) {
+        return myService.generalInfoByIin(iin);
+    }
+
+    @GetMapping("/additionalInfo")
+    public AdditionalInfoDTO getAdditionalInfo(@RequestParam String iin) {
+        return myService.additionalInfoByIin(iin);
+    }
+
 
     @GetMapping("/profile")
     public NodesFL getProfile(@RequestParam String iin) {

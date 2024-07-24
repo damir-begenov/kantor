@@ -3,6 +3,7 @@ package kz.dossier.controller;
 
 import com.lowagie.text.*;
 
+import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.UlAddressInfo;
@@ -44,6 +45,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 
+
 @CrossOrigin(origins = "*", maxAge = 3000)
 @RestController
 @RequestMapping("/api/pandora/dossier")
@@ -70,8 +72,8 @@ public class DoseirController {
     RnService rnService;
 
     @GetMapping("/sameAddressFl")
-    public List<SearchResultModelFL> sameAddressFls(@RequestBody AddressInfo params) {
-        return myService.getByAddress(params);
+    public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {
+        return myService.getByAddressUsingIin(iin);
     }
 
     @GetMapping("/sameAddressUl")
@@ -86,8 +88,13 @@ public class DoseirController {
     // }
 
     @GetMapping("/generalInfo")
-    public GeneralInfoDTO getMethodName(@RequestParam String iin) {
+    public GeneralInfoDTO getGeneralInfo(@RequestParam String iin) {
         return myService.generalInfoByIin(iin);
+    }
+    
+    @GetMapping("/additionalInfo")
+    public AdditionalInfoDTO getAdditionalInfo(@RequestParam String iin) {
+        return myService.additionalInfoByIin(iin);
     }
     
 

@@ -15,9 +15,6 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 public class FlPensionContr {
 
-
-
-
     @Nullable
     @Column(name = "SURNAME")
     private String surname;

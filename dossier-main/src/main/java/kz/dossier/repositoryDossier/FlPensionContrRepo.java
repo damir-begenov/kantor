@@ -12,6 +12,8 @@ import java.util.Map;
 
 public interface FlPensionContrRepo extends JpaRepository<FlPensionContr, Long> {
 
+        
+
     @Query(value = "select distinct(extract (year from \"PAY_DATE\")) as year from imp_kfm_fl.fl_pension_contr where \"P_RNN\" = ?1 order BY year DESC", nativeQuery = true)
     List<Integer> getYearsOfPension(String bin);
     @Query(value= "select * from imp_kfm_fl.fl_pension_contr  where \"IIN\" = ?1", nativeQuery = true)

@@ -27,6 +27,15 @@ public class AdditionalInfoDTO {
     private List<MvUlLeader> ul_leaderList; //Сведения об участии в ЮЛ
     private List<FlPensionFinal> flPensionContrs;
 
+    List<PensionListDTO> pensions;
+
+    public List<PensionListDTO> getPensions() {
+        return pensions;
+    }
+    public void setPensions(List<PensionListDTO> pensions) {
+        this.pensions = pensions;
+    }
+
     public List<Equipment> getEquipment() {
         return equipment;
     }

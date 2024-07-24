@@ -274,6 +274,16 @@ public class MyService {
         List<SearchResultModelFL> result = findWithPhoto(fls);
         return result;
     }
+    public List<SearchResultModelFL> getByEmail(String email) {
+        List<String> iin = flContactsRepo.getByEmail(email);
+        List<MvFl> fls = new ArrayList<>();
+        for (String ii: iin) {
+            MvFl person = mv_FlRepo.getUserByIin(ii);
+            fls.add(person);
+        }
+        List<SearchResultModelFL> result = findWithPhoto(fls);
+        return result;
+    }
     public List<SearchResultModelFL> getByVinFl(String vin) {
         List<String> iin = mvAutoFlRepo.getByVin(vin);
         List<MvFl> fls = new ArrayList<>();
@@ -309,8 +319,8 @@ public class MyService {
 
     }
 
-    public List<SearchResultModelFL> getByDoc_photo(String IIN) {
-        List<MvIinDoc> fls = mv_iin_docRepo.getByDoc_number(IIN);
+    public List<SearchResultModelFL> getByDoc_photo(String doc) {
+        List<MvIinDoc> fls = mv_iin_docRepo.getByDoc_number(doc);
         List<MvFl> fls1 = new ArrayList<>();
         for(MvIinDoc flss : fls){
             System.out.println(flss.getIin());

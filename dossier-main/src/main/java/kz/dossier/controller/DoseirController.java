@@ -149,10 +149,6 @@ public class DoseirController {
     public List<SearchResultModelFL> getByDoc(@RequestParam String doc) {
         return myService.getByDoc_photo(doc);
     }
-    @GetMapping("/bydoc_number")
-    public List<SearchResultModelFL> getByDocNumber(@RequestParam String doc_number) {
-        return myService.getByDocNumber_photo(doc_number);
-    }
 
     @GetMapping("/additionalfio")
     public List<SearchResultModelFL> getByAdditions(@RequestParam HashMap<String, String> req) {
@@ -163,7 +159,13 @@ public class DoseirController {
     @GetMapping("/byphone")
     public List<SearchResultModelFL> getByPhone(@RequestParam String phone) {
         return myService.getByPhone(phone);
-    }   @GetMapping("/byvinkuzov")
+    }   
+    @GetMapping("/byemail")
+    public List<SearchResultModelFL> getByEmail(@RequestParam String email) {
+        return myService.getByEmail(email);
+    }   
+    
+    @GetMapping("/byvinkuzov")
     public List<SearchResultModelFL> getByVinKuzov(@RequestParam String vin) {
         return myService.getByVinFl(vin.toUpperCase());
     }

@@ -8,6 +8,7 @@ import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.PensionListDTO;
 import kz.dossier.dto.UlAddressInfo;
+import kz.dossier.dto.UlCardDTO;
 import kz.dossier.extractor.Mv_fl_extractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -144,6 +145,26 @@ public class MyService {
     private IncapacitatedRepo incapacitatedRepo;
     @Autowired
     private KuisRepo kuisRepo;
+
+
+    public UlCardDTO getUlCard(String bin) {
+        UlCardDTO ulCardDTO = new UlCardDTO();
+        try {
+            Optional<MvUl> ul = mv_ul_repo.getUlByBin(bin);
+
+            if (ul.isPresent()) {
+                ulCardDTO.setBin(bin);
+                ulCardDTO.setName(ul.get().getFull_name_rus());
+                ulCardDTO.setStatus(ul.get().getUl_status());
+                ulCardDTO.setRegDate(ul.get().getOrg_reg_date());
+            }
+
+            return ulCardDTO;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return ulCardDTO;
+        }
+    }
 
 
     public List<FlRelativiesDTO> getRelativesInfo(String iin){

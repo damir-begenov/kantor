@@ -7,6 +7,7 @@ import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.UlAddressInfo;
+import kz.dossier.dto.UlCardDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.repositoryDossier.EsfAll2Repo;
@@ -70,6 +71,13 @@ public class DoseirController {
     DocxGenerator docxGenerator;
     @Autowired
     RnService rnService;
+
+
+    @GetMapping("/ulCard")
+    public UlCardDTO getUlCard(@RequestParam String bin) {
+        return myService.getUlCard(bin);
+    }
+    
 
     @GetMapping("/sameAddressFl")
     public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {

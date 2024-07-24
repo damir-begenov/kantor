@@ -184,7 +184,7 @@ public class DoseirController {
     }
 
     @GetMapping(value = "/downloadFlPdf/{iin}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin)throws IOException, DocumentException {
+    public byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin)throws IOException, DocumentException {
         response.setContentType("application/pdf");
         String headerkey = "Content-Disposition";
         String headervalue = "attachment; filename=doc" + ".pdf";
@@ -208,7 +208,7 @@ public class DoseirController {
     }
 
     @GetMapping(value = "/downloadUlPdf/{bin}", produces = MediaType.APPLICATION_PDF_VALUE)
-    public @ResponseBody byte[] generateUlPdfFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
+    public byte[] generateUlPdfFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
         response.setContentType("application/pdf");
         String headerkey = "Content-Disposition";
         String headervalue = "attachment; filename=doc" + ".pdf";
@@ -219,7 +219,7 @@ public class DoseirController {
         return baos.toByteArray();
     }
     @GetMapping(value = "/downloadUlDoc/{bin}")
-    public @ResponseBody byte[] generateUlWordFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
+    public byte[] generateUlWordFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         String headerkey = "Content-Disposition";
         String headervalue = "attachment; filename=document.docx";

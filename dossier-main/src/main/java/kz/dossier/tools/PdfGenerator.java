@@ -13,6 +13,7 @@ import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 
@@ -34,13 +35,18 @@ public class PdfGenerator {
         }
         return table;
     }
-
+    public static BaseFont getBaseFont() throws IOException, DocumentException {
+        ClassPathResource fontResource = new ClassPathResource("fonts/fontstimes.ttf");
+        try (InputStream fontStream = fontResource.getInputStream()) {
+            return BaseFont.createFont("./fonts/fontstimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, BaseFont.CACHED, fontStream.readAllBytes(), null);
+        }
+    }
 
     public Document generate(NodesFL result, ByteArrayOutputStream response) throws DocumentException, IOException {
         Document document = new Document(PageSize.A4.rotate());
         PdfWriter.getInstance(document, response);
         document.open();
-        BaseFont baseFont = BaseFont.createFont("./fonts/fontstimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+        getBaseFont();
         PdfPTable table = new PdfPTable(6);
         table.setWidthPercentage(100f);
         table.setWidths(new float[] {1, 1, 1, 1, 1, 1});
@@ -48,7 +54,7 @@ public class PdfGenerator {
         PdfPCell cell = new PdfPCell();
         cell.setBackgroundColor(CMYKColor.WHITE);
         cell.setPadding(5);
-        Font font = new Font(baseFont);
+        Font font = new Font(getBaseFont());
         font.setColor(CMYKColor.WHITE);
         PdfPCell heading = new PdfPCell();
         heading.setBackgroundColor(CMYKColor.GRAY);
@@ -1515,8 +1521,8 @@ public class PdfGenerator {
         document.open();
         //com/example/backend/tools/fontstimes.ttf
         // C:/Users/user/Desktop/SIP/SID-superset-itap-dossier/back-end/src/main/java/com/example/backend/tools/
-        BaseFont baseFont = BaseFont.createFont("/fonts/fontstimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-        Font font = new Font(baseFont);
+        getBaseFont();
+        Font font = new Font(getBaseFont());
         font.setColor(CMYKColor.WHITE);
         PdfPCell heading = new PdfPCell();
         heading.setBackgroundColor(CMYKColor.GRAY);

@@ -25,7 +25,6 @@ public class NodesFL {
     private List<Equipment> equipment;
     private List<Dormant> dormants;
     private List<Adm> adms; //risk
-    private List<FlRelativiesDTO> fl_relatives;
     private List<RegAddressFl> regAddressFls;
 
     private List<Criminals> criminals; //risk
@@ -358,13 +357,6 @@ public class NodesFL {
         this.regAddressFls = regAddressFls;
     }
 
-    public List<FlRelativiesDTO> getFl_relatives() {
-        return fl_relatives;
-    }
-
-    public void setFl_relatives(List<FlRelativiesDTO> fl_relatives) {
-        this.fl_relatives = fl_relatives;
-    }
 
     public List<Orphans> getOrphanss() {
         return orphanss;

@@ -326,55 +326,55 @@ public class PdfGenerator {
             }
         }
         //РОДСТВЕННЫЕ СВЯЗИ
-        List<FlRelativiesDTO> fl_relatives = result.getFl_relatives();
-        if (fl_relatives != null && fl_relatives.size()!=0) {
-            PdfPTable relatives = new PdfPTable(7);
-            relatives.setWidthPercentage(100f);
-            relatives.setWidths(new float[] {0.15f, 1, 1, 1, 1, 1, 1});
-            relatives.setSpacingBefore(5);
-            heading.setColspan(7);
-            heading.setPhrase(new Phrase("Родственные связи", font));
-            relatives.addCell(heading);
-            cell.setPhrase(new Phrase("№", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Статус по отношению к родственнику", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("ФИО", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("ИИН", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Дата рождения", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Дата регистрации брака", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Дата расторжения брака", font));
-            relatives.addCell(cell);
-            int number = 1;
-            for (FlRelativiesDTO r : fl_relatives) {
-                relatives.addCell(new Phrase(number + "", font));
-                relatives.addCell(new Phrase(r.getRelative_type(), font));
-                relatives.addCell(new Phrase(r.getParent_fio(), font));
-
-                if (r.getParent_iin() != null) {
-                    relatives.addCell(new Phrase(r.getParent_iin(), font));
-                } else {
-                    relatives.addCell(new Phrase("", font));
-                }
-
-                if (r.getParent_birth_date() != null) {
-                    relatives.addCell(new Phrase(r.getParent_birth_date().substring(0, 10), font));
-                } else {
-                    relatives.addCell(new Phrase("", font));
-                }
-
-                relatives.addCell(new Phrase(r.getMarriage_reg_date(), font));
-                relatives.addCell(new Phrase(r.getMarriage_divorce_date(), font));
-
-                number++;
-            }
-
-            document.add(relatives);
-        }
+//        List<FlRelativiesDTO> fl_relatives = result.getFl_relatives();
+//        if (fl_relatives != null && fl_relatives.size()!=0) {
+//            PdfPTable relatives = new PdfPTable(7);
+//            relatives.setWidthPercentage(100f);
+//            relatives.setWidths(new float[] {0.15f, 1, 1, 1, 1, 1, 1});
+//            relatives.setSpacingBefore(5);
+//            heading.setColspan(7);
+//            heading.setPhrase(new Phrase("Родственные связи", font));
+//            relatives.addCell(heading);
+//            cell.setPhrase(new Phrase("№", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Статус по отношению к родственнику", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("ФИО", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("ИИН", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Дата рождения", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Дата регистрации брака", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Дата расторжения брака", font));
+//            relatives.addCell(cell);
+//            int number = 1;
+//            for (FlRelativiesDTO r : fl_relatives) {
+//                relatives.addCell(new Phrase(number + "", font));
+//                relatives.addCell(new Phrase(r.getRelative_type(), font));
+//                relatives.addCell(new Phrase(r.getParent_fio(), font));
+//
+//                if (r.getParent_iin() != null) {
+//                    relatives.addCell(new Phrase(r.getParent_iin(), font));
+//                } else {
+//                    relatives.addCell(new Phrase("", font));
+//                }
+//
+//                if (r.getParent_birth_date() != null) {
+//                    relatives.addCell(new Phrase(r.getParent_birth_date().substring(0, 10), font));
+//                } else {
+//                    relatives.addCell(new Phrase("", font));
+//                }
+//
+//                relatives.addCell(new Phrase(r.getMarriage_reg_date(), font));
+//                relatives.addCell(new Phrase(r.getMarriage_divorce_date(), font));
+//
+//                number++;
+//            }
+//
+//            document.add(relatives);
+//        }
         //КОНТАКТНЫЕ ДАННЫЕ ФЛ
         List<FlContacts> contacts = result.getContacts();
         if (contacts != null && contacts.size()!= 0) {
@@ -929,55 +929,55 @@ public class PdfGenerator {
             document.add(autoTable);
         }
         //РОДСТВЕННЫЕ СВЯЗИ
-        List<FlRelativiesDTO> fl_relatives = result.getFl_relatives();
-        if (fl_relatives.size()!=0 && fl_relatives != null) {
-            PdfPTable relatives = new PdfPTable(7);
-            relatives.setWidthPercentage(100f);
-            relatives.setWidths(new float[] {0.15f, 1, 1, 1, 1, 1, 1});
-            relatives.setSpacingBefore(5);
-            heading.setColspan(7);
-            heading.setPhrase(new Phrase("Родственные связи", font));
-            relatives.addCell(heading);
-            cell.setPhrase(new Phrase("№", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Статус по отношению к родственнику", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("ФИО", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("ИИН", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Дата рождения", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Дата регистрации брака", font));
-            relatives.addCell(cell);
-            cell.setPhrase(new Phrase("Дата расторжения брака", font));
-            relatives.addCell(cell);
-            int number = 1;
-            for (FlRelativiesDTO r : fl_relatives) {
-                relatives.addCell(new Phrase(number + "", font));
-                relatives.addCell(new Phrase(r.getRelative_type(), font));
-                relatives.addCell(new Phrase(r.getParent_fio(), font));
-
-                if (r.getParent_iin() != null) {
-                    relatives.addCell(new Phrase(r.getParent_iin(), font));
-                } else {
-                    relatives.addCell(new Phrase("", font));
-                }
-
-                if (r.getParent_birth_date() != null) {
-                    relatives.addCell(new Phrase(r.getParent_birth_date().substring(0, 10), font));
-                } else {
-                    relatives.addCell(new Phrase("", font));
-                }
-
-                relatives.addCell(new Phrase(r.getMarriage_reg_date(), font));
-                relatives.addCell(new Phrase(r.getMarriage_divorce_date(), font));
-
-                number++;
-            }
-
-            document.add(relatives);
-        }
+//        List<FlRelativiesDTO> fl_relatives = result.getFl_relatives();
+//        if (fl_relatives.size()!=0 && fl_relatives != null) {
+//            PdfPTable relatives = new PdfPTable(7);
+//            relatives.setWidthPercentage(100f);
+//            relatives.setWidths(new float[] {0.15f, 1, 1, 1, 1, 1, 1});
+//            relatives.setSpacingBefore(5);
+//            heading.setColspan(7);
+//            heading.setPhrase(new Phrase("Родственные связи", font));
+//            relatives.addCell(heading);
+//            cell.setPhrase(new Phrase("№", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Статус по отношению к родственнику", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("ФИО", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("ИИН", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Дата рождения", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Дата регистрации брака", font));
+//            relatives.addCell(cell);
+//            cell.setPhrase(new Phrase("Дата расторжения брака", font));
+//            relatives.addCell(cell);
+//            int number = 1;
+//            for (FlRelativiesDTO r : fl_relatives) {
+//                relatives.addCell(new Phrase(number + "", font));
+//                relatives.addCell(new Phrase(r.getRelative_type(), font));
+//                relatives.addCell(new Phrase(r.getParent_fio(), font));
+//
+//                if (r.getParent_iin() != null) {
+//                    relatives.addCell(new Phrase(r.getParent_iin(), font));
+//                } else {
+//                    relatives.addCell(new Phrase("", font));
+//                }
+//
+//                if (r.getParent_birth_date() != null) {
+//                    relatives.addCell(new Phrase(r.getParent_birth_date().substring(0, 10), font));
+//                } else {
+//                    relatives.addCell(new Phrase("", font));
+//                }
+//
+//                relatives.addCell(new Phrase(r.getMarriage_reg_date(), font));
+//                relatives.addCell(new Phrase(r.getMarriage_divorce_date(), font));
+//
+//                number++;
+//            }
+//
+//            document.add(relatives);
+//        }
         //КОНТАКТНЫЕ ДАННЫЕ ФЛ
         List<FlContacts> contacts = result.getContacts();
         if (contacts.size()!= 0 && contacts != null) {

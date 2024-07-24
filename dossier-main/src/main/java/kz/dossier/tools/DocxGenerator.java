@@ -218,29 +218,29 @@ public class DocxGenerator {
                 System.out.println("Exception while adding auto table: " + e.getMessage());
             }
 
-            try {
-                List<FlRelativiesDTO> fl_relatives = result.getFl_relatives();
-                if (fl_relatives != null && !fl_relatives.isEmpty()) {
-                    XWPFTable table = doc.createTable();
-                    makeTableByProperties(doc, table, "Родственные связи", Arrays.asList("№", "Статус по отношению к родственнику", "ФИО", "ИИН", "Дата рождения", "Дата регистрации брака", "Дата расторжения брака"));
-                    
-                    int number = 1;
-                    for (FlRelativiesDTO relative : fl_relatives) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(relative.getRelative_type());
-                        dataRow.addNewTableCell().setText(relative.getParent_fio());
-                        dataRow.addNewTableCell().setText(relative.getParent_iin() != null ? relative.getParent_iin() : "");
-                        dataRow.addNewTableCell().setText(relative.getParent_birth_date() != null ? relative.getParent_birth_date().substring(0, 10) : "");
-                        dataRow.addNewTableCell().setText(relative.getMarriage_reg_date() != null ? relative.getMarriage_reg_date() : "");
-                        dataRow.addNewTableCell().setText(relative.getMarriage_divorce_date() != null ? relative.getMarriage_divorce_date() : "");
-                        number++;
-                    }
-                    setMarginBetweenTables(doc);
-                }
-            } catch (Exception e) {
-                System.out.println("Exception while adding relatives table: " + e.getMessage());
-            }
+//            try {
+//                List<FlRelativiesDTO> fl_relatives = result.getFl_relatives();
+//                if (fl_relatives != null && !fl_relatives.isEmpty()) {
+//                    XWPFTable table = doc.createTable();
+//                    makeTableByProperties(doc, table, "Родственные связи", Arrays.asList("№", "Статус по отношению к родственнику", "ФИО", "ИИН", "Дата рождения", "Дата регистрации брака", "Дата расторжения брака"));
+//
+//                    int number = 1;
+//                    for (FlRelativiesDTO relative : fl_relatives) {
+//                        XWPFTableRow dataRow = table.createRow();
+//                        dataRow.addNewTableCell().setText(String.valueOf(number));
+//                        dataRow.addNewTableCell().setText(relative.getRelative_type());
+//                        dataRow.addNewTableCell().setText(relative.getParent_fio());
+//                        dataRow.addNewTableCell().setText(relative.getParent_iin() != null ? relative.getParent_iin() : "");
+//                        dataRow.addNewTableCell().setText(relative.getParent_birth_date() != null ? relative.getParent_birth_date().substring(0, 10) : "");
+//                        dataRow.addNewTableCell().setText(relative.getMarriage_reg_date() != null ? relative.getMarriage_reg_date() : "");
+//                        dataRow.addNewTableCell().setText(relative.getMarriage_divorce_date() != null ? relative.getMarriage_divorce_date() : "");
+//                        number++;
+//                    }
+//                    setMarginBetweenTables(doc);
+//                }
+//            } catch (Exception e) {
+//                System.out.println("Exception while adding relatives table: " + e.getMessage());
+//            }
             try {
                 List<FlContacts> contacts = result.getContacts();
                 if (contacts != null && !contacts.isEmpty()) {

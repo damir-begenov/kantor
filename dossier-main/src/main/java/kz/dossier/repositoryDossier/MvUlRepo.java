@@ -10,13 +10,13 @@ import java.util.Optional;
 @Repository
 
 public interface MvUlRepo extends JpaRepository<MvUl, Long> {
-    @Query(value= "select * from initial_data.ul mv_ul0_ where mv_ul0_.bin = ?1 limit 1 ", nativeQuery = true)
+    @Query(value= "select * from imp_kfm_ul.mv_ul where mv_ul.bin = ?1 limit 1 ", nativeQuery = true)
     List<MvUl> getUsersByLike(String iin);
-    @Query(value= "select DISTINCT ON (bin) * from initial_data.ul where UPPER (full_name_rus) like ?1 or UPPER (full_name_kaz) like ?1", nativeQuery = true)
+    @Query(value= "select DISTINCT ON (bin) * from imp_kfm_ul.mv_ul where UPPER (full_name_rus) like ?1 or UPPER (full_name_kaz) like ?1", nativeQuery = true)
     List<MvUl> getUlsByName(String name);
-    @Query(value="select short_name from initial_data.ul where bin = ?1 limit 1", nativeQuery = true)
+    @Query(value="select short_name from imp_kfm_ul.mv_ul where bin = ?1 limit 1", nativeQuery = true)
     String getNameByBin(String bin);
-    @Query(value= "select * from initial_data.ul mv_ul0_ where mv_ul0_.bin = ?1 limit 1 ", nativeQuery = true)
+    @Query(value= "select * from imp_kfm_ul.ul mv_ul0_ where mv_ul0_.bin = ?1 limit 1 ", nativeQuery = true)
     Optional<MvUl> getUlByBin(String bin);
     
 }

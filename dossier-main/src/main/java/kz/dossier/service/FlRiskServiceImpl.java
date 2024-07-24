@@ -57,33 +57,147 @@ public class FlRiskServiceImpl {
     DrugAddictsRepo drugAddictsRepo;
     @Autowired
     ImmoralLifestlyeRepo immoralLifestlyeRepo;
-    public FLRiskDto findFlRiskByIin(String iin){
+    public FLRiskDto findFlRiskByIin(String iin) {
         FLRiskDto flRiskDto = new FLRiskDto();
-
         flRiskDto.setIin(iin);
-        flRiskDto.setBankrots(bankrotRepo.getbankrotByByIIN(iin));
-        flRiskDto.setIncapacitateds(incapacitatedRepo.getIncapacitatedByIIN(iin));
-        flRiskDto.setKuis(kuisRepo.getKuisByIIN(iin));
-        flRiskDto.setAdms(admRepo.getUsersByLike(iin));
-        flRiskDto.setCriminals(criminalsRepo.getcriminalsByByIIN(iin));
-        flRiskDto.setDismissals(dismissalRepo.getDismissalByIIN(iin));
-        flRiskDto.setOpgEntities(opgRepo.getopgByIIN(iin));
-        flRiskDto.setNdsEntities(ndsEntityRepo.getUsersByLike(iin));
-        flRiskDto.setImmoralLifestyles(immoralLifestlyeRepo.getImmoByIIN(iin));
-        flRiskDto.setBeneficiariesLists(beneficiariesListRepo.getBenByIIN(iin));
-        flRiskDto.setDormants(dormantRepo.getUsersByLike(iin));
-        flRiskDto.setBlockEsfs(block_esfRepo.getblock_esfByIIN(iin));
-        flRiskDto.setFpgTempEntities(fpgTempEntityRepo.getUsersByLike(iin));
-        flRiskDto.setMshes(mshRepo.getUsersByLike(iin));
-        flRiskDto.setConvictsAbroads(convictsAbroadRepo.getConvictsAbroadByIIN(iin));
-        flRiskDto.setConvictsJustifieds(convicts_justifiedRepo.getconvicts_justifiedByByIIN(iin));
-        flRiskDto.setDrugAddicts(drugAddictsRepo.getDrugAddictsByIIN(iin));
-        flRiskDto.setOmns(omn_repo.getUsersByLike(iin));
-        flRiskDto.setOrphans(orphans_repo.getUsersByLike(iin));
-        flRiskDto.setMzEntities(mzEntityRepo.getMzByIIN(iin));
-        flRiskDto.setWantedListEntities(wantedListRepo.getByIIN(iin));
-        flRiskDto.setFirstCreditBureauEntities(firstCreditBureauEntityRepo.getUsersByLike(iin));
-        flRiskDto.setConvictsTerminatedByRehabs(convicts_terminated_by_rehabRepo.getconvicts_terminated_by_rehabByByIIN(iin));
+
+        try {
+            flRiskDto.setBankrots(bankrotRepo.getbankrotByByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setIncapacitateds(incapacitatedRepo.getIncapacitatedByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setKuis(kuisRepo.getKuisByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setAdms(admRepo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setCriminals(criminalsRepo.getcriminalsByByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setDismissals(dismissalRepo.getDismissalByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setOpgEntities(opgRepo.getopgByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setNdsEntities(ndsEntityRepo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setImmoralLifestyles(immoralLifestlyeRepo.getImmoByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setBeneficiariesLists(beneficiariesListRepo.getBenByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setDormants(dormantRepo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setBlockEsfs(block_esfRepo.getblock_esfByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setFpgTempEntities(fpgTempEntityRepo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setMshes(mshRepo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setConvictsAbroads(convictsAbroadRepo.getConvictsAbroadByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setConvictsJustifieds(convicts_justifiedRepo.getconvicts_justifiedByByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setDrugAddicts(drugAddictsRepo.getDrugAddictsByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setOmns(omn_repo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setOrphans(orphans_repo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setMzEntities(mzEntityRepo.getMzByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setWantedListEntities(wantedListRepo.getByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setFirstCreditBureauEntities(firstCreditBureauEntityRepo.getUsersByLike(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
+
+        try {
+            flRiskDto.setConvictsTerminatedByRehabs(convicts_terminated_by_rehabRepo.getconvicts_terminated_by_rehabByByIIN(iin));
+        } catch (Exception e) {
+            // Catch block left empty
+        }
 
         int sum = (Optional.ofNullable(flRiskDto.getAdms()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getBankrots()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
@@ -101,7 +215,7 @@ public class FlRiskServiceImpl {
                 (Optional.ofNullable(flRiskDto.getOmns()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getFpgTempEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getNdsEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
-                (Optional.ofNullable(flRiskDto.getConvictsTerminatedByRehabs()).orElse(Collections.emptyList()).isEmpty() ? 0 : 1)+
+                (Optional.ofNullable(flRiskDto.getConvictsTerminatedByRehabs()).orElse(Collections.emptyList()).isEmpty() ? 0 : 1) +
                 (Optional.ofNullable(flRiskDto.getImmoralLifestyles()).orElse(Collections.emptyList()).isEmpty() ? 0 : 1);
 
         flRiskDto.setQuantity(sum);
@@ -109,5 +223,4 @@ public class FlRiskServiceImpl {
         return flRiskDto;
     }
 
-    //--Осужденные
 }

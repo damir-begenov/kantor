@@ -92,10 +92,22 @@ public class DoseirController {
         return myService.generalInfoByIin(iin);
     }
 
+
+
     @GetMapping("/additionalInfo")
     public AdditionalInfoDTO getAdditionalInfo(@RequestParam String iin) {
         return myService.additionalInfoByIin(iin);
     }
+
+    @GetMapping("/getRelativesInfo")
+    public List<FlRelativiesDTO> getRelInfo(@RequestParam String iin){
+        return myService.getRelativesInfo(iin);
+    }
+
+//    @GetMapping("/relativesInfo")
+//    public List<FlRelatives> getRelativesInfo(@RequestParam String iin){
+//        return myService.getFlRelativesInfo();
+//    }
 
 
     @GetMapping("/profile")
@@ -134,6 +146,8 @@ public class DoseirController {
     public FlRelativesLevelDto hierarchy(@RequestParam String iin) throws SQLException {
         return myService.createHierarchyObject(iin);
     }
+
+
     @GetMapping("/iin")
     public List<SearchResultModelFL> getByIIN(@RequestParam String iin, @RequestParam String email) throws IOException {
         List<SearchResultModelFL> fl = myService.getByIIN_photo(iin);

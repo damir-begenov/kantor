@@ -1,12 +1,13 @@
 package kz.dossier.modelsDossier;
 
+import jakarta.persistence.Transient;
 import org.jetbrains.annotations.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "ul", schema = "initial_data")
+@Table(name = "mv_ul", schema = "imp_kfm_ul")
 public class MvUl {
     @Nullable
     private String bin;
@@ -42,6 +43,7 @@ public class MvUl {
     @Nullable
     private String ul_status;
     @Nullable
+    @Transient
     private Boolean is_upd;
     @Nullable
     private String short_name;

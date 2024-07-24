@@ -146,7 +146,170 @@ public class MyService {
     private KuisRepo kuisRepo;
 
 
+    public List<FlRelativiesDTO> getRelativesInfo(String iin){
+        List<Object[]> flRelativesObj;
+        flRelativesObj = fl_relativesRepository.findAllByIin(iin);
+        List<FlRelativiesDTO> flRelativesDtoList = new ArrayList<>();
+        for (Object[] relatives:flRelativesObj) {
+            System.out.println(relatives);
+            FlRelativiesDTO dto = new FlRelativiesDTO();
+            //--Фио
+            dto.setParent_fio(relatives[3] +" "+relatives[4] +" " +relatives[5]);
+            System.out.println(relatives[3] +" "+relatives[4] +" " +relatives[5]);
+            if(relatives[8]!=null){ //--Круг
+                dto.setLevel(String.valueOf(relatives[8]));
+            }
+            if(relatives[8].toString().equals("1")){ //--Статус родственника
+                if(relatives[0]!=null){
+                    dto.setRelative_type(relatives[0].toString());
+                }
+            } else if(relatives[8].toString().equals("2")) {
+                if(relatives[0]!=null) {
+                    dto.setRelative_type(relatives[0] +" ("+relatives[19]+")");
+                }
+            } else if (relatives[8].toString().equals("3")){
+                String relation="";
+                if(relatives[19]!=null){
+                    relation=" ("+relatives[19]+")";
+                }
+                if(relatives[0]!=null) {
+                    dto.setRelative_type(relatives[0] +relation);
+                }
+            } else {
+                if(relatives[0]!=null){
+                    dto.setRelative_type(String.valueOf(relatives[0]));
+                }
+            }
 
+            //--Дата рождения
+            if(relatives[6]!=null) {
+                if(relatives[6].toString().length()==10){
+                    try{
+                        dto.setParent_birth_date(String.valueOf(LocalDate.parse(relatives[6].toString())));
+                    }catch (Exception e){
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                            LocalDate localDateTime = LocalDate.parse(relatives[6].toString(), formatter);
+                            dto.setParent_birth_date(String.valueOf(localDateTime));
+                        }catch (Exception ex){
+                        }
+                    }
+
+                } else if(relatives[6].toString().length()==22){
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
+                        LocalDateTime localDateTime = LocalDateTime.parse(relatives[6].toString(), formatter);
+                        LocalDate localDate = localDateTime.toLocalDate();
+                        dto.setParent_birth_date(String.valueOf(localDate));
+                    }catch (Exception e){
+                    }
+                } else if(relatives[6].toString().length()==24){
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
+                        LocalDateTime localDateTime = LocalDateTime.parse(relatives[6].toString().substring(1,23), formatter);
+                        LocalDate localDate = localDateTime.toLocalDate();
+                        dto.setBirth_date(String.valueOf(localDate));
+                    }catch (Exception e){
+                    }
+                }
+            }
+
+            //--Дата регистрация брака
+            if(relatives[10]!=null) {
+                if(relatives[10].toString().length()==10){
+                    try{
+                        dto.setMarriage_reg_date(String.valueOf(LocalDate.parse(relatives[10].toString())));
+                    }catch (Exception e){
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                            LocalDate localDateTime = LocalDate.parse(relatives[10].toString(), formatter);
+                            dto.setMarriage_reg_date(String.valueOf(localDateTime));
+                        }catch (Exception ex){
+                        }
+                    }
+                } else if(relatives[10].toString().length()==22){
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
+                        LocalDateTime localDateTime = LocalDateTime.parse(relatives[10].toString(), formatter);
+                        LocalDate localDate = localDateTime.toLocalDate();
+                        dto.setMarriage_reg_date(String.valueOf(localDate));
+                    }catch (Exception e){
+                    }
+                } else if(relatives[10].toString().length()==24){
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
+                        LocalDateTime localDateTime = LocalDateTime.parse(relatives[10].toString().substring(1,23), formatter);
+                        LocalDate localDate = localDateTime.toLocalDate();
+                        dto.setMarriage_reg_date(String.valueOf(localDate));
+                    }catch (Exception e){
+                    }
+                }
+            }
+
+            //--Дата Рассторжения брака
+            if(relatives[11]!=null && !relatives[11].toString().equals("(null)")) {
+                if(relatives[11].toString().length()==10){
+                    try{
+                        dto.setMarriage_divorce_date(String.valueOf(LocalDate.parse(relatives[11].toString())));
+                    }catch (Exception e){
+                        try {
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+                            LocalDate localDateTime = LocalDate.parse(relatives[11].toString(), formatter);
+                            dto.setMarriage_divorce_date(String.valueOf(localDateTime));
+                        }catch (Exception ex){
+                        }
+                    }
+                } else if(relatives[11].toString().length()==22) {
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
+                        LocalDateTime localDateTime = LocalDateTime.parse(relatives[11].toString(), formatter);
+                        LocalDate localDate = localDateTime.toLocalDate();
+                        dto.setMarriage_divorce_date(String.valueOf(localDate));
+                    } catch (Exception e){
+                    }
+                } else if(relatives[11].toString().length()==24) {
+                    try {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
+                        LocalDateTime localDateTime = LocalDateTime.parse(relatives[11].toString().substring(1,23), formatter);
+                        LocalDate localDate = localDateTime.toLocalDate();
+                        dto.setMarriage_divorce_date(String.valueOf(localDate));
+                    }catch (Exception e){
+                    }
+                }
+            }
+
+            //--ИИН родственника
+            if(relatives[2]!=null && !relatives[2].toString().equals("---")) {
+                dto.setParent_iin(relatives[2].toString());
+            }
+
+            if(!dto.getParent_fio().equals("null null null")){
+                boolean isRel = true;
+
+                if(!flRelativesDtoList.isEmpty()){
+                    for(FlRelativiesDTO rel: flRelativesDtoList){
+                        if((rel.getParent_iin()!=null && dto.getParent_iin()!=null) && rel.getParent_iin().equals(dto.getParent_iin())){
+                            isRel=false;
+
+                            break;
+                        }
+
+                        if((rel.getParent_fio()!=null && dto.getParent_fio()!=null) && ( rel.getParent_fio().equals(dto.getParent_fio()) )){
+                            isRel=false;
+                            break;
+                        }
+
+                    }
+                }
+
+                if(isRel){
+                    flRelativesDtoList.add(dto);
+
+                }
+            }
+        }
+        return flRelativesDtoList;
+    }
     public List<SearchResultModelUl> searchUlByName(String name) {
         List<MvUl> mvUls = mv_ul_repo.getUlsByName(name.replace("$", "%"));
         List<SearchResultModelUl> list = new ArrayList<>();
@@ -183,6 +346,8 @@ public class MyService {
             return result;
         }
     }
+
+//    public FlRelatives getFlRelativesInfo()
 
     public List<SearchResultModelFL> getByAddressUsingIin(String iin) {
         List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
@@ -438,32 +603,34 @@ public class MyService {
     //General info by iin
     public GeneralInfoDTO generalInfoByIin(String iin) {
         GeneralInfoDTO generalInfoDTO = new GeneralInfoDTO();
-        try {
-            generalInfoDTO.setContacts(flContactsRepo.findAllByIin(iin));
-        } catch (Exception e){
-            System.out.println("Error:" + e);
+        List<FlContacts> contacts = flContactsRepo.findAllByIin(iin);
+        if (contacts != null) {
+            generalInfoDTO.setContacts(contacts);
         }
         List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
-        AddressInfo addressInfo = new AddressInfo();
-        if (address.size() > 0) {
-            addressInfo.setRegion(address.get(0).getRegion());
-            addressInfo.setDistrict(address.get(0).getDistrict());
-            addressInfo.setCity(address.get(0).getCity());
-            addressInfo.setStreet(address.get(0).getStreet());
-            addressInfo.setBuilding(address.get(0).getBuilding());
-            addressInfo.setKorpus(address.get(0).getKorpus());
-            addressInfo.setApartment_number(address.get(0).getApartment_number());
-        }
-        List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
-        List<MvFl> fls = new ArrayList<>();
-        for (RegAddressFl ad : units) {
-            Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
-            if (fl.isPresent()) {
-                fls.add(fl.get());
+        if(address != null) {
+            AddressInfo addressInfo = new AddressInfo();
+            if (address.size() > 0) {
+                addressInfo.setRegion(address.get(0).getRegion());
+                addressInfo.setDistrict(address.get(0).getDistrict());
+                addressInfo.setCity(address.get(0).getCity());
+                addressInfo.setStreet(address.get(0).getStreet());
+                addressInfo.setBuilding(address.get(0).getBuilding());
+                addressInfo.setKorpus(address.get(0).getKorpus());
+                addressInfo.setApartment_number(address.get(0).getApartment_number());
             }
+
+            List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+            List<MvFl> fls = new ArrayList<>();
+            for (RegAddressFl ad : units) {
+                Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+                if (fl.isPresent()) {
+                    fls.add(fl.get());
+                }
+            }
+            List<SearchResultModelFL> result = findWithoutPhoto(fls);
+            generalInfoDTO.setSameAddressFls(result);
         }
-        List<SearchResultModelFL> result = findWithoutPhoto(fls);
-        generalInfoDTO.setSameAddressFls(result);
         return generalInfoDTO;
     }
 
@@ -472,10 +639,11 @@ public class MyService {
         AdditionalInfoDTO additionalInfoDTO = new AdditionalInfoDTO();
         try {
             List<MilitaryAccounting2Entity> militaryAccounting2Entities = MilitaryAccounting2Repo.getUsersByLike(iin);
+            if(!militaryAccounting2Entities.isEmpty() & militaryAccounting2Entities.size() > 0){
             try {
                 additionalInfoDTO.setMilitaryAccounting2Entities(militaryAccounting2Entities);
             } catch (Exception e) {
-            }
+            }}
         } catch (Exception e){
         }
         try {
@@ -567,13 +735,14 @@ public class MyService {
                     } catch (Exception e) {
 
                     }
-                   
+
 
                     pensions.add(pensionListEntity);
                 }
             }
 
             additionalInfoDTO.setPensions(pensions);
+            additionalInfoDTO.setNumber();
         } catch (Exception e){
             System.out.println("Error:" + e);
         }
@@ -587,19 +756,19 @@ public class MyService {
         hierarchy.name = myMv_fl.get(0).getIin();
         hierarchy.value = "MAIN";
         tryAddPhoto(hierarchy, IIN);
-            List<FlRelativiesDTO> flRelativesDtos = new ArrayList<>();
-            FlRelativesLevelDto nodes = new FlRelativesLevelDto();
+        List<FlRelativiesDTO> flRelativesDtos = new ArrayList<>();
+        FlRelativesLevelDto nodes = new FlRelativesLevelDto();
 
-            MvFl flRaw = mv_FlRepo.getUserByIin(IIN);
+        MvFl flRaw = mv_FlRepo.getUserByIin(IIN);
 
-            if(flRaw.getIin()!=null){
-                nodes.setIin(flRaw.getIin());
-            }
+        if(flRaw.getIin()!=null){
+            nodes.setIin(flRaw.getIin());
+        }
 
-           int mainQuintity = flRiskService.findFlRiskByIin(IIN).getQuantity();
-            //--Основной ФЛ
-            nodes.setName(IIN+", " + (flRaw.getLast_name()!=null?flRaw.getLast_name():"") +" " + (flRaw.getFirst_name()!=null?flRaw.getFirst_name():"") +" "
-                    + (flRaw.getPatronymic()!=null?flRaw.getPatronymic():"")+", Риски к-во: " + mainQuintity);
+        int mainQuintity = flRiskService.findFlRiskByIin(IIN).getQuantity();
+        //--Основной ФЛ
+        nodes.setName(IIN+", " + (flRaw.getLast_name()!=null?flRaw.getLast_name():"") +" " + (flRaw.getFirst_name()!=null?flRaw.getFirst_name():"") +" "
+                + (flRaw.getPatronymic()!=null?flRaw.getPatronymic():"")+", Риски к-во: " + mainQuintity);
 
         if(mainQuintity!=0){
             nodes.setHaveRisk(true);
@@ -607,212 +776,214 @@ public class MyService {
             nodes.setHaveRisk(false);
         }
 
-            nodes.setFio((flRaw.getLast_name()!=null?flRaw.getLast_name():"") +" " + (flRaw.getFirst_name()!=null?flRaw.getFirst_name():"") +" "
-                    + (flRaw.getPatronymic()!=null?flRaw.getPatronymic():""));
-              Optional<PhotoDb> flRawPhoto = newPhotoRepo.findById(IIN);
-             if (flRawPhoto.isPresent()) {
+        nodes.setFio((flRaw.getLast_name()!=null?flRaw.getLast_name():"") +" " + (flRaw.getFirst_name()!=null?flRaw.getFirst_name():"") +" "
+                + (flRaw.getPatronymic()!=null?flRaw.getPatronymic():""));
+
+
+        Optional<PhotoDb> flRawPhoto = newPhotoRepo.findById(IIN);
+
+        if (flRawPhoto.isPresent()) {
             try {
                 nodes.setPhoto(new SerialBlob(flRawPhoto.get().getPhoto()));
             } catch (SQLException e) {
             }
         }
-            List<FlRelativesLevelDto> relativesNodes = new ArrayList<>();
-            List<Object[]> flRelativesObj = fl_relativesRepository.findAllByIin(IIN);
+        List<FlRelativesLevelDto> relativesNodes = new ArrayList<>();
+        List<Object[]> flRelativesObj = fl_relativesRepository.findAllByIin(IIN);
 
-            FlRelativiesDTO relativesDto = new FlRelativiesDTO();
-            relativesDto.setParent_iin(nodes.getIin());
-            relativesDto.setParent_fio(nodes.getFio());
-            flRelativesDtos.add(relativesDto);
+        FlRelativiesDTO relativesDto = new FlRelativiesDTO();
+        relativesDto.setParent_iin(nodes.getIin());
+        relativesDto.setParent_fio(nodes.getFio());
+        flRelativesDtos.add(relativesDto);
 
-            //--1-Круг
-            for (Object[] flRelObj:flRelativesObj.stream()
-                    .filter(objects -> objects[8].toString().equals("1"))
-                    .collect(Collectors.toList())){
+        //--1-Круг
+        for (Object[] flRelObj:flRelativesObj.stream()
+                .filter(objects -> objects[8].toString().equals("1"))
+                .collect(Collectors.toList())){
 
-                FlRelativesLevelDto firstLevel = new FlRelativesLevelDto();
-                int firstLevelCnt = 0;
-                firstLevel.setName(flRelObj[2]+", " + flRelObj[3] +" "+flRelObj[4] +" " +flRelObj[5] +", " + flRelObj[0]);
+            FlRelativesLevelDto firstLevel = new FlRelativesLevelDto();
+            int firstLevelCnt = 0;
+            firstLevel.setName(flRelObj[2]+", " + flRelObj[3] +" "+flRelObj[4] +" " +flRelObj[5] +", " + flRelObj[0]);
 
-                firstLevel.setFio(flRelObj[3] +" "+flRelObj[4] +" " +flRelObj[5]);
+            firstLevel.setFio(flRelObj[3] +" "+flRelObj[4] +" " +flRelObj[5]);
 
-                List<FlRelativesLevelDto> relativesNodesList = new ArrayList<>();
+            List<FlRelativesLevelDto> relativesNodesList = new ArrayList<>();
 
-                if(flRelObj[2]!=null && !flRelObj[2].toString().equals("---")){
+            if(flRelObj[2]!=null && !flRelObj[2].toString().equals("---")){
 
-                    if(flRelObj[2].toString().length()==12){
-                        Optional<PhotoDb> flRawPhoto1Level = newPhotoRepo.findById(flRelObj[2].toString());
-                        if (flRawPhoto1Level.isPresent()) {
-                            try {
-                                firstLevel.setPhoto(new SerialBlob(flRawPhoto1Level.get().getPhoto()));
-                            } catch (SQLException e) {
-                            }
+                if(flRelObj[2].toString().length()==12){
+                    Optional<PhotoDb> flRawPhoto1Level = newPhotoRepo.findById(flRelObj[2].toString());
+                    if (flRawPhoto1Level.isPresent()) {
+                        try {
+                            firstLevel.setPhoto(new SerialBlob(flRawPhoto1Level.get().getPhoto()));
+                        } catch (SQLException e) {
                         }
-                        firstLevelCnt = flRiskService.findFlRiskByIin(flRelObj[2].toString()).getQuantity();
-
-
                     }
+                    firstLevelCnt = flRiskService.findFlRiskByIin(flRelObj[2].toString()).getQuantity();
 
-                    firstLevel.setIin(String.valueOf(flRelObj[2]));
 
-                    FlRelativiesDTO firstLvlDto = new FlRelativiesDTO();
-                    firstLvlDto.setParent_iin(firstLevel.getIin());
-                    firstLvlDto.setParent_fio(firstLevel.getFio());
-                    flRelativesDtos.add(firstLvlDto);
+                }
 
-                    //--2-Круг
-                    for (Object[] rel2Level:flRelativesObj.stream().filter(objects -> objects[8].toString().equals("2"))
-                            .collect(Collectors.toList())){
+                firstLevel.setIin(String.valueOf(flRelObj[2]));
 
-                        if(flRelObj[2].toString().equals(rel2Level[1].toString())){
-                            FlRelativesLevelDto secondLevel = new FlRelativesLevelDto();
-                            List<FlRelativesLevelDto> relativesNodesList3Level = new ArrayList<>();
-                            String relation="";
-                            int secondLevelCnt =0;
-                            if(rel2Level[19]!=null){
-                                relation=" ("+rel2Level[19]+")";
-                            }
-                            secondLevel.setName(rel2Level[2]+", "+rel2Level[3] +" "+rel2Level[4] +" " +rel2Level[5] +", " +rel2Level[0] +relation);
-                            secondLevel.setFio(rel2Level[3] +" "+rel2Level[4] +" " +rel2Level[5]);
+                FlRelativiesDTO firstLvlDto = new FlRelativiesDTO();
+                firstLvlDto.setParent_iin(firstLevel.getIin());
+                firstLvlDto.setParent_fio(firstLevel.getFio());
+                flRelativesDtos.add(firstLvlDto);
 
-                            if(rel2Level[2].toString().length()==12){
-                                Optional<PhotoDb> flRawPhoto2Level = newPhotoRepo.findById(rel2Level[2].toString());
-                                if (flRawPhoto2Level.isPresent()) {
-                                    try {
-                                        secondLevel.setPhoto(new SerialBlob(flRawPhoto2Level.get().getPhoto()));
-                                    } catch (SQLException e) {
-                                    }
+                //--2-Круг
+                for (Object[] rel2Level:flRelativesObj.stream().filter(objects -> objects[8].toString().equals("2"))
+                        .collect(Collectors.toList())){
+
+                    if(flRelObj[2].toString().equals(rel2Level[1].toString())){
+                        FlRelativesLevelDto secondLevel = new FlRelativesLevelDto();
+                        List<FlRelativesLevelDto> relativesNodesList3Level = new ArrayList<>();
+                        String relation="";
+                        int secondLevelCnt =0;
+                        if(rel2Level[19]!=null){
+                            relation=" ("+rel2Level[19]+")";
+                        }
+                        secondLevel.setName(rel2Level[2]+", "+rel2Level[3] +" "+rel2Level[4] +" " +rel2Level[5] +", " +rel2Level[0] +relation);
+                        secondLevel.setFio(rel2Level[3] +" "+rel2Level[4] +" " +rel2Level[5]);
+
+                        if(rel2Level[2].toString().length()==12){
+                            Optional<PhotoDb> flRawPhoto2Level = newPhotoRepo.findById(rel2Level[2].toString());
+                            if (flRawPhoto2Level.isPresent()) {
+                                try {
+                                    secondLevel.setPhoto(new SerialBlob(flRawPhoto2Level.get().getPhoto()));
+                                } catch (SQLException e) {
                                 }
-                                secondLevelCnt = flRiskService.findFlRiskByIin(rel2Level[2].toString()).getQuantity();
                             }
+                            secondLevelCnt = flRiskService.findFlRiskByIin(rel2Level[2].toString()).getQuantity();
+                        }
 
-                            if(secondLevelCnt!=0){
-                                secondLevel.setHaveRisk(true);
-                            } else{
-                                secondLevel.setHaveRisk(false);
-                            }
-                            secondLevel.setName(secondLevel.getName() + ", Риски к-во: " + secondLevelCnt);
+                        if(secondLevelCnt!=0){
+                            secondLevel.setHaveRisk(true);
+                        } else{
+                            secondLevel.setHaveRisk(false);
+                        }
+                        secondLevel.setName(secondLevel.getName() + ", Риски к-во: " + secondLevelCnt);
 
 
-                            if(rel2Level[2]!=null && !rel2Level[2].toString().equals("---")){
-                                secondLevel.setIin(String.valueOf(rel2Level[2]));
+                        if(rel2Level[2]!=null && !rel2Level[2].toString().equals("---")){
+                            secondLevel.setIin(String.valueOf(rel2Level[2]));
 
-                                //--3 - Круг
-                                for (Object[] rel3Level:flRelativesObj.stream().filter(objects -> objects[8].toString().equals("3"))
-                                        .collect(Collectors.toList())){
+                            //--3 - Круг
+                            for (Object[] rel3Level:flRelativesObj.stream().filter(objects -> objects[8].toString().equals("3"))
+                                    .collect(Collectors.toList())){
 
-                                    if(rel2Level[2].toString().equals(rel3Level[1].toString())) {
-                                        FlRelativesLevelDto thirdLevel = new FlRelativesLevelDto();
-                                        String relation3Level="";
-                                        if(rel3Level[19]!=null){
-                                            relation3Level=" ("+rel3Level[19]+")";
-                                        }
-                                        int thirdLevelCnt =0;
-                                        thirdLevel.setFio(rel3Level[3] +" "+rel3Level[4] +" " +rel3Level[5]);
+                                if(rel2Level[2].toString().equals(rel3Level[1].toString())) {
+                                    FlRelativesLevelDto thirdLevel = new FlRelativesLevelDto();
+                                    String relation3Level="";
+                                    if(rel3Level[19]!=null){
+                                        relation3Level=" ("+rel3Level[19]+")";
+                                    }
+                                    int thirdLevelCnt =0;
+                                    thirdLevel.setFio(rel3Level[3] +" "+rel3Level[4] +" " +rel3Level[5]);
 
-                                        if(rel3Level[2]!=null && !rel3Level[2].toString().equals("---")){
-                                            thirdLevel.setIin(String.valueOf(rel3Level[2]));
+                                    if(rel3Level[2]!=null && !rel3Level[2].toString().equals("---")){
+                                        thirdLevel.setIin(String.valueOf(rel3Level[2]));
 
-                                            Optional<PhotoDb> flRawPhoto3Level = newPhotoRepo.findById(rel3Level[2].toString());
-                                            if (flRawPhoto3Level.isPresent()) {
-                                                try {
-                                                    thirdLevel.setPhoto(new SerialBlob(flRawPhoto3Level.get().getPhoto()));
-                                                } catch (SQLException e) {
-                                                }
+                                        Optional<PhotoDb> flRawPhoto3Level = newPhotoRepo.findById(rel3Level[2].toString());
+                                        if (flRawPhoto3Level.isPresent()) {
+                                            try {
+                                                thirdLevel.setPhoto(new SerialBlob(flRawPhoto3Level.get().getPhoto()));
+                                            } catch (SQLException e) {
                                             }
-
-                                            thirdLevelCnt = flRiskService.findFlRiskByIin(rel3Level[2].toString()).getQuantity();
                                         }
 
-                                        if(thirdLevelCnt!=0){
-                                            thirdLevel.setHaveRisk(true);
-                                        } else{
-                                            thirdLevel.setHaveRisk(false);
-                                        }
-                                        thirdLevel.setName(rel3Level[2]+", " + rel3Level[3] +" "+rel3Level[4] +" " +rel3Level[5] + ", " +rel3Level[0] + relation3Level +", Риски к-во: " + thirdLevelCnt);
-                                        if(!thirdLevel.getFio().equals("null null null")){
+                                        thirdLevelCnt = flRiskService.findFlRiskByIin(rel3Level[2].toString()).getQuantity();
+                                    }
 
-                                            FlRelativiesDTO thirdLevelDto = new FlRelativiesDTO();
-                                            thirdLevelDto.setParent_iin(thirdLevelDto.getIin());
-                                            thirdLevelDto.setParent_fio(thirdLevelDto.getFio());
+                                    if(thirdLevelCnt!=0){
+                                        thirdLevel.setHaveRisk(true);
+                                    } else{
+                                        thirdLevel.setHaveRisk(false);
+                                    }
+                                    thirdLevel.setName(rel3Level[2]+", " + rel3Level[3] +" "+rel3Level[4] +" " +rel3Level[5] + ", " +rel3Level[0] + relation3Level +", Риски к-во: " + thirdLevelCnt);
+                                    if(!thirdLevel.getFio().equals("null null null")){
+
+                                        FlRelativiesDTO thirdLevelDto = new FlRelativiesDTO();
+                                        thirdLevelDto.setParent_iin(thirdLevelDto.getIin());
+                                        thirdLevelDto.setParent_fio(thirdLevelDto.getFio());
 //                                           thirdLevelDto.setRelativeBirthDate(getBirthDate(relation3Level[6]));
 
-                                            boolean isRel = true;
+                                        boolean isRel = true;
 
-                                            if(!flRelativesDtos.isEmpty()){
-                                                for(FlRelativiesDTO rel: flRelativesDtos){
-                                                    if((rel.getParent_iin()!=null && thirdLevelDto.getIin()!=null) && rel.getParent_iin().equals(thirdLevelDto.getIin())){
-                                                        isRel=false;
-                                                        break;
-                                                    }
+                                        if(!flRelativesDtos.isEmpty()){
+                                            for(FlRelativiesDTO rel: flRelativesDtos){
+                                                if((rel.getParent_iin()!=null && thirdLevelDto.getIin()!=null) && rel.getParent_iin().equals(thirdLevelDto.getIin())){
+                                                    isRel=false;
+                                                    break;
+                                                }
 
-                                                    if((rel.getParent_fio()!=null && thirdLevelDto.getFio()!=null) && ( rel.getParent_fio().equals(thirdLevelDto.getFio()) )){
-                                                        isRel=false;
-                                                        break;
-                                                    }
+                                                if((rel.getParent_fio()!=null && thirdLevelDto.getFio()!=null) && ( rel.getParent_fio().equals(thirdLevelDto.getFio()) )){
+                                                    isRel=false;
+                                                    break;
                                                 }
                                             }
+                                        }
 
-                                            if(isRel){
-                                                flRelativesDtos.add(thirdLevelDto);
-                                                relativesNodesList3Level.add(thirdLevel);
-                                            }
+                                        if(isRel){
+                                            flRelativesDtos.add(thirdLevelDto);
+                                            relativesNodesList3Level.add(thirdLevel);
                                         }
                                     }
+                                }
 
+                            }
+                        }
+
+                        secondLevel.setChildren(relativesNodesList3Level);
+                        if(!secondLevel.getFio().equals("null null null")){
+
+                            boolean isRel = true;
+
+                            FlRelativiesDTO secondLvlDto = new FlRelativiesDTO();
+                            secondLvlDto.setParent_iin(secondLevel.getIin());
+                            secondLvlDto.setParent_fio(secondLevel.getFio());
+//                            secondLvlDto.setBirthDate(getBirthDate(rel2Level[6]));
+                            if(!flRelativesDtos.isEmpty()){
+                                for(FlRelativiesDTO rel: flRelativesDtos){
+                                    if((rel.getParent_iin()!=null && secondLevel.getIin()!=null) && rel.getParent_iin().equals(secondLevel.getIin())){
+                                        isRel=false;
+                                        break;
+                                    }
+
+                                    if((rel.getParent_fio()!=null && secondLevel.getFio()!=null) && ( rel.getParent_fio().equals(secondLevel.getFio()) )){
+                                        isRel=false;
+                                        break;
+                                    }
                                 }
                             }
 
-                            secondLevel.setChildren(relativesNodesList3Level);
-                            if(!secondLevel.getFio().equals("null null null")){
-
-                                boolean isRel = true;
-
-                                FlRelativiesDTO secondLvlDto = new FlRelativiesDTO();
-                                secondLvlDto.setParent_iin(secondLevel.getIin());
-                                secondLvlDto.setParent_fio(secondLevel.getFio());
-//                            secondLvlDto.setBirthDate(getBirthDate(rel2Level[6]));
-                                if(!flRelativesDtos.isEmpty()){
-                                    for(FlRelativiesDTO rel: flRelativesDtos){
-                                        if((rel.getParent_iin()!=null && secondLevel.getIin()!=null) && rel.getParent_iin().equals(secondLevel.getIin())){
-                                            isRel=false;
-                                            break;
-                                        }
-
-                                        if((rel.getParent_fio()!=null && secondLevel.getFio()!=null) && ( rel.getParent_fio().equals(secondLevel.getFio()) )){
-                                            isRel=false;
-                                            break;
-                                        }
-                                    }
-                                }
-
-                                if(isRel){
-                                    flRelativesDtos.add(secondLvlDto);
-                                    relativesNodesList.add(secondLevel);
-                                }
+                            if(isRel){
+                                flRelativesDtos.add(secondLvlDto);
+                                relativesNodesList.add(secondLevel);
                             }
                         }
                     }
                 }
-
-                if(firstLevelCnt!=0){
-                    firstLevel.setHaveRisk(true);
-                } else{
-                    firstLevel.setHaveRisk(false);
-                }
-                firstLevel.setName(firstLevel.getName() + ", Риски к-во: " + firstLevelCnt);
-
-                firstLevel.setChildren(relativesNodesList);
-
-                if(!firstLevel.getFio().equals("null null null")){
-                    relativesNodes.add(firstLevel);
-                }
             }
-            nodes.setChildren(relativesNodes);
+
+            if(firstLevelCnt!=0){
+                firstLevel.setHaveRisk(true);
+            } else{
+                firstLevel.setHaveRisk(false);
+            }
+            firstLevel.setName(firstLevel.getName() + ", Риски к-во: " + firstLevelCnt);
+
+            firstLevel.setChildren(relativesNodesList);
+
+            if(!firstLevel.getFio().equals("null null null")){
+                relativesNodes.add(firstLevel);
+            }
+        }
+        nodes.setChildren(relativesNodes);
 //            return nodes;
 //        }
         return nodes;
     }
-
     public NodesFL getNode(String IIN){
         NodesFL myNode = new NodesFL();
         try {
@@ -965,199 +1136,6 @@ public class MyService {
             System.out.println("Error:" + e);
         }
         try {
-//            List<fl_relatives> initialRelatives = fl_relativesRepository.findAllByIin(IIN);
-//            Set<fl_relatives> allRelativesSet = new HashSet<>(initialRelatives); // Initialize set with the initial relatives
-//
-//            for (fl_relatives relative : initialRelatives) {
-//                List<fl_relatives> moreRelatives = fl_relativesRepository.findAllByIin(relative.getParent_iin());
-//                for(fl_relatives moreRelativ : moreRelatives){
-//                    if(moreRelativ.getRelative_type() == "Ребенок" &)
-//                }
-//                allRelativesSet.addAll(moreRelatives); // Add the fetched relatives to the set
-//            }
-//
-//            List<fl_relatives> allRelatives = new ArrayList<>(allRelativesSet); // Convert the set back to a list
-//            Iterator<fl_relatives> iterator = allRelatives.iterator();
-//            Set<String> uniqueIds = new HashSet<>();
-//
-//            while(iterator.hasNext()) {
-//                fl_relatives relative = iterator.next();
-//                if(!uniqueIds.add(relative.getParent_iin())) {
-//                    iterator.remove();
-//                }
-//                if(uniqueIds.add(IIN)){
-//                    iterator.remove();
-//                }
-//            }
-//            myNode.setFl_relatives(allRelatives); // Set the
-            List<Object[]> flRelativesObj;
-            flRelativesObj = fl_relativesRepository.findAllByIin(IIN);
-            List<FlRelativiesDTO> flRelativesDtoList = new ArrayList<>();
-            for (Object[] relatives:flRelativesObj) {
-
-                FlRelativiesDTO dto = new FlRelativiesDTO();
-                //--Фио
-                dto.setParent_fio(relatives[3] +" "+relatives[4] +" " +relatives[5]);
-                System.out.println(relatives[3] +" "+relatives[4] +" " +relatives[5]);
-                if(relatives[8]!=null){ //--Круг
-                    dto.setLevel((String) relatives[8]);
-                }
-
-                if(relatives[8].toString().equals("1")){ //--Статус родственника
-                    if(relatives[0]!=null){
-                        dto.setRelative_type(relatives[0].toString());
-                    }
-                } else if(relatives[8].toString().equals("2")) {
-                    if(relatives[0]!=null) {
-                        dto.setRelative_type(relatives[0] +" ("+relatives[19]+")");
-                    }
-                } else if (relatives[8].toString().equals("3")){
-                    String relation="";
-                    if(relatives[19]!=null){
-                        relation=" ("+relatives[19]+")";
-                    }
-                    if(relatives[0]!=null) {
-                        dto.setRelative_type(relatives[0] +relation);
-                    }
-                } else {
-                    if(relatives[0]!=null){
-                        dto.setRelative_type(String.valueOf(relatives[0]));
-                    }
-                }
-
-                //--Дата рождения
-                if(relatives[6]!=null) {
-                    if(relatives[6].toString().length()==10){
-                        try{
-                            dto.setParent_birth_date(String.valueOf(LocalDate.parse(relatives[6].toString())));
-                        }catch (Exception e){
-                            try {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                LocalDate localDateTime = LocalDate.parse(relatives[6].toString(), formatter);
-                                dto.setParent_birth_date(String.valueOf(localDateTime));
-                            }catch (Exception ex){
-                            }
-                        }
-
-                    } else if(relatives[6].toString().length()==22){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[6].toString(), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setParent_birth_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    } else if(relatives[6].toString().length()==24){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[6].toString().substring(1,23), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setBirth_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    }
-                }
-
-                //--Дата регистрация брака
-                if(relatives[10]!=null) {
-                    if(relatives[10].toString().length()==10){
-                        try{
-                            dto.setMarriage_reg_date(String.valueOf(LocalDate.parse(relatives[10].toString())));
-                        }catch (Exception e){
-                            try {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                LocalDate localDateTime = LocalDate.parse(relatives[10].toString(), formatter);
-                                dto.setMarriage_reg_date(String.valueOf(localDateTime));
-                            }catch (Exception ex){
-                            }
-                        }
-                    } else if(relatives[10].toString().length()==22){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[10].toString(), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_reg_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    } else if(relatives[10].toString().length()==24){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[10].toString().substring(1,23), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_reg_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    }
-                }
-
-                //--Дата Рассторжения брака
-                if(relatives[11]!=null && !relatives[11].toString().equals("(null)")) {
-                    if(relatives[11].toString().length()==10){
-                        try{
-                            dto.setMarriage_divorce_date(String.valueOf(LocalDate.parse(relatives[11].toString())));
-                        }catch (Exception e){
-                            try {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                LocalDate localDateTime = LocalDate.parse(relatives[11].toString(), formatter);
-                                dto.setMarriage_divorce_date(String.valueOf(localDateTime));
-                            }catch (Exception ex){
-                            }
-                        }
-                    } else if(relatives[11].toString().length()==22) {
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[11].toString(), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_divorce_date(String.valueOf(localDate));
-                        } catch (Exception e){
-                        }
-                    } else if(relatives[11].toString().length()==24) {
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[11].toString().substring(1,23), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_divorce_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    }
-                }
-
-                //--ИИН родственника
-                if(relatives[2]!=null && !relatives[2].toString().equals("---")) {
-                    dto.setParent_iin(relatives[2].toString());
-                }
-
-                if(!dto.getParent_fio().equals("null null null")){
-                    boolean isRel = true;
-
-                    if(!flRelativesDtoList.isEmpty()){
-                        for(FlRelativiesDTO rel: flRelativesDtoList){
-                            if((rel.getParent_iin()!=null && dto.getParent_iin()!=null) && rel.getParent_iin().equals(dto.getParent_iin())){
-                                isRel=false;
-
-                                break;
-                            }
-
-                            if((rel.getParent_fio()!=null && dto.getParent_fio()!=null) && ( rel.getParent_fio().equals(dto.getParent_fio()) )){
-                                isRel=false;
-                                break;
-                            }
-
-                        }
-                    }
-
-                    if(isRel){
-                        flRelativesDtoList.add(dto);
-
-                    }
-                }
-            }
-              myNode.setFl_relatives(flRelativesDtoList);
-
-        } catch (Exception e){
-            System.out.println("Error:" + e);
-        }
-        try {
             List<RegAddressFl> addressFls = regAddressFlRepo.getByIIN(IIN);
             myNode.setRegAddressFls(addressFls);
         } catch (Exception e){
@@ -1296,180 +1274,6 @@ public class MyService {
     }
 
 
-
-    public NodesFL getRelatives(String IIN){
-        NodesFL myNode = new NodesFL();
-        try{
-            List<Object[]> flRelativesObj;
-            flRelativesObj = fl_relativesRepository.findAllByIin(IIN);
-            List<FlRelativiesDTO> flRelativesDtoList = new ArrayList<>();
-            for (Object[] relatives:flRelativesObj) {
-
-                FlRelativiesDTO dto = new FlRelativiesDTO();
-                //--Фио
-                dto.setParent_fio(relatives[3] +" "+relatives[4] +" " +relatives[5]);
-                System.out.println(relatives[3] +" "+relatives[4] +" " +relatives[5]);
-                if(relatives[8]!=null){ //--Круг
-                    dto.setLevel((String) relatives[8]);
-                }
-
-                if(relatives[8].toString().equals("1")){ //--Статус родственника
-                    if(relatives[0]!=null){
-                        dto.setRelative_type(relatives[0].toString());
-                    }
-                } else if(relatives[8].toString().equals("2")) {
-                    if(relatives[0]!=null) {
-                        dto.setRelative_type(relatives[0] +" ("+relatives[19]+")");
-                    }
-                } else if (relatives[8].toString().equals("3")){
-                    String relation="";
-                    if(relatives[19]!=null){
-                        relation=" ("+relatives[19]+")";
-                    }
-                    if(relatives[0]!=null) {
-                        dto.setRelative_type(relatives[0] +relation);
-                    }
-                } else {
-                    if(relatives[0]!=null){
-                        dto.setRelative_type(String.valueOf(relatives[0]));
-                    }
-                }
-
-                //--Дата рождения
-                if(relatives[6]!=null) {
-                    if(relatives[6].toString().length()==10){
-                        try{
-                            dto.setParent_birth_date(String.valueOf(LocalDate.parse(relatives[6].toString())));
-                        }catch (Exception e){
-                            try {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                LocalDate localDateTime = LocalDate.parse(relatives[6].toString(), formatter);
-                                dto.setParent_birth_date(String.valueOf(localDateTime));
-                            }catch (Exception ex){
-                            }
-                        }
-
-                    } else if(relatives[6].toString().length()==22){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[6].toString(), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setParent_birth_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    } else if(relatives[6].toString().length()==24){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[6].toString().substring(1,23), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setBirth_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    }
-                }
-
-                //--Дата регистрация брака
-                if(relatives[10]!=null) {
-                    if(relatives[10].toString().length()==10){
-                        try{
-                            dto.setMarriage_reg_date(String.valueOf(LocalDate.parse(relatives[10].toString())));
-                        }catch (Exception e){
-                            try {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                LocalDate localDateTime = LocalDate.parse(relatives[10].toString(), formatter);
-                                dto.setMarriage_reg_date(String.valueOf(localDateTime));
-                            }catch (Exception ex){
-                            }
-                        }
-                    } else if(relatives[10].toString().length()==22){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[10].toString(), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_reg_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    } else if(relatives[10].toString().length()==24){
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[10].toString().substring(1,23), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_reg_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    }
-                }
-
-                //--Дата Рассторжения брака
-                if(relatives[11]!=null && !relatives[11].toString().equals("(null)")) {
-                    if(relatives[11].toString().length()==10){
-                        try{
-                            dto.setMarriage_divorce_date(String.valueOf(LocalDate.parse(relatives[11].toString())));
-                        }catch (Exception e){
-                            try {
-                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                                LocalDate localDateTime = LocalDate.parse(relatives[11].toString(), formatter);
-                                dto.setMarriage_divorce_date(String.valueOf(localDateTime));
-                            }catch (Exception ex){
-                            }
-                        }
-                    } else if(relatives[11].toString().length()==22) {
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd:hh:mm:ss a");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[11].toString(), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_divorce_date(String.valueOf(localDate));
-                        } catch (Exception e){
-                        }
-                    } else if(relatives[11].toString().length()==24) {
-                        try {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("[yyyy/MM/dd:hh:mm:ss a]");
-                            LocalDateTime localDateTime = LocalDateTime.parse(relatives[11].toString().substring(1,23), formatter);
-                            LocalDate localDate = localDateTime.toLocalDate();
-                            dto.setMarriage_divorce_date(String.valueOf(localDate));
-                        }catch (Exception e){
-                        }
-                    }
-                }
-
-                //--ИИН родственника
-                if(relatives[2]!=null && !relatives[2].toString().equals("---")) {
-                    dto.setParent_iin(relatives[2].toString());
-                }
-
-                if(!dto.getParent_fio().equals("null null null")){
-                    boolean isRel = true;
-
-                    if(!flRelativesDtoList.isEmpty()){
-                        for(FlRelativiesDTO rel: flRelativesDtoList){
-                            if((rel.getParent_iin()!=null && dto.getParent_iin()!=null) && rel.getParent_iin().equals(dto.getParent_iin())){
-                                isRel=false;
-
-                                break;
-                            }
-
-                            if((rel.getParent_fio()!=null && dto.getParent_fio()!=null) && ( rel.getParent_fio().equals(dto.getParent_fio()) )){
-                                isRel=false;
-                                break;
-                            }
-
-                        }
-                    }
-
-                    if(isRel){
-                        flRelativesDtoList.add(dto);
-
-                    }
-                }
-            }
-            myNode.setFl_relatives(flRelativesDtoList);
-
-        } catch (Exception e) {
-            System.out.println("Error:" + e);
-        }
-        myNode = tryAddPhoto(myNode,IIN);
-        return myNode;
-    }
 
 
     public List<SearchResultModelUl> searchResultUl(String bin) {
@@ -1676,17 +1480,22 @@ public class MyService {
             List<Map<String, Object>> r = flPensionContrRepo.findAmountOfEmployeesOfEveryYear(BIN);
             myNode.setPensionYearAndEmpNum(r);
             myNode.setSvedenyaObUchastnikovUlEntities(svedenyaObUchastnikovUlEntities);
-            if (myNode.getOmns().size() == 0
-                    & myNode.getBankrots().size() == 0
-                    & myNode.getAdms().size() == 0
-                    & myNode.getOpgEntities().size() == 0
-                    & myNode.getCriminals().size() == 0
-                    & myNode.getBlockEsfs().size() == 0
-                    & myNode.getFpgTempEntities().size() == 0) {
-                myNode.setPerson_with_risk(false);
-            } else {
-                myNode.setPerson_with_risk(true);
+            try {
+                if (myNode.getOmns().size() == 0
+                        & myNode.getBankrots().size() == 0
+                        & myNode.getAdms().size() == 0
+                        & myNode.getOpgEntities().size() == 0
+                        & myNode.getCriminals().size() == 0
+                        & myNode.getBlockEsfs().size() == 0
+                        & myNode.getFpgTempEntities().size() == 0) {
+                    myNode.setPerson_with_risk(false);
+                } else {
+                    myNode.setPerson_with_risk(true);
+                }
+            }catch (Exception e){
+                System.out.println("ne poluchiolos");
             }
+
 //         List<FL_PENSION_FINAL> flPensionFinals = new ArrayList<>();
 //         FL_PENSION_FINAL flPensionFinal = new FL_PENSION_FINAL();
 //         flPensionFinal.setNakoplenya(flPensionContrRepo.findAmountOfEmployeesOfEveryYear(BIN));

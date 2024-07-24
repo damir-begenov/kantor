@@ -10,13 +10,7 @@ import java.util.List;
 
 @Repository
 public interface FlRelativesRepository extends JpaRepository<FlRelatives, Long>  {
-    @Query(value = "select rel.ru_name as name, * ,rel.test_column_relation as test from imp_zags.fl_relatives(:iin) " +
-            "left join dictionary.d_relations rel on rel.id=cast(\"RELATION\" as int) " +
-            " where case\n" +
-            "    when :iin='910707300201' then \"IIN\" not in('880830300877')\n" +
-            "    else\n" +
-            "            \"IIN\" not in('910707300201')\n" +
-            "    end;",nativeQuery = true)
+    @Query(value = "select d.ru_name as name ,*, d.test_column_relation from public.relations_3_level r left join dictionary.d_relations d on d.id = CAST(r.\"RELATION\" AS INT) where \"REF_IIN\" = ?1",nativeQuery = true)
     List<Object[]> findAllByIin(String iin);
     @Query(value= "select * from imp_zags.fl_relations_3_level where parent_iin = ?1", nativeQuery = true)
     List<FlRelatives> getRelativesByFio(String IIN);

@@ -81,11 +81,11 @@ public class DoseirController {
         return myService.getByAddress(params);
     }
 
-    // @GetMapping("/rnDetails")
-    // public String getMethodName(@RequestParam String cadastral, @RequestParam String address) {
-    //     rnService.getDetailedRnView(cadastral, address);
-    //     return new String();
-    // }
+    @GetMapping("/rnDetails")
+    public String getMethodName(@RequestParam String cadastral, @RequestParam String address) {
+        rnService.getDetailedRnView(cadastral, address);
+        return new String();
+    }
 
     @GetMapping("/generalInfo")
     public GeneralInfoDTO getGeneralInfo(@RequestParam String iin) {

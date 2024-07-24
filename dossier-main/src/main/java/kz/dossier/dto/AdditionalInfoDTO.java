@@ -26,6 +26,46 @@ public class AdditionalInfoDTO {
 
     private List<MvUlLeader> ul_leaderList; //Сведения об участии в ЮЛ
     private List<FlPensionFinal> flPensionContrs;
+    private int number;
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber() {
+        int s = 0;
+
+        // Check if lists are not null and not empty
+        if (this.flPensionContrs != null && !this.flPensionContrs.isEmpty()) {
+            s++;
+        }
+        if (this.equipment != null && !this.equipment.isEmpty()) {
+            s++;
+        }
+        if (this.universities != null && !this.universities.isEmpty()) {
+            s++;
+        }
+        if (this.schools != null && !this.schools.isEmpty()) {
+            s++;
+        }
+        if (this.mvRnOlds != null && !this.mvRnOlds.isEmpty()) {
+            s++;
+        }
+        if (this.mvAutoFls != null && !this.mvAutoFls.isEmpty()) {
+            s++;
+        }
+        if (this.millitaryAccounts != null && !this.millitaryAccounts.isEmpty()) {
+            s++;
+        }
+        if (this.militaryAccounting2Entities != null && !this.militaryAccounting2Entities.isEmpty()) {
+            s++;
+        }
+        if (this.ul_leaderList != null && !this.ul_leaderList.isEmpty()) {
+            s++;
+        }
+
+        this.number = s;
+    }
 
     List<PensionListDTO> pensions;
 

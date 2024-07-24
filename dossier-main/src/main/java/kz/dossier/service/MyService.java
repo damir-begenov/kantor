@@ -167,6 +167,25 @@ public class MyService {
     }
 
 
+    public UlAddressInfo getUlAddresses(String bin) {
+        RegAddressUlEntity address = regAddressUlEntityRepo.findByBin(bin);
+        UlAddressInfo ulAddressInfo = new UlAddressInfo();
+        if (address != null) {
+            ulAddressInfo.setReg_addr_region_ru(address.getRegAddrRegionRu());
+            ulAddressInfo.setReg_addr_district_ru(address.getRegAddrRegionRu());
+            ulAddressInfo.setReg_addr_rural_district_ru(address.getRegAddrRuralDistrictRu());
+            ulAddressInfo.setReg_addr_locality_ru(address.getRegAddrLocalityRu());
+            ulAddressInfo.setReg_addr_street_ru(address.getRegAddrStreetRu());
+            ulAddressInfo.setReg_addr_bulding_num(address.getRegAddrBuildingNum());
+            ulAddressInfo.setReg_addr_block_num(address.getRegAddrBlockNum());
+            ulAddressInfo.setReg_addr_builing_body_num(address.getRegAddrBuildingBodyNum());
+            ulAddressInfo.setReg_addr_office(address.getRegAddrOffice());
+            ulAddressInfo.setOked(address.getOkedNameRu());
+        }
+
+        return ulAddressInfo;
+    }
+
     public List<FlRelativiesDTO> getRelativesInfo(String iin){
         List<Object[]> flRelativesObj;
         flRelativesObj = fl_relativesRepository.findAllByIin(iin);
@@ -1563,7 +1582,7 @@ public class MyService {
 
 
         public FlFirstRowDto getFlFirstRow(String IIN){
-        FlFirstRowDto flFirstRowDto = new FlFirstRowDto();
+            FlFirstRowDto flFirstRowDto = new FlFirstRowDto();
             try {
                 List<MvFl> myMv_fl =  mv_FlRepo.getUsersByLike(IIN);
                 try {

@@ -1492,8 +1492,8 @@ public class MyService {
                 svedenyaObUchastnikovUlEntities.add(svedenyaObUchastnikovUlEntity);
 
             }
-//            List<Map<String, Object>> r = flPensionContrRepo.findAmountOfEmployeesOfEveryYear(BIN);
-//            myNode.setPensionYearAndEmpNum(r);
+            List<Map<String, Object>> r = flPensionContrRepo.findAmountOfEmployeesOfEveryYear(BIN);
+            myNode.setPensionYearAndEmpNum(r);
             myNode.setSvedenyaObUchastnikovUlEntities(svedenyaObUchastnikovUlEntities);
             if (myNode.getOmns().size() == 0
                     & myNode.getBankrots().size() == 0
@@ -1541,12 +1541,12 @@ public class MyService {
 //             flPensionFinals.add(flPensionFinal);
 //         }
 //         myNode.setFlPensionContrs(flPensionFinals);
-//        try {
-//            Integer number = taxOutEntityRepo.getTaxAmount(BIN);
-//            myNode.setTaxCount(number);
-//        } catch (Exception e) {
-//            System.out.println("Tax error: " + e);
-//        }
+        try {
+            Integer number = taxOutEntityRepo.getTaxAmount(BIN);
+            myNode.setTaxCount(number);
+        } catch (Exception e) {
+            System.out.println("Tax error: " + e);
+        }
             return myNode;
         }
 

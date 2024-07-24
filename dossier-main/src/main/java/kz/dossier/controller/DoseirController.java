@@ -81,7 +81,6 @@ public class DoseirController {
     //     return new String();
     // }
 
-
     @GetMapping("/profile")
     public NodesFL getProfile(@RequestParam String iin) {
         return myService.getNode(iin);
@@ -112,12 +111,10 @@ public class DoseirController {
 
     @GetMapping("/pensionsbyyear")
     public List<Map<String,Object>> pensionUl1(@RequestParam String bin, @RequestParam Double year, @RequestParam Integer page) {
-//        return myService.taxOutEntities(bin,PageRequest.of(page,size));
         return myService.pensionEntityUl1(bin, year, page);
     }
     @GetMapping("/hierarchy")
     public FlRelativesLevelDto hierarchy(@RequestParam String iin) throws SQLException {
-//        return myService.taxOutEntities(bin,PageRequest.of(page,size));
         return myService.createHierarchyObject(iin);
     }
     @GetMapping("/iin")
@@ -159,11 +156,11 @@ public class DoseirController {
     }
 
     @GetMapping("/fio")
-    public List<SearchResultModelFL> findByFIO(@RequestParam String i, @RequestParam String o, @RequestParam String f, @RequestParam String email) {
+    public List<SearchResultModelFL> findByFIO(@RequestParam String i, @RequestParam String o, @RequestParam String f) {
         log log = new log();
         log.setDate(LocalDateTime.now());
-        log.setObwii("Искал в досье " + email + ": " + f + " " + i + " " + o);
-        log.setUsername(email);
+//        log.setObwii("Искал в досье " + email + ": " + f + " " + i + " " + o);
+//        log.setUsername(email);
         logRepo.save(log);
         return myService.getByFIO_photo(i.replace('$', '%'), o.replace('$', '%'), f.replace('$', '%'));
     }

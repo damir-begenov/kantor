@@ -32,7 +32,7 @@ public interface FlPensionContrRepo extends JpaRepository<FlPensionContr, Long> 
             "cast(SUM(case when \"KNP\"='010' then \"AMOUNT\" else 0 END) as text) AS zeroten, " +
             "cast(SUM(case when \"KNP\"='012' then \"AMOUNT\" else 0 END) as text) AS zerotwelve " +
             "FROM imp_kfm_fl.fl_pension_contr " +
-            "WHERE extract(year from \"PAY_DATE\") = '2022' and \"P_RNN\" = ?1 and \"FIRSTNAME\" notnull " +
+            "WHERE cast(extract(year from \"PAY_DATE\") as text) = :year and \"P_RNN\" = :bin and \"FIRSTNAME\" notnull " +
             "GROUP BY concat(\"SURNAME\" || ' ' || \"FIRSTNAME\" || ' ' || \"SECONDNAME\"), \"IIN\"", nativeQuery = true)
     Page<Map<String,Object>> getPension(String bin, String year, PageRequest pageRequest);
     @Query(value= "SELECT DISTINCT \"IIN\", " +

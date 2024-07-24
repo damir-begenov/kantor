@@ -655,6 +655,52 @@ public class MyService {
             System.out.println("dismissals WRAP Error:" + e);
         }
         try {
+            List<ImmoralLifestyle> immoralLifestyles =  immoral_lifestlyeRepo.getImmoByIIN(IIN);
+            try {
+                myNode.setAmoral(immoralLifestyles);
+            } catch (Exception e) {
+                System.out.println("immoralLifestyles Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("immoralLifestyles WRAP Error:" + e);
+        }try {
+            List<DrugAddicts> drugAddicts =  drugAddictsRepo.getDrugAddictsByIIN(IIN);
+            try {
+                myNode.setDrugAddicts(drugAddicts);
+            } catch (Exception e) {
+                System.out.println("immoralLifestyles Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("immoralLifestyles WRAP Error:" + e);
+        }try {
+            List<Incapacitated> incapacitateds =  incapacitatedRepo.getIncapacitatedByIIN(IIN);
+            try {
+                myNode.setIncapacitateds(incapacitateds);
+            } catch (Exception e) {
+                System.out.println("incapacitateds Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("incapacitateds WRAP Error:" + e);
+        }try {
+            List<Dismissal> dismissals =  dismissalRepo.getDismissalByIIN(IIN);
+            try {
+                myNode.setDismissals(dismissals);
+            } catch (Exception e) {
+                System.out.println("incapacitateds Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("incapacitateds WRAP Error:" + e);
+        }try {
+            List<ConvictsAbroad> convictsAbroads =  convictsAbroadRepo.getConvictsAbroadByIIN(IIN);
+            try {
+                myNode.setConvictsAbroads(convictsAbroads);
+            } catch (Exception e) {
+                System.out.println("immoralLifestyles Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("immoralLifestyles WRAP Error:" + e);
+        }
+        try {
             List<MvAutoFl> myMv_auto_fl =  mvAutoFlRepo.getUsersByLike(IIN);
             try {
                 myNode.setMvAutoFls(myMv_auto_fl);

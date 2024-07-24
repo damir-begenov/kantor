@@ -7,6 +7,8 @@ import kz.dossier.repositoryDossier.MvUlRepo;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
+import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff;
+import org.openxmlformats.schemas.officeDocument.x2006.sharedTypes.STOnOff1;
 import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,8 +82,10 @@ public class DocxGenerator {
                             "Резидент",
                             "Национальность",
                             "Дата смерти"));
+                    
                     XWPFTableRow row1 = table.createRow();
                     XWPFTableCell cell1 = row1.createCell();
+
                     XWPFParagraph paragraph2 = cell1.addParagraph();
 
                     setCellPadding(cell1, 200, 200, 200, 200);
@@ -91,7 +95,6 @@ public class DocxGenerator {
                     ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
                     int imageType = XWPFDocument.PICTURE_TYPE_PNG; // Change according to your image type (e.g., PICTURE_TYPE_JPEG)
                     run1.addPicture(imageStream, imageType, "image.png", Units.toEMU(75), Units.toEMU(100));
-
                     row1.addNewTableCell().setText(result.getMvFls().get(0).getIin());
                     row1.addNewTableCell().setText(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic());
                     row1.addNewTableCell().setText(result.getMvFls().get(0).isIs_resident() ? "ДА" : "НЕТ");
@@ -112,6 +115,7 @@ public class DocxGenerator {
                             "Регион",
                             "Дата прописки"
                     ));
+                    
                     XWPFTableRow row2 = table.createRow();
                     for (RegAddressFl regAddressFl : result.getRegAddressFls()) {
                         row2.addNewTableCell().setText(regAddressFl.getCountry());
@@ -130,6 +134,7 @@ public class DocxGenerator {
                 if (docs != null && !docs.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Документы", Arrays.asList("Типа Документа", "Орган выдачи", "Дата выдачи", "Срок до", "Номер документа"));
+                    
                     for (MvIinDoc doci : docs) {
                         XWPFTableRow dataRow = table.createRow();
                         dataRow.addNewTableCell().setText(doci.getDoc_type_ru_name());
@@ -148,6 +153,7 @@ public class DocxGenerator {
                 if (schools != null && !schools.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Школы", Arrays.asList("БИН", "Название школы", "Класс", "Дата поступления", "Дата окончания"));
+                    
                     for (School school : schools) {
                         XWPFTableRow dataRow = table.createRow();
                         dataRow.addNewTableCell().setText(school.getSchool_code());
@@ -167,6 +173,7 @@ public class DocxGenerator {
                 if (universities != null && !universities.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Вузы", Arrays.asList("БИН", "Название вуза", "Специализация", "Дата поступления", "Дата окончания", "Длительность обучения", "Курс"));
+                    
                     for (Universities university : universities) {
                         XWPFTableRow dataRow = table.createRow();
                         dataRow.addNewTableCell().setText(university.getStudy_code());
@@ -188,6 +195,7 @@ public class DocxGenerator {
                 if (autos != null && !autos.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Транспорт", Arrays.asList("№", "Статус", "Регистрационный номер", "Марка модель", "Дата выдачи свидетельства", "Дата снятия", "Год выпуска", "Категория", "VIN/Кузов/Шасси", "Серия"));
+                    
                     int number = 1;
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     for (MvAutoFl auto : autos) {
@@ -215,6 +223,7 @@ public class DocxGenerator {
                 if (fl_relatives != null && !fl_relatives.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Родственные связи", Arrays.asList("№", "Статус по отношению к родственнику", "ФИО", "ИИН", "Дата рождения", "Дата регистрации брака", "Дата расторжения брака"));
+                    
                     int number = 1;
                     for (FlRelativiesDTO relative : fl_relatives) {
                         XWPFTableRow dataRow = table.createRow();
@@ -237,6 +246,7 @@ public class DocxGenerator {
                 if (contacts != null && !contacts.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Контактные данные ФЛ", Arrays.asList("№", "Телефон", "Почта", "Источник"));
+                    
                     int number = 1;
                     for (FlContacts contact : contacts) {
                         XWPFTableRow dataRow = table.createRow();
@@ -257,6 +267,7 @@ public class DocxGenerator {
                 if (militaryAccounts != null && !militaryAccounts.isEmpty()) {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Воинский учет", Arrays.asList("№", "БИН воинской части", "Дата службы с", "Дата службы по"));
+                    
                     int number = 1;
                     for (MillitaryAccount account : militaryAccounts) {
                         XWPFTableRow dataRow = table.createRow();
@@ -278,6 +289,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения об участниках ЮЛ", Arrays.asList("№", "БИН", "Наименование ЮЛ", "Дата регистрации"));
+                    
                     int number = 1;
                     for (MvUlFounderFl r : mvUlFounderFls) {
                         XWPFTableRow dataRow = table.createRow();
@@ -303,6 +315,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "НДС", Arrays.asList("№", "Дата начала", "Дата конца", "Дата обновления", "Причина"));
+                    
                     int number = 1;
                     for (NdsEntity r : ndsEntities) {
                         XWPFTableRow dataRow = table.createRow();
@@ -325,6 +338,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по ИПГО", Arrays.asList("№", "Департамент", "Должность", "ИПГО почта"));
+                    
                     int number = 1;
                     for (IpgoEmailEntity r : ipgoEmailEntities) {
                         XWPFTableRow dataRow = table.createRow();
@@ -345,7 +359,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по банкротам", Arrays.asList("№", "ИИН/БИН", "Документ", "Дата обновления", "Причина"));
-
+                    
                     int number = 1;
                     for (Bankrot r : bankrotEntities) {
                         XWPFTableRow dataRow = table.createRow();
@@ -368,6 +382,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Наименование риска: \"Осужденные\" Количество найденных инф: " + convictsJustifieds.size(),
                             Arrays.asList("№", "Дата рассмотрения в суде 1 инстанции", "Суд 1 инстанции", "Решение по лицу", "Мера наказания по договору", "Квалификация"));
+                    
                     int number = 1;
                     for (ConvictsJustified r : convictsJustifieds) {
                         XWPFTableRow dataRow = table.createRow();
@@ -391,6 +406,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Административные штрафы",
                             Arrays.asList("№", "Орган выявивший правонарушение", "Дата заведения", "Квалификация", "Решение", "Уровень тяжести"));
+                    
                     int number = 1;
                     for (ConvictsTerminatedByRehab r : convictsTerminatedByRehabs) {
                         XWPFTableRow dataRow = table.createRow();
@@ -413,6 +429,7 @@ public class DocxGenerator {
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Блокировка ЭСФ", Arrays.asList("№", "Дата блокировки", "Дата востановления", "Дата обновления"));
+                    
                     int number = 1;
                     for (BlockEsf r : blockEsfs) {
                         XWPFTableRow dataRow = table.createRow();
@@ -434,6 +451,7 @@ public class DocxGenerator {
                     makeTableByProperties(doc, table, "Сведения по кредитным бюро", Arrays.asList(
                             "№", "Тип", "Кредит в FOID", "Регион", "Количество FPD SPD", "Сумма долга", "Макс. задержка дней", "Фин. учреждения", "Общее количество кредитов"));
 
+                    
                     int number = 1;
                     for (FirstCreditBureauEntity entity : result.getFirstCreditBureauEntities()) {
                         XWPFTableRow dataRow = table.createRow();
@@ -460,6 +478,7 @@ public class DocxGenerator {
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по аморальному образу жизни", Arrays.asList("№", "Орган выявивший", "Гражданство", "Дата решения", "Сумма штрафа"));
 
+                    
                     int number = 1;
                     for (ImmoralLifestyle r : result.getAmoral()) {
                         XWPFTableRow dataRow = table.createRow();
@@ -481,6 +500,7 @@ public class DocxGenerator {
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по МЗ", Arrays.asList("№", "Код болезни", "Регистрация", "Статус МЗ", "Медицинская организация"));
 
+                    
                     int number = 1;
                     for (MzEntity r : result.getMzEntities()) {
                         XWPFTableRow dataRow = table.createRow();
@@ -501,6 +521,7 @@ public class DocxGenerator {
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по разыскиваемым", Arrays.asList("№", "Дни", "Орган", "Статус", "Дата актуальности"));
 
+                    
                     int number = 1;
                     for (WantedListEntity r : result.getWantedListEntities()) {
                         XWPFTableRow dataRow = table.createRow();
@@ -1154,6 +1175,19 @@ public class DocxGenerator {
             }
             doc.write(baos);
             baos.close();
+        }
+    }
+    private void setTableKeepTogether(XWPFTable table) {
+        table.getCTTbl().getTblPr().addNewTblLayout().setType(STTblLayoutType.FIXED);
+    }
+
+    private void setRowKeepWithNext(XWPFTableRow row) {
+        for (XWPFTableCell cell : row.getTableCells()) {
+            cell.getCTTc().getPList().forEach(ctP -> {
+                CTPPr ppr = ctP.isSetPPr() ? ctP.getPPr() : ctP.addNewPPr();
+                ppr.addNewKeepNext().setVal(STOnOff1.ON);
+                ppr.addNewKeepLines().setVal(STOnOff1.ON);
+            });
         }
     }
 }

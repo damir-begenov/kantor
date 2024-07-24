@@ -36,74 +36,8 @@ public class PdfGenerator {
     }
 
 
-    public void generateDoc(NodesFL result,ByteArrayOutputStream baos) throws IOException, InvalidFormatException {
-        try (XWPFDocument doc = new XWPFDocument()) {
-            CTDocument1 document = doc.getDocument();
-            CTBody body = document.getBody();
 
-            if (!body.isSetSectPr()) {
-                body.addNewSectPr();
-            }
-            CTSectPr section = body.getSectPr();
 
-            if(!section.isSetPgSz()) {
-                section.addNewPgSz();
-            }
-            CTPageSz pageSize = section.getPgSz();
-
-            pageSize.setOrient(STPageOrientation.LANDSCAPE);
-
-            XWPFTable table = doc.createTable();
-            table.setWidth("100%");
-            XWPFTableRow row3 = table.createRow();
-            XWPFTableCell cell = row3.addNewTableCell();
-            cell.setWidth("100%");
-            cell.setColor("808080");
-            XWPFParagraph paragraph = cell.addParagraph();
-            paragraph.setAlignment(ParagraphAlignment.CENTER);
-            XWPFRun run = paragraph.createRun();
-            run.setText("Сведения о физическом лице");
-            XWPFTableRow row = table.createRow();
-            row.addNewTableCell().setText("Фото");
-            row.addNewTableCell().setText("ИИН");
-            row.addNewTableCell().setText("ФИО");
-            row.addNewTableCell().setText("Резидент");
-            row.addNewTableCell().setText("Национальность");
-            row.addNewTableCell().setText("Дата смерти");
-
-            XWPFTableRow row1 = table.createRow();
-            XWPFTableCell cell1 = row1.createCell();
-            XWPFParagraph paragraph1 = cell1.addParagraph();
-
-            setCellPadding(cell1,200,200,200,200);
-            XWPFRun run1 = paragraph1.createRun();
-
-            byte[] imageBytes = result.getPhotoDbf().get(0).getPhoto();
-            ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
-
-            row1.addNewTableCell().setText(result.getMvFls().get(0).getIin());
-            row1.addNewTableCell().setText(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic());
-            row1.addNewTableCell().setText(result.getMvFls().get(0).isIs_resident() ? "ДА" : "НЕТ");
-            row1.addNewTableCell().setText(result.getMvFls().get(0).getNationality_ru_name());
-            row1.addNewTableCell().setText(result.getMvFls().get(0).getDeath_date());
-
-            // Add the image to the document
-            int imageType = XWPFDocument.PICTURE_TYPE_PNG; // Change according to your image type (e.g., PICTURE_TYPE_JPEG)
-            run1.addPicture(imageStream, imageType, "image.png", Units.toEMU(50), Units.toEMU(100));
-            doc.write(baos);
-            baos.close();
-        }
-    }
-
-    private static void setCellPadding(XWPFTableCell cell, int top, int left, int bottom, int right) {
-        CTTcPr tcPr = cell.getCTTc().addNewTcPr();
-
-        org.openxmlformats.schemas.wordprocessingml.x2006.main.CTTcMar cellMar = tcPr.isSetTcMar() ? tcPr.getTcMar() : tcPr.addNewTcMar();
-        cellMar.addNewTop().setW(BigInteger.valueOf(top));
-        cellMar.addNewLeft().setW(BigInteger.valueOf(left));
-        cellMar.addNewBottom().setW(BigInteger.valueOf(bottom));
-        cellMar.addNewRight().setW(BigInteger.valueOf(right));
-    }
 
 
     public Document generate(NodesFL result, ByteArrayOutputStream response) throws DocumentException, IOException {
@@ -1647,7 +1581,7 @@ public class PdfGenerator {
                     "Проф.",
                     "Фамилия",
                     "Имя"
-                    ));
+            ));
             PdfPTable table = tableHandler(document, "Список бухгалтеров", columnHeaders, font);
 
             for (AccountantListEntity a : accountantListEntities) {
@@ -1668,7 +1602,7 @@ public class PdfGenerator {
                     "ФИО руководителя",       // leader_fio (Leader Full Name)
                     "ИИН руководителя",       // leader_iin (Leader Individual Identification Number)
                     "РНН руководителя"        // leader_rnn (Leader Taxpayer Identification Number)
-                    ));
+            ));
             PdfPTable table = tableHandler(document, "ОМНС", columnHeaders, font);
 
             for (Omn a : omns) {
@@ -1720,7 +1654,7 @@ public class PdfGenerator {
                     "VIN",                 // vin
                     "Гос. номер",          // govNumber
                     "Дата регистрации"     // regDate
-                    ));
+            ));
             PdfPTable table = tableHandler(document, "МШЭС", columnHeaders, font);
 
             for (Msh a : mshes) {

@@ -59,6 +59,9 @@ public class WebSecurity { // extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+//                .authorizeRequests().antMatchers("/api/pandora/auth/**").permitAll()
+//                .antMatchers("/**").permitAll();
+//        .anyRequest().authenticated();
                 .authorizeHttpRequests((authz) -> authz
                         .requestMatchers("/**").permitAll()
                         .requestMatchers("/static/**", "/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()

@@ -2,9 +2,11 @@ package kz.dossier.controller;
 
 
 import com.lowagie.text.*;
+
+import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.UlAddressInfo;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
-import kz.dossier.modelsDossier.FlRelativesLevelDto;
 import kz.dossier.repositoryDossier.EsfAll2Repo;
 import kz.dossier.repositoryDossier.FlRelativesRepository;
 import kz.dossier.repositoryDossier.MvAutoFlRepo;
@@ -13,6 +15,8 @@ import kz.dossier.security.models.log;
 import kz.dossier.security.repository.LogRepo;
 import kz.dossier.service.FlRiskServiceImpl;
 import kz.dossier.service.MyService;
+import kz.dossier.service.RnService;
+import kz.dossier.tools.DocxGenerator;
 import kz.dossier.tools.PdfGenerator;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -34,6 +38,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
 @CrossOrigin(origins = "*", maxAge = 3000)
 @RestController
 @RequestMapping("/api/pandora/dossier")
@@ -54,6 +60,26 @@ public class DoseirController {
     FlRiskServiceImpl flRiskService;
     @Autowired
     PdfGenerator pdfGenerator;
+    @Autowired
+    DocxGenerator docxGenerator;
+    @Autowired
+    RnService rnService;
+
+    @GetMapping("/sameAddressFl")
+    public List<SearchResultModelFL> sameAddressFls(@RequestBody AddressInfo params) {
+        return myService.getByAddress(params);
+    }
+
+    @GetMapping("/sameAddressUl")
+    public List<SearchResultModelUl> sameAddressFls(@RequestBody UlAddressInfo params) {
+        return myService.getByAddress(params);
+    }
+
+    // @GetMapping("/rnDetails")
+    // public String getMethodName(@RequestParam String cadastral, @RequestParam String address) {
+    //     rnService.getDetailedRnView(cadastral, address);
+    //     return new String();
+    // }
 
 
     @GetMapping("/profile")
@@ -177,7 +203,7 @@ public class DoseirController {
         response.setHeader(headerkey,headervalue);
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         NodesFL result =  myService.getNode(iin);
-        pdfGenerator.generateDoc(result,baos);
+        docxGenerator.generateDoc(result,baos);
         return baos.toByteArray();
     }
 
@@ -191,6 +217,17 @@ public class DoseirController {
         PdfGenerator generator = new PdfGenerator();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         generator.generate(r, baos);
+        return baos.toByteArray();
+    }
+    @GetMapping(value = "/downloadbinword/{bin}")
+    public @ResponseBody byte[] generateUlWordFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+        String headerkey = "Content-Disposition";
+        String headervalue = "attachment; filename=document.docx";
+        response.setHeader(headerkey,headervalue);
+        NodesUL r =  myService.getNodeUL(bin);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        docxGenerator.generate(r, baos);
         return baos.toByteArray();
     }
 }

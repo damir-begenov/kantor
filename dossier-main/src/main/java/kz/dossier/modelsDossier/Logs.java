@@ -15,7 +15,6 @@ public class Logs {
     private String login;
 
     @Column(name = "timestamp")
-//    @CreationTimestamp
     private LocalDateTime timestamp;
 
     private String message;

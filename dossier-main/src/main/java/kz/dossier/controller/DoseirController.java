@@ -183,7 +183,7 @@ public class DoseirController {
         return myService.searchUlByName(name.replace('$', '%'));
     }
 
-    @GetMapping(value = "/download/{iin}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/downloadFlPdf/{iin}", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody byte[] generatePdfFile(HttpServletResponse response, @PathVariable("iin")String iin)throws IOException, DocumentException {
         response.setContentType("application/pdf");
         String headerkey = "Content-Disposition";
@@ -195,7 +195,7 @@ public class DoseirController {
         return baos.toByteArray();
     }
 
-    @GetMapping("/downloadDoc/{iin}")
+    @GetMapping("/downloadFlDoc/{iin}")
     public byte[] generateDoc(@PathVariable String iin, HttpServletResponse response) throws IOException, InvalidFormatException {
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         String headerkey = "Content-Disposition";
@@ -207,19 +207,18 @@ public class DoseirController {
         return baos.toByteArray();
     }
 
-    @GetMapping(value = "/downloadbin/{bin}", produces = MediaType.APPLICATION_PDF_VALUE)
+    @GetMapping(value = "/downloadUlPdf/{bin}", produces = MediaType.APPLICATION_PDF_VALUE)
     public @ResponseBody byte[] generateUlPdfFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
         response.setContentType("application/pdf");
         String headerkey = "Content-Disposition";
         String headervalue = "attachment; filename=doc" + ".pdf";
         response.setHeader(headerkey, headervalue);
         NodesUL r =  myService.getNodeUL(bin);
-        PdfGenerator generator = new PdfGenerator();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        generator.generate(r, baos);
+        pdfGenerator.generate(r, baos);
         return baos.toByteArray();
     }
-    @GetMapping(value = "/downloadbinword/{bin}")
+    @GetMapping(value = "/downloadUlDoc/{bin}")
     public @ResponseBody byte[] generateUlWordFile(HttpServletResponse response, @PathVariable("bin")String bin) throws IOException, DocumentException {
         response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
         String headerkey = "Content-Disposition";

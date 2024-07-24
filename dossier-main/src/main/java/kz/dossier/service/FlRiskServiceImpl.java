@@ -74,7 +74,7 @@ public class FlRiskServiceImpl {
         flRiskDto.setDrugAddicts(drugAddictsRepo.getDrugAddictsByIIN(iin));
         flRiskDto.setOmns(omn_repo.getUsersByLike(iin));
         flRiskDto.setOrphans(orphans_repo.getUsersByLike(iin));
-        flRiskDto.setMzEntities(mzEntityRepo.getopgByIIN(iin));
+        flRiskDto.setMzEntities(mzEntityRepo.getMzByIIN(iin));
         flRiskDto.setWantedListEntities(wantedListRepo.getByIIN(iin));
         flRiskDto.setFirstCreditBureauEntities(firstCreditBureauEntityRepo.getUsersByLike(iin));
         flRiskDto.setConvictsTerminatedByRehabs(convicts_terminated_by_rehabRepo.getconvicts_terminated_by_rehabByByIIN(iin));

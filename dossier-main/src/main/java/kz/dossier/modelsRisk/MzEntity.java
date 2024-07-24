@@ -8,10 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "imp_risk.mz")
+@Table(name = "mz", schema = "imp_risk")
 public class MzEntity {
     @Id
-    @Nullable
     private Long id;
 
     @Nullable

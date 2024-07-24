@@ -49,7 +49,7 @@ public class MyService {
     @Autowired
     FlPensionContrRepo flPensionContrRepo;
     @Autowired
-    MzEntityRepo MzEntityRepo;
+    MzEntityRepo mzEntityRepo;
     @Autowired
     WantedListRepo wantedListRepo;
     @Autowired
@@ -428,10 +428,7 @@ public class MyService {
 
             nodes.setFio((flRaw.getLast_name()!=null?flRaw.getLast_name():"") +" " + (flRaw.getFirst_name()!=null?flRaw.getFirst_name():"") +" "
                     + (flRaw.getPatronymic()!=null?flRaw.getPatronymic():""));
-
-
               Optional<PhotoDb> flRawPhoto = newPhotoRepo.findById(IIN);
-
              if (flRawPhoto.isPresent()) {
             try {
                 nodes.setPhoto(new SerialBlob(flRawPhoto.get().getPhoto()));
@@ -692,6 +689,16 @@ public class MyService {
             List<Orphans> myOrphans =  orphans_repo.getUsersByLike(IIN);
             try {
                 myNode.setOrphans(myOrphans);
+            } catch (Exception e) {
+                System.out.println("orphans Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("orphans WRAP Error:" + e);
+        }
+        try {
+            List<MzEntity> mzEntities =  mzEntityRepo.getMzByIIN(IIN);
+            try {
+                myNode.setMzEntities(mzEntities);
             } catch (Exception e) {
                 System.out.println("orphans Error: " + e);
             }

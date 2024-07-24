@@ -4,6 +4,7 @@ import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.*;
 import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.UlAddressInfo;
 import kz.dossier.extractor.Mv_fl_extractor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -327,6 +328,19 @@ public class MyService {
         }
         return result;
     }
+    private List<SearchResultModelFL> findWithoutPhoto(List<MvFl> fls) {
+        List<SearchResultModelFL> result = new ArrayList<>();
+        for (MvFl fl: fls) {
+            SearchResultModelFL person = new SearchResultModelFL();
+            person.setFirst_name(fl.getFirst_name());
+            person.setLast_name(fl.getLast_name());
+            person.setPatronymic(fl.getPatronymic());
+            person.setIin(fl.getIin());
+
+            result.add(person);
+        }
+        return result;
+    }
 
     private SearchResultModelFL tryAddPhoto(SearchResultModelFL fl, String IIN) {
         try {
@@ -398,6 +412,37 @@ public class MyService {
         return properties;
     }
 
+
+    public GeneralInfoDTO generalInfoByIin(String iin) {
+        GeneralInfoDTO generalInfoDTO = new GeneralInfoDTO();
+        try {
+            generalInfoDTO.setContacts(flContactsRepo.findAllByIin(iin));
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
+        AddressInfo addressInfo = new AddressInfo();
+        if (address.size() > 0) {
+            addressInfo.setRegion(address.get(0).getRegion());
+            addressInfo.setDistrict(address.get(0).getDistrict());
+            addressInfo.setCity(address.get(0).getCity());
+            addressInfo.setStreet(address.get(0).getStreet());
+            addressInfo.setBuilding(address.get(0).getBuilding());
+            addressInfo.setKorpus(address.get(0).getKorpus());
+            addressInfo.setApartment_number(address.get(0).getApartment_number());
+        }
+        List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+        List<MvFl> fls = new ArrayList<>();
+        for (RegAddressFl ad : units) {
+            Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+            if (fl.isPresent()) {
+                fls.add(fl.get());
+            }
+        }
+        List<SearchResultModelFL> result = findWithoutPhoto(fls);
+        generalInfoDTO.setSameAddressFls(result);
+        return generalInfoDTO;
+    }
 
 
     public FlRelativesLevelDto createHierarchyObject(String IIN) throws SQLException {

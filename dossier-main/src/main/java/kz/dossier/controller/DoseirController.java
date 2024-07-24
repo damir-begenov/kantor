@@ -4,6 +4,7 @@ package kz.dossier.controller;
 import com.lowagie.text.*;
 
 import kz.dossier.dto.AddressInfo;
+import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.UlAddressInfo;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
@@ -37,6 +38,9 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -81,6 +85,11 @@ public class DoseirController {
     //     return new String();
     // }
 
+    @GetMapping("/generalInfo")
+    public GeneralInfoDTO getMethodName(@RequestParam String iin) {
+        return myService.generalInfoByIin(iin);
+    }
+    
 
     @GetMapping("/profile")
     public NodesFL getProfile(@RequestParam String iin) {

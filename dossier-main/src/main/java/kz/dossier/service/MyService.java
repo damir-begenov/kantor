@@ -593,15 +593,12 @@ public class MyService {
     //General info by iin
     public GeneralInfoDTO generalInfoByIin(String iin) {
         GeneralInfoDTO generalInfoDTO = new GeneralInfoDTO();
-        int number = 0;
         List<FlContacts> contacts = flContactsRepo.findAllByIin(iin);
         if (contacts != null) {
             generalInfoDTO.setContacts(contacts);
-            number++;
         }
         List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
         if(address != null) {
-            number++;
             AddressInfo addressInfo = new AddressInfo();
             if (address.size() > 0) {
                 addressInfo.setRegion(address.get(0).getRegion());

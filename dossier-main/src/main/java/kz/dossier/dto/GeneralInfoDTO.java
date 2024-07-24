@@ -9,12 +9,15 @@ public class GeneralInfoDTO {
     private List<FlContacts> contacts;
     private List<SearchResultModelFL> sameAddressFls;
 
+
     public List<FlContacts> getContacts() {
         return contacts;
     }
     public List<SearchResultModelFL> getSameAddressFls() {
         return sameAddressFls;
     }
+
+
     public void setContacts(List<FlContacts> contacts) {
         this.contacts = contacts;
     }

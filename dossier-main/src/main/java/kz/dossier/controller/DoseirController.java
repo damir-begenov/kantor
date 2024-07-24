@@ -92,6 +92,8 @@ public class DoseirController {
         return myService.generalInfoByIin(iin);
     }
 
+
+
     @GetMapping("/additionalInfo")
     public AdditionalInfoDTO getAdditionalInfo(@RequestParam String iin) {
         return myService.additionalInfoByIin(iin);

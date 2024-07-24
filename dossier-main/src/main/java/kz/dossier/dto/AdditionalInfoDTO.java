@@ -37,34 +37,34 @@ public class AdditionalInfoDTO {
 
         // Check if lists are not null and not empty
         if (this.flPensionContrs != null && !this.flPensionContrs.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.equipment != null && !this.equipment.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.universities != null && !this.universities.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.schools != null && !this.schools.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.mvRnOlds != null && !this.mvRnOlds.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.mvAutoFls != null && !this.mvAutoFls.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.millitaryAccounts != null && !this.millitaryAccounts.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.militaryAccounting2Entities != null && !this.militaryAccounting2Entities.isEmpty()) {
-            s++;
+            ++s;
         }
         if (this.ul_leaderList != null && !this.ul_leaderList.isEmpty()) {
-            s++;
+            ++s;
         }
 
-        this.number = s;
+        this.number = ++s;
     }
 
     List<PensionListDTO> pensions;

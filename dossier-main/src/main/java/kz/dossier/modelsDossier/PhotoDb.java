@@ -8,9 +8,9 @@ import jakarta.persistence.Table;
 @Table(name = "photo", schema = "import_fl")
 
 public class PhotoDb {
+    @Id
 
     private String iin;
-    @Id
 
     private String document_type_id;
 

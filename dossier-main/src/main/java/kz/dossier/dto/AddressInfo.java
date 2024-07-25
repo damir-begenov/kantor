@@ -8,6 +8,15 @@ public class AddressInfo {
     private String building;
     private String korpus;
     private String apartment_number;
+    private String rnRegAddress;
+
+    public String getRnRegAddress() {
+        return rnRegAddress;
+    }
+
+    public void setRnRegAddress(String rnRegAddress) {
+        this.rnRegAddress = rnRegAddress;
+    }
 
     public String getRegion() {
         return region;

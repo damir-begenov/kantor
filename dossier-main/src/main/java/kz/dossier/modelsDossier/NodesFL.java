@@ -12,6 +12,24 @@ public class NodesFL {
     private List<DrugAddicts> drugAddicts; //risk
     private List<Incapacitated> incapacitateds; //risk
     private List<Kuis> kuis; //risk
+    private List<MvFlAddress> mvFlAddresses;
+    private List<RegistrationTemp> registrationTemps;
+
+    public List<MvFlAddress> getMvFlAddresses() {
+        return mvFlAddresses;
+    }
+
+    public void setMvFlAddresses(List<MvFlAddress> mvFlAddresses) {
+        this.mvFlAddresses = mvFlAddresses;
+    }
+
+    public List<RegistrationTemp> getRegistrationTemps() {
+        return registrationTemps;
+    }
+
+    public void setRegistrationTemps(List<RegistrationTemp> registrationTemps) {
+        this.registrationTemps = registrationTemps;
+    }
 
     public List<Kuis> getKuis() {
         return kuis;

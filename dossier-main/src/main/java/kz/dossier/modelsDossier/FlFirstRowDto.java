@@ -9,6 +9,7 @@ public class FlFirstRowDto {
     private List<MvFl> mvFls;
     private List<PhotoDb> photoDbf;
     private List<MvIinDoc> mvIinDocList;
-    private List<RegAddressFl> regAddressFls;
+    private List<MvFlAddress> mvFlAddresses;
+    private List<RegistrationTemp> registrationTemps;
     private double riskPercentage;
 }

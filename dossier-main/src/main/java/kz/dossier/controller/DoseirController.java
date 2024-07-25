@@ -85,6 +85,7 @@ public class DoseirController {
 
     @GetMapping("/sameAddressFl")
     public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {
+        System.out.println(iin);
         return myService.getByAddressUsingIin(iin);
     }
 

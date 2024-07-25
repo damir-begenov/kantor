@@ -145,7 +145,11 @@ public class MyService {
     private IncapacitatedRepo incapacitatedRepo;
     @Autowired
     private KuisRepo kuisRepo;
+    @Autowired
+    MvFlAddressRepository mvFlAddressRepository;
 
+    @Autowired
+    private RegistrationTempRepository registrationTempRepository;
 
     public UlCardDTO getUlCard(String bin) {
         UlCardDTO ulCardDTO = new UlCardDTO();
@@ -390,7 +394,8 @@ public class MyService {
 //    public FlRelatives getFlRelativesInfo()
 
     public List<SearchResultModelFL> getByAddressUsingIin(String iin) {
-        List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
+        List<MvFlAddress> address = mvFlAddressRepository.getMvFlAddressByIIN(iin);
+        System.out.println(address.size());
         if(address != null) {
             AddressInfo addressInfo = new AddressInfo();
             if (address.size() > 0) {
@@ -399,13 +404,14 @@ public class MyService {
                 addressInfo.setCity(address.get(0).getCity());
                 addressInfo.setStreet(address.get(0).getStreet());
                 addressInfo.setBuilding(address.get(0).getBuilding());
-                addressInfo.setKorpus(address.get(0).getKorpus());
-                addressInfo.setApartment_number(address.get(0).getApartment_number());
+                addressInfo.setKorpus(address.get(0).getCorpus());
+                addressInfo.setApartment_number(address.get(0).getFlat());
+                addressInfo.setRnRegAddress(address.get(0).getRnAddressRu());
             }
-
-            List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+            System.out.println(addressInfo.getRnRegAddress());
+            List<MvFlAddress> mvFlAddresses = mvFlAddressRepository.getMvFlAddressByRnAddress(addressInfo.getRnRegAddress());
             List<MvFl> fls = new ArrayList<>();
-            for (RegAddressFl ad : units) {
+            for (MvFlAddress ad : mvFlAddresses) {
                 Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
                 if (fl.isPresent()) {
                     fls.add(fl.get());
@@ -418,7 +424,7 @@ public class MyService {
     }
 
     public List<SearchResultModelUl> getByAddress(UlAddressInfo addressInfo) {
-        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressInfo.getReg_addr_region_ru(), 
+        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressInfo.getReg_addr_region_ru(),
         addressInfo.getReg_addr_district_ru(),addressInfo.getReg_addr_rural_district_ru(), addressInfo.getReg_addr_locality_ru(), addressInfo.getReg_addr_street_ru(), addressInfo.getReg_addr_bulding_num(), addressInfo.getReg_addr_block_num(), addressInfo.getReg_addr_builing_body_num(), addressInfo.getReg_addr_office());
         List<SearchResultModelUl> list = new ArrayList<>();
         for (RegAddressUlEntity l: units) {
@@ -709,6 +715,9 @@ public class MyService {
             List<MilitaryAccounting2Entity> militaryAccounting2Entities = MilitaryAccounting2Repo.getUsersByLike(iin);
             if(!militaryAccounting2Entities.isEmpty() & militaryAccounting2Entities.size() > 0){
             try {
+                for(MilitaryAccounting2Entity militaryAccounting2Entity : militaryAccounting2Entities ){
+//                    militaryAccounting2Entity.set
+                }
                 additionalInfoDTO.setMilitaryAccounting2Entities(militaryAccounting2Entities);
             } catch (Exception e) {
             }}
@@ -1101,6 +1110,24 @@ public class MyService {
             }
         } catch (Exception e){
             System.out.println("incapacitateds WRAP Error:" + e);
+        }try {
+            List<MvFlAddress> mvFlAddresses =  mvFlAddressRepository.getMvFlAddressByIIN(IIN);
+            try {
+                myNode.setMvFlAddresses(mvFlAddresses);
+            } catch (Exception e) {
+                System.out.println("mvFlAddresses Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("mvFlAddresses WRAP Error:" + e);
+        }try {
+            List<RegistrationTemp> registrationTemps =  registrationTempRepository.getRegAddressByIIN(IIN);
+            try {
+                myNode.setRegistrationTemps(registrationTemps);
+            } catch (Exception e) {
+                System.out.println("registrationTemps Error: " + e);
+            }
+        } catch (Exception e){
+            System.out.println("registrationTemps WRAP Error:" + e);
         }try {
             List<Dismissal> dismissals =  dismissalRepo.getDismissalByIIN(IIN);
             try {
@@ -1639,8 +1666,13 @@ public class MyService {
             } catch (Exception e){
                 System.out.println("mvIinDocs WRAP Error:" + e);
             }try {
-                List<RegAddressFl> addressFls = regAddressFlRepo.getByIIN(IIN);
-                flFirstRowDto.setRegAddressFls(addressFls);
+                List<MvFlAddress> mvFlAddresses = mvFlAddressRepository.getMvFlAddressByIIN(IIN);
+                flFirstRowDto.setMvFlAddresses(mvFlAddresses);
+            } catch (Exception e){
+                System.out.println("Error:" + e);
+            }try {
+                List<RegistrationTemp> registrationTemps = registrationTempRepository.getRegAddressByIIN(IIN);
+                flFirstRowDto.setRegistrationTemps(registrationTemps);
             } catch (Exception e){
                 System.out.println("Error:" + e);
             }

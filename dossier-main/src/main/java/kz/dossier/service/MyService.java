@@ -894,6 +894,7 @@ public class MyService {
 
             FlRelativesLevelDto firstLevel = new FlRelativesLevelDto();
             int firstLevelCnt = 0;
+            int dirFounderQuantityfirstlvl = 0;
             firstLevel.setName(flRelObj[2]+", " + flRelObj[3] +" "+flRelObj[4] +" " +flRelObj[5] +", " + flRelObj[0]);
 
             firstLevel.setFio(flRelObj[3] +" "+flRelObj[4] +" " +flRelObj[5]);
@@ -911,7 +912,7 @@ public class MyService {
                         }
                     }
                     firstLevelCnt = flRiskService.findFlRiskByIin(flRelObj[2].toString()).getQuantity();
-
+                    dirFounderQuantityfirstlvl = directorFounderService.getDirectorOrFounder(flRelObj[2].toString()).getQuantity();
 
                 }
 
@@ -931,6 +932,7 @@ public class MyService {
                         List<FlRelativesLevelDto> relativesNodesList3Level = new ArrayList<>();
                         String relation="";
                         int secondLevelCnt =0;
+                        int dirFounderQuantitysecondlvl = 0;
                         if(rel2Level[19]!=null){
                             relation=" ("+rel2Level[19]+")";
                         }
@@ -946,12 +948,18 @@ public class MyService {
                                 }
                             }
                             secondLevelCnt = flRiskService.findFlRiskByIin(rel2Level[2].toString()).getQuantity();
+                            dirFounderQuantitysecondlvl = directorFounderService.getDirectorOrFounder(rel2Level[2].toString()).getQuantity();
                         }
 
                         if(secondLevelCnt!=0){
                             secondLevel.setHaveRisk(true);
                         } else{
                             secondLevel.setHaveRisk(false);
+                        }
+                        if(dirFounderQuantitysecondlvl!=0){
+                            secondLevel.setIsDirector(true);
+                        } else{
+                            secondLevel.setIsDirector(false);
                         }
                         secondLevel.setName(secondLevel.getName() + ", Риски к-во: " + secondLevelCnt);
 
@@ -970,6 +978,7 @@ public class MyService {
                                         relation3Level=" ("+rel3Level[19]+")";
                                     }
                                     int thirdLevelCnt =0;
+                                    int dirFounderQuantitythirdlvl =0;
                                     thirdLevel.setFio(rel3Level[3] +" "+rel3Level[4] +" " +rel3Level[5]);
 
                                     if(rel3Level[2]!=null && !rel3Level[2].toString().equals("---")){
@@ -984,12 +993,18 @@ public class MyService {
                                         }
 
                                         thirdLevelCnt = flRiskService.findFlRiskByIin(rel3Level[2].toString()).getQuantity();
+                                        dirFounderQuantitythirdlvl = directorFounderService.getDirectorOrFounder(rel3Level[2].toString()).getQuantity();
                                     }
 
                                     if(thirdLevelCnt!=0){
                                         thirdLevel.setHaveRisk(true);
                                     } else{
                                         thirdLevel.setHaveRisk(false);
+                                    }
+                                    if(dirFounderQuantitythirdlvl!=0){
+                                        thirdLevel.setIsDirector(true);
+                                    } else{
+                                        thirdLevel.setIsDirector(false);
                                     }
                                     thirdLevel.setName(rel3Level[2]+", " + rel3Level[3] +" "+rel3Level[4] +" " +rel3Level[5] + ", " +rel3Level[0] + relation3Level +", Риски к-во: " + thirdLevelCnt);
                                     if(!thirdLevel.getFio().equals("null null null")){
@@ -1061,6 +1076,11 @@ public class MyService {
                 firstLevel.setHaveRisk(true);
             } else{
                 firstLevel.setHaveRisk(false);
+            }
+            if(dirFounderQuantityfirstlvl!=0){
+                firstLevel.setIsDirector(true);
+            } else{
+                firstLevel.setIsDirector(false);
             }
             firstLevel.setName(firstLevel.getName() + ", Риски к-во: " + firstLevelCnt);
 

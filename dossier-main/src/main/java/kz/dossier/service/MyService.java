@@ -391,26 +391,30 @@ public class MyService {
 
     public List<SearchResultModelFL> getByAddressUsingIin(String iin) {
         List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
-        AddressInfo addressInfo = new AddressInfo();
-        if (address.size() > 0) {
-            addressInfo.setRegion(address.get(0).getRegion());
-            addressInfo.setDistrict(address.get(0).getDistrict());
-            addressInfo.setCity(address.get(0).getCity());
-            addressInfo.setStreet(address.get(0).getStreet());
-            addressInfo.setBuilding(address.get(0).getBuilding());
-            addressInfo.setKorpus(address.get(0).getKorpus());
-            addressInfo.setApartment_number(address.get(0).getApartment_number());
-        }
-        List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
-        List<MvFl> fls = new ArrayList<>();
-        for (RegAddressFl ad : units) {
-            Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
-            if (fl.isPresent()) {
-                fls.add(fl.get());
+        if(address != null) {
+            AddressInfo addressInfo = new AddressInfo();
+            if (address.size() > 0) {
+                addressInfo.setRegion(address.get(0).getRegion());
+                addressInfo.setDistrict(address.get(0).getDistrict());
+                addressInfo.setCity(address.get(0).getCity());
+                addressInfo.setStreet(address.get(0).getStreet());
+                addressInfo.setBuilding(address.get(0).getBuilding());
+                addressInfo.setKorpus(address.get(0).getKorpus());
+                addressInfo.setApartment_number(address.get(0).getApartment_number());
             }
+
+            List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+            List<MvFl> fls = new ArrayList<>();
+            for (RegAddressFl ad : units) {
+                Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+                if (fl.isPresent()) {
+                    fls.add(fl.get());
+                }
+            }
+            List<SearchResultModelFL> result = findWithoutPhoto(fls);
+            return result;
         }
-        List<SearchResultModelFL> result = findWithPhoto(fls);
-        return result;
+        return new ArrayList<>();
     }
 
     public List<SearchResultModelUl> getByAddress(UlAddressInfo addressInfo) {
@@ -672,6 +676,30 @@ public class MyService {
             generalInfoDTO.setSameAddressFls(result);
         }
         return generalInfoDTO;
+    }
+
+
+    public List<PensionListDTO> getPensionDetails(String iin, String bin, String year) {
+        List<PensionListDTO> pensions = new ArrayList<>();
+        List<Map<String, Object>> fl_pension_contrss = new ArrayList<>();
+        fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin);
+        
+
+        List<Map<String, Object>> filteredList = fl_pension_contrss.stream()
+            .filter(map -> map.get("pay_date").toString().equals(year))
+            .collect(Collectors.toList());
+
+        for (Map<String, Object> pen : filteredList) {
+            PensionListDTO pensionListEntity = new PensionListDTO();
+            pensionListEntity.setBin(bin);
+            pensionListEntity.setName((String)fl_pension_contrss.get(0).get("P_NAME"));
+            pensionListEntity.setPeriod(year);
+            pensionListEntity.setSum010((double)pen.get("AMOUNT"));
+
+            pensions.add(pensionListEntity);
+        }
+
+        return pensions;
     }
 
     //Additional Info by iin

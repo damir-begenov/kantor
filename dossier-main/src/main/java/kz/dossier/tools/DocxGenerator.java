@@ -32,14 +32,6 @@ public class DocxGenerator {
 
     private XWPFDocument makeTableByProperties(XWPFDocument doc, XWPFTable table, String title, List<String> properties) {
         table.setWidth("100%");
-        XWPFTableRow row3 = table.createRow();
-        XWPFTableCell cell = row3.addNewTableCell();
-        cell.setWidth("100%");
-        cell.setColor("808080");
-        XWPFParagraph paragraph1 = cell.addParagraph();
-        paragraph1.setAlignment(ParagraphAlignment.CENTER);
-        XWPFRun run = paragraph1.createRun();
-        run.setText(title);
         XWPFTableRow row = table.createRow();
         for (String prop : properties) {
             row.addNewTableCell().setText(prop);
@@ -52,6 +44,14 @@ public class DocxGenerator {
         XWPFRun run2 = paragraph.createRun();
         run2.addBreak();  // Добавляем перенос строки
         run2.setText(" "); // Добавляем пробел, чтобы создать визуальный отступ
+    }
+
+    private void creteTitle(XWPFDocument doc,String title){
+        XWPFParagraph titleParagraph = doc.createParagraph();
+        XWPFRun titleRun = titleParagraph.createRun();
+        titleRun.setText(title);
+        titleRun.setBold(true);
+        titleRun.setFontSize(14);
     }
 
     public void generateDoc(NodesFL result, ByteArrayOutputStream baos) throws IOException, InvalidFormatException {
@@ -74,6 +74,7 @@ public class DocxGenerator {
 
             try {
                 if (result.getMvFls() != null || result.getMvFls().size() < 0) {
+                    creteTitle(doc,"Сведения о физическом лице");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Сведения о физическом лице", Arrays.asList(
                             "Фото",
@@ -107,6 +108,7 @@ public class DocxGenerator {
             }
             try {
                 if (result.getMvRnOlds() != null || result.getMvRnOlds().size() < 0) {
+                    creteTitle(doc,"Адреса прописки");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Адреса прописки", Arrays.asList(
                             "Страна",
@@ -132,6 +134,7 @@ public class DocxGenerator {
             try {
                 List<MvIinDoc> docs = result.getMvIinDocs();
                 if (docs != null && !docs.isEmpty()) {
+                    creteTitle(doc,"Документы");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Документы", Arrays.asList("Типа Документа", "Орган выдачи", "Дата выдачи", "Срок до", "Номер документа"));
                     
@@ -151,6 +154,7 @@ public class DocxGenerator {
             try {
                 List<School> schools = result.getSchools();
                 if (schools != null && !schools.isEmpty()) {
+                    creteTitle(doc,"Школы");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Школы", Arrays.asList("БИН", "Название школы", "Класс", "Дата поступления", "Дата окончания"));
                     
@@ -171,6 +175,7 @@ public class DocxGenerator {
             try {
                 List<Universities> universities = result.getUniversities();
                 if (universities != null && !universities.isEmpty()) {
+                    creteTitle(doc,"Вузы");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Вузы", Arrays.asList("БИН", "Название вуза", "Специализация", "Дата поступления", "Дата окончания", "Длительность обучения", "Курс"));
                     
@@ -193,6 +198,7 @@ public class DocxGenerator {
             try {
                 List<MvAutoFl> autos = result.getMvAutoFls();
                 if (autos != null && !autos.isEmpty()) {
+                    creteTitle(doc,"Транспорт");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Транспорт", Arrays.asList("№", "Статус", "Регистрационный номер", "Марка модель", "Дата выдачи свидетельства", "Дата снятия", "Год выпуска", "Категория", "VIN/Кузов/Шасси", "Серия"));
                     
@@ -244,6 +250,7 @@ public class DocxGenerator {
             try {
                 List<FlContacts> contacts = result.getContacts();
                 if (contacts != null && !contacts.isEmpty()) {
+                    creteTitle(doc,"Контактные данные ФЛ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Контактные данные ФЛ", Arrays.asList("№", "Телефон", "Почта", "Источник"));
                     
@@ -265,6 +272,7 @@ public class DocxGenerator {
             try {
                 List<MillitaryAccount> militaryAccounts = result.getMillitaryAccounts();
                 if (militaryAccounts != null && !militaryAccounts.isEmpty()) {
+                    creteTitle(doc,"Воинский учет");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Воинский учет", Arrays.asList("№", "БИН воинской части", "Дата службы с", "Дата службы по"));
                     
@@ -286,6 +294,7 @@ public class DocxGenerator {
             try {
                 List<MvUlFounderFl> mvUlFounderFls = result.getMvUlFounderFls();
                 if (mvUlFounderFls != null && !mvUlFounderFls.isEmpty()) {
+                    creteTitle(doc,"Сведения об участниках ЮЛ");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения об участниках ЮЛ", Arrays.asList("№", "БИН", "Наименование ЮЛ", "Дата регистрации"));
@@ -295,11 +304,7 @@ public class DocxGenerator {
                         XWPFTableRow dataRow = table.createRow();
                         dataRow.addNewTableCell().setText(String.valueOf(number));
                         dataRow.addNewTableCell().setText(r.getBin_org() != null ? r.getBin_org() : "");
-                        try {
-                            dataRow.addNewTableCell().setText(mvUlRepo.getNameByBin(r.getBin_org()));
-                        } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("");
-                        }
+                        dataRow.addNewTableCell().setText(mvUlRepo.getNameByBin(r.getBin_org())!= null ? mvUlRepo.getNameByBin((r.getBin_org())) : "");
                         dataRow.addNewTableCell().setText(r.getReg_date() != null ? r.getReg_date().toString() : "");
                         number++;
                     }
@@ -312,6 +317,7 @@ public class DocxGenerator {
             try {
                 List<NdsEntity> ndsEntities = result.getNdsEntities();
                 if (ndsEntities != null && !ndsEntities.isEmpty()) {
+                    creteTitle(doc,"НДС");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "НДС", Arrays.asList("№", "Дата начала", "Дата конца", "Дата обновления", "Причина"));
@@ -335,6 +341,7 @@ public class DocxGenerator {
             try {
                 List<IpgoEmailEntity> ipgoEmailEntities = result.getIpgoEmailEntities();
                 if (ipgoEmailEntities != null && !ipgoEmailEntities.isEmpty()) {
+                    creteTitle(doc,"Сведения по ИПГО");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по ИПГО", Arrays.asList("№", "Департамент", "Должность", "ИПГО почта"));
@@ -356,6 +363,7 @@ public class DocxGenerator {
             try {
                 List<Bankrot> bankrotEntities = result.getBankrots();
                 if (bankrotEntities != null && !bankrotEntities.isEmpty()) {
+                    creteTitle(doc,"Сведения по банкротам");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по банкротам", Arrays.asList("№", "ИИН/БИН", "Документ", "Дата обновления", "Причина"));
@@ -379,6 +387,7 @@ public class DocxGenerator {
             try {
                 List<ConvictsJustified> convictsJustifieds = result.getConvictsJustifieds();
                 if (convictsJustifieds != null && !convictsJustifieds.isEmpty()) {
+                    creteTitle(doc,"Наименование риска: \"Осужденные\" Количество найденных инф: " + convictsJustifieds.size());
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Наименование риска: \"Осужденные\" Количество найденных инф: " + convictsJustifieds.size(),
                             Arrays.asList("№", "Дата рассмотрения в суде 1 инстанции", "Суд 1 инстанции", "Решение по лицу", "Мера наказания по договору", "Квалификация"));
@@ -403,6 +412,7 @@ public class DocxGenerator {
             try {
                 List<ConvictsTerminatedByRehab> convictsTerminatedByRehabs = result.getConvictsTerminatedByRehabs();
                 if (convictsTerminatedByRehabs != null && !convictsTerminatedByRehabs.isEmpty()) {
+                    creteTitle(doc,"Административные штрафы");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Административные штрафы",
                             Arrays.asList("№", "Орган выявивший правонарушение", "Дата заведения", "Квалификация", "Решение", "Уровень тяжести"));
@@ -426,6 +436,7 @@ public class DocxGenerator {
             try {
                 List<BlockEsf> blockEsfs = result.getBlockEsfs();
                 if (blockEsfs != null && !blockEsfs.isEmpty()) {
+                    creteTitle(doc,"Блокировка ЭСФ");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Блокировка ЭСФ", Arrays.asList("№", "Дата блокировки", "Дата востановления", "Дата обновления"));
@@ -446,6 +457,7 @@ public class DocxGenerator {
             }
             try {
                 if (result.getFirstCreditBureauEntities() != null && !result.getFirstCreditBureauEntities().isEmpty()) {
+                    creteTitle(doc,"Сведения по кредитным бюро");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по кредитным бюро", Arrays.asList(
@@ -474,6 +486,7 @@ public class DocxGenerator {
             }
             try {
                 if (result.getAmoral() != null && !result.getAmoral().isEmpty()) {
+                    creteTitle(doc,"Сведения по аморальному образу жизни");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по аморальному образу жизни", Arrays.asList("№", "Орган выявивший", "Гражданство", "Дата решения", "Сумма штрафа"));
@@ -496,6 +509,7 @@ public class DocxGenerator {
                 System.out.println("Exception while adding immoral lifestyle entities table: " + e.getMessage());
             }try {
                 if (result.getMzEntities() != null && !result.getMzEntities().isEmpty()) {
+                    creteTitle(doc,"Сведения по МЗ");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по МЗ", Arrays.asList("№", "Код болезни", "Регистрация", "Статус МЗ", "Медицинская организация"));
@@ -517,6 +531,7 @@ public class DocxGenerator {
                 System.out.println("Exception while adding MZ entities table: " + e.getMessage());
             }try {
                 if (result.getWantedListEntities() != null && !result.getWantedListEntities().isEmpty()) {
+                    creteTitle(doc,"Сведения по разыскиваемым");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения по разыскиваемым", Arrays.asList("№", "Дни", "Орган", "Статус", "Дата актуальности"));
@@ -573,6 +588,7 @@ public class DocxGenerator {
             pageSize.setH(BigInteger.valueOf(12240));
             try {
                 if (result.getMvUls() != null && !result.getMvUls().isEmpty()) {
+                    creteTitle(doc,"Сведения о юридическом лице");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения о юридическом лице", Arrays.asList(
@@ -595,6 +611,7 @@ public class DocxGenerator {
                 System.out.println("Exception while adding MV UL table: " + e.getMessage());
             }try {
                 if (result.getMvUlFounderFls() != null && !result.getMvUlFounderFls().isEmpty()) {
+                    creteTitle(doc,"Сведения об участниках ЮЛ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Сведения об участниках ЮЛ", Arrays.asList(
                             "№",
@@ -630,6 +647,7 @@ public class DocxGenerator {
             }
             try {
                 if (result.getAccountantListEntities() != null && !result.getAccountantListEntities().isEmpty()) {
+                    creteTitle(doc,"Список бухгалтеров");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Список бухгалтеров", Arrays.asList(
                             "№",
@@ -655,6 +673,7 @@ public class DocxGenerator {
             }try {
                 List<Omn> omns = result.getOmns();
                 if (omns != null && !omns.isEmpty()) {
+                    creteTitle(doc,"ОМНС");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "ОМНС", Arrays.asList(
                             "РНН",
@@ -686,6 +705,7 @@ public class DocxGenerator {
             try {
                 List<Equipment> equipmentList = result.getEquipment();
                 if (equipmentList != null && !equipmentList.isEmpty()) {
+                    creteTitle(doc,"Транспорт");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Транспорт", Arrays.asList(
                             "Адрес",
@@ -727,6 +747,7 @@ public class DocxGenerator {
             try {
                 List<Msh> mshes = result.getMshes();
                 if (mshes != null && !mshes.isEmpty()) {
+                    creteTitle(doc,"МШЭС");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "МШЭС", Arrays.asList(
                             "Тип оборудования",
@@ -759,6 +780,7 @@ public class DocxGenerator {
             try {
                 List<Dormant> dormants = result.getDormants();
                 if (dormants != null && !dormants.isEmpty()) {
+                    creteTitle(doc,"Дорманс");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Дорманс", Arrays.asList(
                             "№",
@@ -793,6 +815,7 @@ public class DocxGenerator {
             try {
                 List<Bankrot> bankrots = result.getBankrots();
                 if (bankrots != null && !bankrots.isEmpty()) {
+                    creteTitle(doc,"Банкроты");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Банкроты", Arrays.asList(
                             "№",
@@ -823,6 +846,7 @@ public class DocxGenerator {
             try {
                 List<Adm> adms = result.getAdms();
                 if (adms != null && !adms.isEmpty()) {
+                    creteTitle(doc,"Администрация");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Администрация", Arrays.asList(
                             "№",
@@ -861,6 +885,7 @@ public class DocxGenerator {
             try {
                 List<Criminals> criminals = result.getCriminals();
                 if (criminals != null && !criminals.isEmpty()) {
+                    creteTitle(doc,"Преступления");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Преступления", Arrays.asList(
                             "№",
@@ -895,6 +920,7 @@ public class DocxGenerator {
             }try {
                 List<BlockEsf> blockEsfs = result.getBlockEsfs();
                 if (blockEsfs != null && !blockEsfs.isEmpty()) {
+                    creteTitle(doc,"Блокировка ЕСФ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Блокировка ЕСФ", Arrays.asList(
                             "№",
@@ -933,6 +959,7 @@ public class DocxGenerator {
             try {
                 List<NdsEntity> ndsEntities = result.getNdsEntities();
                 if (ndsEntities != null && !ndsEntities.isEmpty()) {
+                    creteTitle(doc,"Объекты НДС");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Объекты НДС", Arrays.asList(
                             "№",
@@ -973,8 +1000,9 @@ public class DocxGenerator {
             try {
                 List<MvRnOld> mvRnOlds = result.getMvRnOlds();
                 if (mvRnOlds != null && !mvRnOlds.isEmpty()) {
+                    creteTitle(doc,"Прежний адрес прописки");
                     XWPFTable table = doc.createTable();
-                    makeTableByProperties(doc, table, "mv_rn_old", Arrays.asList(
+                    makeTableByProperties(doc, table, "Прежний адрес прописки", Arrays.asList(
                             "№",
                             "Назначение использования",
                             "Статус недвижимости",
@@ -1015,6 +1043,7 @@ public class DocxGenerator {
             try {
                 List<FpgTempEntity> fpgTempEntities = result.getFpgTempEntities();
                 if (fpgTempEntities != null && !fpgTempEntities.isEmpty()) {
+                    creteTitle(doc,"Временные объекты ФПГ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Временные объекты ФПГ", Arrays.asList(
                             "№",
@@ -1035,6 +1064,7 @@ public class DocxGenerator {
             }try {
                 List<Pdl> pdls = result.getPdls();
                 if (pdls != null && !pdls.isEmpty()) {
+                    creteTitle(doc,"ПДЛ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "ПДЛ", Arrays.asList(
                             "№",
@@ -1072,6 +1102,7 @@ public class DocxGenerator {
             try {
                 List<CommodityProducer> commodityProducers = result.getCommodityProducers();
                 if (commodityProducers != null && !commodityProducers.isEmpty()) {
+                    creteTitle(doc,"Производители товаров");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Производители товаров", Arrays.asList(
                             "№",
@@ -1103,6 +1134,7 @@ public class DocxGenerator {
             try {
                 RegAddressUlEntity regAddressUlEntity = result.getRegAddressUlEntities();
                 if (regAddressUlEntity != null) {
+                    creteTitle(doc,"Адрес");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Адрес", Arrays.asList(
                             "Дата регистрации",
@@ -1150,6 +1182,7 @@ public class DocxGenerator {
             try {
                 List<SvedenyaObUchastnikovUlEntity> svedenyaObUchastnikovUlEntities = result.getSvedenyaObUchastnikovUlEntities();
                 if (svedenyaObUchastnikovUlEntities != null && !svedenyaObUchastnikovUlEntities.isEmpty()) {
+                    creteTitle(doc,"Сведения об участниках ЮЛ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Сведения об участниках ЮЛ", Arrays.asList(
                             "№",

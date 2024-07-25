@@ -35,11 +35,16 @@ public class PdfGenerator {
         }
         return table;
     }
-    public static BaseFont getBaseFont() throws IOException, DocumentException {
-        ClassPathResource fontResource = new ClassPathResource("fonts/fontstimes.ttf");
-        try (InputStream fontStream = fontResource.getInputStream()) {
-            return BaseFont.createFont("./fonts/fontstimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, BaseFont.CACHED, fontStream.readAllBytes(), null);
+    public BaseFont getBaseFont() throws IOException, DocumentException {
+        try {
+            ClassPathResource fontResource = new ClassPathResource("./fonts/fontstimes.ttf");
+            try (InputStream fontStream = fontResource.getInputStream()) {
+                return BaseFont.createFont("./fonts/fontstimes.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED, BaseFont.CACHED, fontStream.readAllBytes(), null);
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
+        return BaseFont.createFont();
     }
 
     public Document generate(NodesFL result, ByteArrayOutputStream response) throws DocumentException, IOException {

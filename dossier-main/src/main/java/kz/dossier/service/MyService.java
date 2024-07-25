@@ -702,6 +702,16 @@ public class MyService {
         return pensions;
     }
 
+    private List<MvRnOld> setNamesByBin(List<MvRnOld> list) {
+        for (MvRnOld a : list) {
+            String name = mv_ul_repo.getNameByBin(a.getOwner_iin_bin());
+            if (name != null) {
+                a.setOwner_full_name(name);
+            }
+        }
+        return list;
+    }
+
     //Additional Info by iin
     public AdditionalInfoDTO additionalInfoByIin(String iin) {
         AdditionalInfoDTO additionalInfoDTO = new AdditionalInfoDTO();
@@ -724,7 +734,8 @@ public class MyService {
         }
         try {
             List<MvRnOld> mvRnOlds = mv_rn_oldRepo.getUsersByLike(iin);
-            additionalInfoDTO.setMvRnOlds(mvRnOlds);
+            List<MvRnOld> list = setNamesByBin(mvRnOlds);
+            additionalInfoDTO.setMvRnOlds(list);
         } catch (Exception e){
             System.out.println("Error:" + e);
         }

@@ -15,10 +15,11 @@ public class RnService {
     @Autowired
     MvRnOldRepo mvRnOldRepo;
 
-    public void getDetailedRnView(String cadastrial_number, String address) {
+    public List<RnDTO> getDetailedRnView(String cadastrial_number, String address) {
         List<MvRnOld> rns = mvRnOldRepo.getRowsByCadAndAddress(cadastrial_number, address);
         List<RnDTO> rnDTOs = new ArrayList<>();
         for (MvRnOld rn: rns) {
+
             RnDTO rnDTO = new RnDTO();
 
             rnDTO.setNameOfKind("");
@@ -43,5 +44,6 @@ public class RnService {
 
             rnDTOs.add(rnDTO);
         }
+        return rnDTOs;
     }
 }

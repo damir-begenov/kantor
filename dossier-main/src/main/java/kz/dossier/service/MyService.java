@@ -688,24 +688,30 @@ public class MyService {
     public List<PensionListDTO> getPensionDetails(String iin, String bin, String year) {
         List<PensionListDTO> pensions = new ArrayList<>();
         List<Map<String, Object>> fl_pension_contrss = new ArrayList<>();
-        fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin);
+        fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin, Integer.parseInt(year));
         
 
-        List<Map<String, Object>> filteredList = fl_pension_contrss.stream()
-            .filter(map -> map.get("pay_date").toString().equals(year))
-            .collect(Collectors.toList());
-
-        for (Map<String, Object> pen : filteredList) {
+        for (Map<String, Object> pen : fl_pension_contrss) {
             PensionListDTO pensionListEntity = new PensionListDTO();
             pensionListEntity.setBin(bin);
             pensionListEntity.setName((String)fl_pension_contrss.get(0).get("P_NAME"));
-            pensionListEntity.setPeriod(year);
+            pensionListEntity.setPeriod(pen.get("pay_month").toString());
             pensionListEntity.setSum010((double)pen.get("AMOUNT"));
 
             pensions.add(pensionListEntity);
         }
 
         return pensions;
+    }
+
+    private List<MvRnOld> setNamesByBin(List<MvRnOld> list) {
+        for (MvRnOld a : list) {
+            String name = mv_ul_repo.getNameByBin(a.getOwner_iin_bin());
+            if (name != null) {
+                a.setOwner_full_name(name);
+            }
+        }
+        return list;
     }
 
     //Additional Info by iin
@@ -733,7 +739,8 @@ public class MyService {
         }
         try {
             List<MvRnOld> mvRnOlds = mv_rn_oldRepo.getUsersByLike(iin);
-            additionalInfoDTO.setMvRnOlds(mvRnOlds);
+            List<MvRnOld> list = setNamesByBin(mvRnOlds);
+            additionalInfoDTO.setMvRnOlds(list);
         } catch (Exception e){
             System.out.println("Error:" + e);
         }

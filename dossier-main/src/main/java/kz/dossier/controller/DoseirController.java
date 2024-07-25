@@ -7,6 +7,7 @@ import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.PensionListDTO;
+import kz.dossier.dto.RnDTO;
 import kz.dossier.dto.UlAddressInfo;
 import kz.dossier.dto.UlCardDTO;
 import jakarta.servlet.http.HttpServletResponse;
@@ -95,9 +96,8 @@ public class DoseirController {
     }
 
     @GetMapping("/rnDetails")
-    public String getMethodName(@RequestParam String cadastral, @RequestParam String address) {
-        rnService.getDetailedRnView(cadastral, address);
-        return new String();
+    public List<RnDTO> getMethodName(@RequestParam String cadastral, @RequestParam String address) {
+        return rnService.getDetailedRnView(cadastral, address);
     }
 
     @GetMapping("/generalInfo")

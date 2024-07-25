@@ -12,7 +12,7 @@ public interface RegAddressFlRepo extends JpaRepository<RegAddressFl, String> {
     @Query(value = "SELECT * FROM initial_data.fl_reg_address where iin = ?1", nativeQuery = true)
     List<RegAddressFl> getByIIN(String iin);
 
-    @Query(value = "SELECT * FROM initial_data.fl_reg_address where iin = ?1 and registration_type = 'Permanent' order by reg_date desc", nativeQuery = true)
+    @Query(value = "SELECT * FROM initial_data.fl_reg_address where iin = ?1 and registration_type = 'Permanent' order by reg_date desc limit 1", nativeQuery = true)
     List<RegAddressFl> getByPermanentIin(String iin);
 
     @Query(value = "SELECT * FROM initial_data.fl_reg_address where region = ?1 and district = ?2 and city = ?3 and street = ?4 and building = ?5 and korpus = ?6 and apartment_number = ?7", nativeQuery = true)

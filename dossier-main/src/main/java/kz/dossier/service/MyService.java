@@ -8,6 +8,7 @@ import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.PensionListDTO;
 import kz.dossier.dto.UlAddressInfo;
+import kz.dossier.dto.UlCardDTO;
 import kz.dossier.extractor.Mv_fl_extractor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -145,6 +146,45 @@ public class MyService {
     @Autowired
     private KuisRepo kuisRepo;
 
+
+    public UlCardDTO getUlCard(String bin) {
+        UlCardDTO ulCardDTO = new UlCardDTO();
+        try {
+            Optional<MvUl> ul = mv_ul_repo.getUlByBin(bin);
+
+            if (ul.isPresent()) {
+                ulCardDTO.setBin(bin);
+                ulCardDTO.setName(ul.get().getFull_name_rus());
+                ulCardDTO.setStatus(ul.get().getUl_status());
+                ulCardDTO.setRegDate(ul.get().getOrg_reg_date());
+            }
+
+            return ulCardDTO;
+        } catch (Exception e) {
+            System.out.println("Error: " + e);
+            return ulCardDTO;
+        }
+    }
+
+
+    public UlAddressInfo getUlAddresses(String bin) {
+        RegAddressUlEntity address = regAddressUlEntityRepo.findByBin(bin);
+        UlAddressInfo ulAddressInfo = new UlAddressInfo();
+        if (address != null) {
+            ulAddressInfo.setReg_addr_region_ru(address.getRegAddrRegionRu());
+            ulAddressInfo.setReg_addr_district_ru(address.getRegAddrRegionRu());
+            ulAddressInfo.setReg_addr_rural_district_ru(address.getRegAddrRuralDistrictRu());
+            ulAddressInfo.setReg_addr_locality_ru(address.getRegAddrLocalityRu());
+            ulAddressInfo.setReg_addr_street_ru(address.getRegAddrStreetRu());
+            ulAddressInfo.setReg_addr_bulding_num(address.getRegAddrBuildingNum());
+            ulAddressInfo.setReg_addr_block_num(address.getRegAddrBlockNum());
+            ulAddressInfo.setReg_addr_builing_body_num(address.getRegAddrBuildingBodyNum());
+            ulAddressInfo.setReg_addr_office(address.getRegAddrOffice());
+            ulAddressInfo.setOked(address.getOkedNameRu());
+        }
+
+        return ulAddressInfo;
+    }
 
     public List<FlRelativiesDTO> getRelativesInfo(String iin){
         List<Object[]> flRelativesObj;
@@ -439,6 +479,16 @@ public class MyService {
         List<SearchResultModelFL> result = findWithPhoto(fls);
         return result;
     }
+    public List<SearchResultModelFL> getByEmail(String email) {
+        List<String> iin = flContactsRepo.getByEmail(email);
+        List<MvFl> fls = new ArrayList<>();
+        for (String ii: iin) {
+            MvFl person = mv_FlRepo.getUserByIin(ii);
+            fls.add(person);
+        }
+        List<SearchResultModelFL> result = findWithPhoto(fls);
+        return result;
+    }
     public List<SearchResultModelFL> getByVinFl(String vin) {
         List<String> iin = mvAutoFlRepo.getByVin(vin);
         List<MvFl> fls = new ArrayList<>();
@@ -474,8 +524,8 @@ public class MyService {
 
     }
 
-    public List<SearchResultModelFL> getByDoc_photo(String IIN) {
-        List<MvIinDoc> fls = mv_iin_docRepo.getByDoc_number(IIN);
+    public List<SearchResultModelFL> getByDoc_photo(String doc) {
+        List<MvIinDoc> fls = mv_iin_docRepo.getByDoc_number(doc);
         List<MvFl> fls1 = new ArrayList<>();
         for(MvIinDoc flss : fls){
             System.out.println(flss.getIin());
@@ -1532,7 +1582,7 @@ public class MyService {
 
 
         public FlFirstRowDto getFlFirstRow(String IIN){
-        FlFirstRowDto flFirstRowDto = new FlFirstRowDto();
+            FlFirstRowDto flFirstRowDto = new FlFirstRowDto();
             try {
                 List<MvFl> myMv_fl =  mv_FlRepo.getUsersByLike(IIN);
                 try {

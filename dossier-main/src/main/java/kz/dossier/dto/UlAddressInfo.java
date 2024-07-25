@@ -11,6 +11,15 @@ public class UlAddressInfo {
     private String reg_addr_builing_body_num; 
     private String reg_addr_office;
 
+    private String oked;
+
+    public String getOked() {
+        return oked;
+    }
+    public void setOked(String oked) {
+        this.oked = oked;
+    }
+
     public String getReg_addr_block_num() {
         return reg_addr_block_num;
     }

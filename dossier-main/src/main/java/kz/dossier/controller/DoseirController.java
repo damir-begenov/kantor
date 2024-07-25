@@ -7,6 +7,7 @@ import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
 import kz.dossier.dto.UlAddressInfo;
+import kz.dossier.dto.UlCardDTO;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.repositoryDossier.EsfAll2Repo;
@@ -39,8 +40,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -70,6 +69,21 @@ public class DoseirController {
     DocxGenerator docxGenerator;
     @Autowired
     RnService rnService;
+
+
+    @GetMapping("/ulCard")
+    public UlCardDTO getUlCard(@RequestParam String bin) {
+        return myService.getUlCard(bin);
+    }
+
+    @GetMapping("/ulAddresses")
+    public UlAddressInfo getUlAddresses(@RequestParam String bin) {
+        return myService.getUlAddresses(bin);
+    }
+
+
+    
+    
 
     @GetMapping("/sameAddressFl")
     public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {
@@ -163,10 +177,6 @@ public class DoseirController {
     public List<SearchResultModelFL> getByDoc(@RequestParam String doc) {
         return myService.getByDoc_photo(doc);
     }
-    @GetMapping("/bydoc_number")
-    public List<SearchResultModelFL> getByDocNumber(@RequestParam String doc_number) {
-        return myService.getByDocNumber_photo(doc_number);
-    }
 
     @GetMapping("/additionalfio")
     public List<SearchResultModelFL> getByAdditions(@RequestParam HashMap<String, String> req) {
@@ -177,7 +187,13 @@ public class DoseirController {
     @GetMapping("/byphone")
     public List<SearchResultModelFL> getByPhone(@RequestParam String phone) {
         return myService.getByPhone(phone);
-    }   @GetMapping("/byvinkuzov")
+    }   
+    @GetMapping("/byemail")
+    public List<SearchResultModelFL> getByEmail(@RequestParam String email) {
+        return myService.getByEmail(email);
+    }   
+    
+    @GetMapping("/byvinkuzov")
     public List<SearchResultModelFL> getByVinKuzov(@RequestParam String vin) {
         return myService.getByVinFl(vin.toUpperCase());
     }

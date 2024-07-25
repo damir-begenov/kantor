@@ -16,7 +16,7 @@ public interface MvUlRepo extends JpaRepository<MvUl, Long> {
     List<MvUl> getUlsByName(String name);
     @Query(value="select short_name from imp_kfm_ul.mv_ul where bin = ?1 limit 1", nativeQuery = true)
     String getNameByBin(String bin);
-    @Query(value= "select * from imp_kfm_ul.ul mv_ul0_ where mv_ul0_.bin = ?1 limit 1 ", nativeQuery = true)
+    @Query(value= "select * from imp_kfm_ul.mv_ul where mv_ul.bin = ?1 limit 1 ", nativeQuery = true)
     Optional<MvUl> getUlByBin(String bin);
     
 }

@@ -693,7 +693,7 @@ public class MyService {
             PensionListDTO pensionListEntity = new PensionListDTO();
             pensionListEntity.setBin(bin);
             pensionListEntity.setName((String)fl_pension_contrss.get(0).get("P_NAME"));
-            pensionListEntity.setPeriod(year);
+            pensionListEntity.setPeriod((String)pen.get("pay_date"));
             pensionListEntity.setSum010((double)pen.get("AMOUNT"));
 
             pensions.add(pensionListEntity);

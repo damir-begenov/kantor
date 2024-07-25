@@ -674,6 +674,30 @@ public class MyService {
         return generalInfoDTO;
     }
 
+
+    public List<PensionListDTO> getPensionDetails(String iin, String bin, String year) {
+        List<PensionListDTO> pensions = new ArrayList<>();
+        List<Map<String, Object>> fl_pension_contrss = new ArrayList<>();
+        fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin);
+        
+
+        List<Map<String, Object>> filteredList = fl_pension_contrss.stream()
+            .filter(map -> map.get("pay_date").toString().equals(year))
+            .collect(Collectors.toList());
+
+        for (Map<String, Object> pen : filteredList) {
+            PensionListDTO pensionListEntity = new PensionListDTO();
+            pensionListEntity.setBin(bin);
+            pensionListEntity.setName((String)fl_pension_contrss.get(0).get("P_NAME"));
+            pensionListEntity.setPeriod(year);
+            pensionListEntity.setSum010((double)pen.get("AMOUNT"));
+
+            pensions.add(pensionListEntity);
+        }
+
+        return pensions;
+    }
+
     //Additional Info by iin
     public AdditionalInfoDTO additionalInfoByIin(String iin) {
         AdditionalInfoDTO additionalInfoDTO = new AdditionalInfoDTO();

@@ -6,6 +6,7 @@ import com.lowagie.text.*;
 import kz.dossier.dto.AdditionalInfoDTO;
 import kz.dossier.dto.AddressInfo;
 import kz.dossier.dto.GeneralInfoDTO;
+import kz.dossier.dto.PensionListDTO;
 import kz.dossier.dto.UlAddressInfo;
 import kz.dossier.dto.UlCardDTO;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,6 +41,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 
@@ -81,10 +83,6 @@ public class DoseirController {
         return myService.getUlAddresses(bin);
     }
 
-
-    
-    
-
     @GetMapping("/sameAddressFl")
     public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {
         return myService.getByAddressUsingIin(iin);
@@ -117,6 +115,12 @@ public class DoseirController {
     public List<FlRelativiesDTO> getRelInfo(@RequestParam String iin){
         return myService.getRelativesInfo(iin);
     }
+
+    @GetMapping("/pensionDetails")
+    public List<PensionListDTO> getPesionDetails(@RequestParam String iin, @RequestParam String bin, @RequestParam String year) {
+        return myService.getPensionDetails(iin, bin, year);
+    }
+    
 
 //    @GetMapping("/relativesInfo")
 //    public List<FlRelatives> getRelativesInfo(@RequestParam String iin){

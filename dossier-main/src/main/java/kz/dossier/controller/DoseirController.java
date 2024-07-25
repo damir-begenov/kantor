@@ -166,7 +166,6 @@ public class DoseirController {
         return myService.createHierarchyObject(iin);
     }
 
-
     @GetMapping("/iin")
     public List<SearchResultModelFL> getByIIN(@RequestParam String iin, @RequestParam String email) throws IOException {
         List<SearchResultModelFL> fl = myService.getByIIN_photo(iin);

@@ -12,4 +12,6 @@ public interface MvUlFounderFlRepo extends JpaRepository<MvUlFounderFl, Long> {
     List<MvUlFounderFl> getUsersByLike(String iin);
     @Query(value= "select * from initial_data.ul_founder_fl where iin = ?1 ", nativeQuery = true)
     List<MvUlFounderFl> getUsersByLikeIIN(String iin);
+//    @Query(value= "select * from initial_data.ul_founder_fl where iin = ?1 ", nativeQuery = true)
+//    List<MvUlFounderFl> getByFounder(String iin);
 }

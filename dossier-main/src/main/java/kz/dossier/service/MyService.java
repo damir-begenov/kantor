@@ -128,6 +128,8 @@ public class MyService {
     @Autowired
     FlRiskServiceImpl flRiskService;
     @Autowired
+    DirectorFounderService directorFounderService;
+    @Autowired
     private MvUlLeaderRepository mvUlLeaderRepository;
     @Autowired
     private RegAddressUlEntityRepo regAddressUlEntityRepo;
@@ -859,7 +861,12 @@ public class MyService {
         } else{
             nodes.setHaveRisk(false);
         }
-
+        int dirFounderQuantity = directorFounderService.getDirectorOrFounder(IIN).getQuantity();
+        if(dirFounderQuantity!=0){
+            nodes.setIsDirector(true);
+        } else{
+            nodes.setHaveRisk(false);
+        }
         nodes.setFio((flRaw.getLast_name()!=null?flRaw.getLast_name():"") +" " + (flRaw.getFirst_name()!=null?flRaw.getFirst_name():"") +" "
                 + (flRaw.getPatronymic()!=null?flRaw.getPatronymic():""));
 

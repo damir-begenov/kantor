@@ -8,6 +8,7 @@ import kz.dossier.repositoryDossier.MvUlFounderFlRepo;
 import kz.dossier.repositoryDossier.MvUlFounderUlRepo;
 import kz.dossier.repositoryDossier.MvUlLeaderEntityRepo;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -17,8 +18,10 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class DirectorFounderService {
-    private final MvUlFounderFlRepo mvUlFounderFlRepo;
-    private final MvUlLeaderEntityRepo mvUlLeaderEntityRepo;
+    @Autowired
+    MvUlFounderFlRepo mvUlFounderFlRepo;
+    @Autowired
+    MvUlLeaderEntityRepo mvUlLeaderEntityRepo;
 
     public FlFounderLeaderDTO getDirectorOrFounder(String iin){
         FlFounderLeaderDTO flFounderLeaderDTO = new FlFounderLeaderDTO();

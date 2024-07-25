@@ -1,5 +1,6 @@
 package kz.dossier.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.*;
@@ -719,23 +720,20 @@ public class MyService {
     //Additional Info by iin
     public AdditionalInfoDTO additionalInfoByIin(String iin) {
         AdditionalInfoDTO additionalInfoDTO = new AdditionalInfoDTO();
+        ObjectMapper objectMapper = new ObjectMapper();
         try {
             List<MilitaryAccounting2Entity> militaryAccounting2Entities = MilitaryAccounting2Repo.getUsersByLike(iin);
+            List<MilitaryAccountingDTO> militaryAccountingDTOS = new ArrayList<>();
             if(!militaryAccounting2Entities.isEmpty() & militaryAccounting2Entities.size() > 0){
             try {
-                for(MilitaryAccounting2Entity militaryAccounting2Entity : militaryAccounting2Entities ){
-//                    militaryAccounting2Entity.set
+                for(MilitaryAccounting2Entity militaryAccounting2Entity: militaryAccounting2Entities){
+                    MilitaryAccountingDTO militaryAccountingDTO = objectMapper.convertValue(militaryAccounting2Entity, MilitaryAccountingDTO.class);
+                    militaryAccountingDTO.setBinName(mv_ul_repo.getNameByBin(militaryAccountingDTO.getBin()));
+                    militaryAccountingDTOS.add(militaryAccountingDTO);
                 }
-                additionalInfoDTO.setMilitaryAccounting2Entities(militaryAccounting2Entities);
+                additionalInfoDTO.setMilitaryAccounting2Entities(militaryAccountingDTOS);
             } catch (Exception e) {
-            }}
-        } catch (Exception e){
-        }
-        try {
-            List<MillitaryAccount> militaryAccounts = militaryAccountRepo.findAllByIin(iin);
-            try {
-                additionalInfoDTO.setMillitaryAccounts(militaryAccounts);
-            } catch (Exception e) {
+            }
             }
         } catch (Exception e){
         }

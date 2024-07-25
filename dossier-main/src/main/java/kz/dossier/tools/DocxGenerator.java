@@ -4,6 +4,7 @@ import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.FlPensionMiniRepo;
 import kz.dossier.repositoryDossier.MvUlRepo;
+import kz.dossier.service.MyService;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
@@ -28,13 +29,20 @@ import java.util.Map;
 public class DocxGenerator {
     @Autowired
     FlPensionMiniRepo flPensionMiniRepo;
+    @Autowired
+    MyService myService;
     private MvUlRepo mvUlRepo;
 
     private XWPFDocument makeTableByProperties(XWPFDocument doc, XWPFTable table, String title, List<String> properties) {
         table.setWidth("100%");
-        XWPFTableRow row = table.createRow();
-        for (String prop : properties) {
-            row.addNewTableCell().setText(prop);
+        XWPFTableRow row = table.getRow(0);
+        // Create cells for the header row
+        for (int i = 0; i < properties.size(); i++) {
+            if (i == 0) {
+                row.getCell(0).setText(properties.get(i));
+            } else {
+                row.addNewTableCell().setText(properties.get(i));
+            }
         }
         return doc;
     }
@@ -52,6 +60,56 @@ public class DocxGenerator {
         titleRun.setText(title);
         titleRun.setBold(true);
         titleRun.setFontSize(14);
+    }
+
+    public void generateDoccc(NodesFL result, ByteArrayOutputStream baos) throws IOException {
+        try (XWPFDocument doc = new XWPFDocument()) {
+            CTDocument1 document = doc.getDocument();
+            CTBody body = document.getBody();
+
+            if (!body.isSetSectPr()) {
+                body.addNewSectPr();
+            }
+            CTSectPr section = body.getSectPr();
+
+            if (!section.isSetPgSz()) {
+                section.addNewPgSz();
+            }
+            CTPageSz pageSize = section.getPgSz();
+
+            pageSize.setW(BigInteger.valueOf(15840));
+            pageSize.setH(BigInteger.valueOf(12240));
+
+            creteTitle(doc, "Сведения о физическом лице");
+
+            XWPFTable table = doc.createTable();
+
+
+            XWPFTableRow row1 = table.getRow(0);
+            row1.getCell(0).setText("First Row, First Column");
+            row1.addNewTableCell().setText("First Row, Second Column");
+            row1.addNewTableCell().setText("First Row, Third Column");
+
+            //Creating second Row
+            XWPFTableRow row2 = table.createRow();
+            row2.getCell(0).setText("Second Row, First Column");
+            row2.getCell(1).setText("Second Row, Second Column");
+            row2.getCell(2).setText("Second Row, Third Column");
+
+            //create third row
+            XWPFTableRow row3 = table.createRow();
+            row3.getCell(0).setText("Third Row, First Column");
+            row3.getCell(1).setText("Third Row, Second Column");
+            row3.getCell(2).setText("Third Row, Third Column");
+
+
+
+
+
+            doc.write(baos);
+            baos.close();
+
+        }
     }
 
     public void generateDoc(NodesFL result, ByteArrayOutputStream baos) throws IOException, InvalidFormatException {
@@ -85,7 +143,7 @@ public class DocxGenerator {
                             "Дата смерти"));
                     
                     XWPFTableRow row1 = table.createRow();
-                    XWPFTableCell cell1 = row1.createCell();
+                    XWPFTableCell cell1 = row1.getCell(0);
 
                     XWPFParagraph paragraph2 = cell1.addParagraph();
 
@@ -96,19 +154,20 @@ public class DocxGenerator {
                     ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
                     int imageType = XWPFDocument.PICTURE_TYPE_PNG; // Change according to your image type (e.g., PICTURE_TYPE_JPEG)
                     run1.addPicture(imageStream, imageType, "image.png", Units.toEMU(75), Units.toEMU(100));
-                    row1.addNewTableCell().setText(result.getMvFls().get(0).getIin());
-                    row1.addNewTableCell().setText(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic());
-                    row1.addNewTableCell().setText(result.getMvFls().get(0).isIs_resident() ? "ДА" : "НЕТ");
-                    row1.addNewTableCell().setText(result.getMvFls().get(0).getNationality_ru_name());
-                    row1.addNewTableCell().setText(result.getMvFls().get(0).getDeath_date());
+                    row1.getCell(1).setText(result.getMvFls().get(0).getIin());
+                    row1.getCell(2).setText(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic());
+                    row1.getCell(3).setText(result.getMvFls().get(0).isIs_resident() ? "ДА" : "НЕТ");
+                    row1.getCell(4).setText(result.getMvFls().get(0).getNationality_ru_name());
+                    row1.getCell(5).setText(result.getMvFls().get(0).getDeath_date() !=null ? result.getMvFls().get(0).getDeath_date() : "Отсутсвует");
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
                 System.out.println("Mv_Fl table add exception");
             }
             try {
-                if (result.getMvRnOlds() != null || result.getMvRnOlds().size() < 0) {
-                    creteTitle(doc,"Адреса прописки");
+                if (result.getMvRnOlds() != null && result.getMvRnOlds().size() > 0) {
+                    creteTitle(doc, "Адреса прописки");
+
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Адреса прописки", Arrays.asList(
                             "Страна",
@@ -117,14 +176,15 @@ public class DocxGenerator {
                             "Регион",
                             "Дата прописки"
                     ));
-                    
-                    XWPFTableRow row2 = table.createRow();
+
+                    // Populate the table with data
                     for (RegAddressFl regAddressFl : result.getRegAddressFls()) {
-                        row2.addNewTableCell().setText(regAddressFl.getCountry());
-                        row2.addNewTableCell().setText(regAddressFl.getCity());
-                        row2.addNewTableCell().setText(regAddressFl.getDistrict());
-                        row2.addNewTableCell().setText(regAddressFl.getRegion());
-                        row2.addNewTableCell().setText(regAddressFl.getReg_date());
+                        XWPFTableRow row = table.createRow();
+                        row.getCell(0).setText(regAddressFl.getCountry());
+                        row.getCell(1).setText(regAddressFl.getCity());
+                        row.getCell(2).setText(regAddressFl.getDistrict());
+                        row.getCell(3).setText(regAddressFl.getRegion());
+                        row.getCell(4).setText(regAddressFl.getReg_date());
                     }
                     setMarginBetweenTables(doc);
                 }
@@ -140,16 +200,37 @@ public class DocxGenerator {
                     
                     for (MvIinDoc doci : docs) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(doci.getDoc_type_ru_name());
-                        dataRow.addNewTableCell().setText(doci.getIssue_organization_ru_name());
-                        dataRow.addNewTableCell().setText(doci.getIssue_date().toString());
-                        dataRow.addNewTableCell().setText(doci.getExpiry_date().toString());
-                        dataRow.addNewTableCell().setText(doci.getDoc_type_ru_name());
+                        dataRow.getCell(0).setText(doci.getDoc_type_ru_name());
+                        dataRow.getCell(1).setText(doci.getIssue_organization_ru_name());
+                        dataRow.getCell(2).setText(doci.getIssue_date().toString());
+                        dataRow.getCell(3).setText(doci.getExpiry_date().toString());
+                        dataRow.getCell(4).setText(doci.getDoc_type_ru_name());
                     }
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
                 System.out.println("MV_Iin_Doc table add exception");
+            }
+            try {
+                List<FlRelativiesDTO> flRelativiesDTOS = myService.getRelativesInfo(result.getMvIinDocs().get(0).getIin());
+                if (flRelativiesDTOS != null && !flRelativiesDTOS.isEmpty()) {
+                    System.out.println(flRelativiesDTOS.size());
+                    creteTitle(doc,"Родсвтенники");
+                    XWPFTable table = doc.createTable();
+                    makeTableByProperties(doc, table, "Родсвтенники", Arrays.asList("Статус по отношению к родственнику", "ФИО", "Дата регистрации брака", "Дата расторжения брака", "ИИН"));
+
+                    for (FlRelativiesDTO flRelativiesDTO : flRelativiesDTOS) {
+                        XWPFTableRow dataRow = table.createRow();
+                        dataRow.getCell(0).setText(flRelativiesDTO.getRelative_type() != null ? flRelativiesDTO.getRelative_type() : "");
+                        dataRow.getCell(1).setText(flRelativiesDTO.getParent_fio() != null ? flRelativiesDTO.getParent_fio() : "");
+                        dataRow.getCell(2).setText(flRelativiesDTO.getMarriage_reg_date() != null ? flRelativiesDTO.getMarriage_reg_date().toString() : "");
+                        dataRow.getCell(3).setText(flRelativiesDTO.getMarriage_divorce_date() != null ? flRelativiesDTO.getMarriage_divorce_date().toString() : "");
+                        dataRow.getCell(4).setText(flRelativiesDTO.getParent_iin() != null ? flRelativiesDTO.getParent_iin() : "");
+                    }
+                    setMarginBetweenTables(doc);
+                }
+            } catch (Exception e) {
+                System.out.println("flRelativiesDTO table add exception");
             }
             try {
                 List<School> schools = result.getSchools();
@@ -160,11 +241,11 @@ public class DocxGenerator {
                     
                     for (School school : schools) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(school.getSchool_code());
-                        dataRow.addNewTableCell().setText(school.getSchool_name());
-                        dataRow.addNewTableCell().setText(school.getGrade());
-                        dataRow.addNewTableCell().setText(school.getStart_date().toString());
-                        dataRow.addNewTableCell().setText(school.getEnd_date().toString());
+                        dataRow.getCell(0).setText(school.getSchool_code());
+                        dataRow.getCell(1).setText(school.getSchool_name());
+                        dataRow.getCell(2).setText(school.getGrade());
+                        dataRow.getCell(3).setText(school.getStart_date().toString());
+                        dataRow.getCell(4).setText(school.getEnd_date().toString());
                     }
                     setMarginBetweenTables(doc);
                 }
@@ -181,13 +262,13 @@ public class DocxGenerator {
                     
                     for (Universities university : universities) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(university.getStudy_code());
-                        dataRow.addNewTableCell().setText(university.getStudy_name());
-                        dataRow.addNewTableCell().setText(university.getSpec_name());
-                        dataRow.addNewTableCell().setText(university.getStart_date() != null ? university.getStart_date().toString() : "");
-                        dataRow.addNewTableCell().setText(university.getEnd_date() != null ? university.getEnd_date().toString() : "");
-                        dataRow.addNewTableCell().setText(university.getDuration());
-                        dataRow.addNewTableCell().setText(university.getCourse());
+                        dataRow.getCell(0).setText(university.getStudy_code());
+                        dataRow.getCell(1).setText(university.getStudy_name());
+                        dataRow.getCell(2).setText(university.getSpec_name());
+                        dataRow.getCell(3).setText(university.getStart_date() != null ? university.getStart_date().toString() : "");
+                        dataRow.getCell(4).setText(university.getEnd_date() != null ? university.getEnd_date().toString() : "");
+                        dataRow.getCell(5).setText(university.getDuration());
+                        dataRow.getCell(6).setText(university.getCourse());
                     }
                     setMarginBetweenTables(doc);
                 }
@@ -206,16 +287,16 @@ public class DocxGenerator {
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                     for (MvAutoFl auto : autos) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(formatter.format(auto.getEnd_date()).compareTo(formatter.format(new java.util.Date())) > 0 ? "Действителен" : "Не действителен");
-                        dataRow.addNewTableCell().setText(auto.getReg_number());
-                        dataRow.addNewTableCell().setText(auto.getBrand_model());
-                        dataRow.addNewTableCell().setText(auto.getDate_certificate().toString());
-                        dataRow.addNewTableCell().setText(auto.getEnd_date().toString());
-                        dataRow.addNewTableCell().setText(auto.getRelease_year_tc());
-                        dataRow.addNewTableCell().setText(auto.getOwner_category());
-                        dataRow.addNewTableCell().setText(auto.getVin_kuzov_shassi());
-                        dataRow.addNewTableCell().setText(auto.getSeries_reg_number());
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(formatter.format(auto.getEnd_date()).compareTo(formatter.format(new java.util.Date())) > 0 ? "Действителен" : "Не действителен");
+                        dataRow.getCell(2).setText(auto.getReg_number());
+                        dataRow.getCell(3).setText(auto.getBrand_model());
+                        dataRow.getCell(4).setText(auto.getDate_certificate().toString());
+                        dataRow.getCell(5).setText(auto.getEnd_date().toString());
+                        dataRow.getCell(6).setText(auto.getRelease_year_tc());
+                        dataRow.getCell(7).setText(auto.getOwner_category());
+                        dataRow.getCell(8).setText(auto.getVin_kuzov_shassi());
+                        dataRow.getCell(9).setText(auto.getSeries_reg_number());
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -257,10 +338,10 @@ public class DocxGenerator {
                     int number = 1;
                     for (FlContacts contact : contacts) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(contact.getPhone());
-                        dataRow.addNewTableCell().setText(contact.getEmail());
-                        dataRow.addNewTableCell().setText(contact.getSource());
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(contact.getPhone());
+                        dataRow.getCell(2).setText(contact.getEmail());
+                        dataRow.getCell(3).setText(contact.getSource());
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -279,10 +360,10 @@ public class DocxGenerator {
                     int number = 1;
                     for (MillitaryAccount account : militaryAccounts) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(account.getBin());
-                        dataRow.addNewTableCell().setText(account.getDate_start());
-                        dataRow.addNewTableCell().setText(account.getDate_end());
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(account.getBin());
+                        dataRow.getCell(2).setText(account.getDate_start());
+                        dataRow.getCell(3).setText(account.getDate_end());
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -302,10 +383,10 @@ public class DocxGenerator {
                     int number = 1;
                     for (MvUlFounderFl r : mvUlFounderFls) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getBin_org() != null ? r.getBin_org() : "");
-                        dataRow.addNewTableCell().setText(mvUlRepo.getNameByBin(r.getBin_org())!= null ? mvUlRepo.getNameByBin((r.getBin_org())) : "");
-                        dataRow.addNewTableCell().setText(r.getReg_date() != null ? r.getReg_date().toString() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getBin_org() != null ? r.getBin_org() : "");
+                        dataRow.getCell(2).setText(mvUlRepo.getNameByBin(r.getBin_org()) != null ? mvUlRepo.getNameByBin(r.getBin_org()) : "");
+                        dataRow.getCell(3).setText(r.getReg_date() != null ? r.getReg_date().toString() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -325,11 +406,11 @@ public class DocxGenerator {
                     int number = 1;
                     for (NdsEntity r : ndsEntities) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getStartDt() != null ? r.getStartDt().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getEndDt() != null ? r.getEndDt().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getUpdateDt() != null ? r.getUpdateDt().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getReason() != null ? r.getReason() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getStartDt() != null ? r.getStartDt().toString() : "");
+                        dataRow.getCell(2).setText(r.getEndDt() != null ? r.getEndDt().toString() : "");
+                        dataRow.getCell(3).setText(r.getUpdateDt() != null ? r.getUpdateDt().toString() : "");
+                        dataRow.getCell(4).setText(r.getReason() != null ? r.getReason() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -349,10 +430,10 @@ public class DocxGenerator {
                     int number = 1;
                     for (IpgoEmailEntity r : ipgoEmailEntities) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getOrgan() != null ? r.getOrgan().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getPosition() != null ? r.getPosition() : "");
-                        dataRow.addNewTableCell().setText(r.getEmail() != null ? r.getEmail().toString() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getOrgan() != null ? r.getOrgan().toString() : "");
+                        dataRow.getCell(2).setText(r.getPosition() != null ? r.getPosition() : "");
+                        dataRow.getCell(3).setText(r.getEmail() != null ? r.getEmail().toString() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -371,11 +452,11 @@ public class DocxGenerator {
                     int number = 1;
                     for (Bankrot r : bankrotEntities) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getIin_bin() != null ? r.getIin_bin() : "");
-                        dataRow.addNewTableCell().setText(r.getDocument() != null ? r.getDocument() : "");
-                        dataRow.addNewTableCell().setText(r.getUpdate_dt() != null ? r.getUpdate_dt().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getReason() != null ? r.getReason() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getIin_bin() != null ? r.getIin_bin() : "");
+                        dataRow.getCell(2).setText(r.getDocument() != null ? r.getDocument() : "");
+                        dataRow.getCell(3).setText(r.getUpdate_dt() != null ? r.getUpdate_dt().toString() : "");
+                        dataRow.getCell(4).setText(r.getReason() != null ? r.getReason() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -395,12 +476,12 @@ public class DocxGenerator {
                     int number = 1;
                     for (ConvictsJustified r : convictsJustifieds) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getReg_date() != null ? r.getReg_date() : "");
-                        dataRow.addNewTableCell().setText(r.getCourt_of_first_instance() != null ? r.getCourt_of_first_instance() : "");
-                        dataRow.addNewTableCell().setText(r.getDecision_on_person() != null ? r.getDecision_on_person() : "");
-                        dataRow.addNewTableCell().setText(r.getMeasure_punishment() != null ? r.getMeasure_punishment() : "");
-                        dataRow.addNewTableCell().setText(r.getQualification() != null ? r.getQualification() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getReg_date() != null ? r.getReg_date() : "");
+                        dataRow.getCell(2).setText(r.getCourt_of_first_instance() != null ? r.getCourt_of_first_instance() : "");
+                        dataRow.getCell(3).setText(r.getDecision_on_person() != null ? r.getDecision_on_person() : "");
+                        dataRow.getCell(4).setText(r.getMeasure_punishment() != null ? r.getMeasure_punishment() : "");
+                        dataRow.getCell(5).setText(r.getQualification() != null ? r.getQualification() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -420,12 +501,12 @@ public class DocxGenerator {
                     int number = 1;
                     for (ConvictsTerminatedByRehab r : convictsTerminatedByRehabs) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getInvestigative_authority() != null ? r.getInvestigative_authority() : "");
-                        dataRow.addNewTableCell().setText(r.getLast_solution_date() != null ? r.getLast_solution_date() : "");
-                        dataRow.addNewTableCell().setText(r.getQualification_desc() != null ? r.getQualification_desc() : "");
-                        dataRow.addNewTableCell().setText(r.getLast_solution() != null ? r.getLast_solution() : "");
-                        dataRow.addNewTableCell().setText(r.getQualification_by_11() != null ? r.getQualification_by_11() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getInvestigative_authority() != null ? r.getInvestigative_authority() : "");
+                        dataRow.getCell(2).setText(r.getLast_solution_date() != null ? r.getLast_solution_date() : "");
+                        dataRow.getCell(3).setText(r.getQualification_desc() != null ? r.getQualification_desc() : "");
+                        dataRow.getCell(4).setText(r.getLast_solution() != null ? r.getLast_solution() : "");
+                        dataRow.getCell(5).setText(r.getQualification_by_11() != null ? r.getQualification_by_11() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -444,10 +525,10 @@ public class DocxGenerator {
                     int number = 1;
                     for (BlockEsf r : blockEsfs) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getStart_dt() != null ? r.getStart_dt().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getEnd_dt() != null ? r.getEnd_dt().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getUpdate_dt() != null ? r.getUpdate_dt().toString() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getStart_dt() != null ? r.getStart_dt().toString() : "");
+                        dataRow.getCell(2).setText(r.getEnd_dt() != null ? r.getEnd_dt().toString() : "");
+                        dataRow.getCell(3).setText(r.getUpdate_dt() != null ? r.getUpdate_dt().toString() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -467,15 +548,15 @@ public class DocxGenerator {
                     int number = 1;
                     for (FirstCreditBureauEntity entity : result.getFirstCreditBureauEntities()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(entity.getType() != null ? entity.getType() : "");
-                        dataRow.addNewTableCell().setText(entity.getCreditInFoid() != null ? entity.getCreditInFoid().toString() : "");
-                        dataRow.addNewTableCell().setText(entity.getRegion() != null ? entity.getRegion() : "");
-                        dataRow.addNewTableCell().setText(entity.getQuantityFpdSpd() != null ? entity.getQuantityFpdSpd().toString() : "");
-                        dataRow.addNewTableCell().setText(entity.getAmountOfDebt() != null ? entity.getAmountOfDebt().toString() : "");
-                        dataRow.addNewTableCell().setText(entity.getMaxDelayDayNum1() != null ? entity.getMaxDelayDayNum1().toString() : "");
-                        dataRow.addNewTableCell().setText(entity.getFinInstitutionsName() != null ? entity.getFinInstitutionsName() : "");
-                        dataRow.addNewTableCell().setText(entity.getTotalCountOfCredits() != null ? entity.getTotalCountOfCredits().toString() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(entity.getType() != null ? entity.getType() : "");
+                        dataRow.getCell(2).setText(entity.getCreditInFoid() != null ? entity.getCreditInFoid().toString() : "");
+                        dataRow.getCell(3).setText(entity.getRegion() != null ? entity.getRegion() : "");
+                        dataRow.getCell(4).setText(entity.getQuantityFpdSpd() != null ? entity.getQuantityFpdSpd().toString() : "");
+                        dataRow.getCell(5).setText(entity.getAmountOfDebt() != null ? entity.getAmountOfDebt().toString() : "");
+                        dataRow.getCell(6).setText(entity.getMaxDelayDayNum1() != null ? entity.getMaxDelayDayNum1().toString() : "");
+                        dataRow.getCell(7).setText(entity.getFinInstitutionsName() != null ? entity.getFinInstitutionsName() : "");
+                        dataRow.getCell(8).setText(entity.getTotalCountOfCredits() != null ? entity.getTotalCountOfCredits().toString() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -495,11 +576,11 @@ public class DocxGenerator {
                     int number = 1;
                     for (ImmoralLifestyle r : result.getAmoral()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getAuthority_detected() != null ? r.getAuthority_detected() : "");
-                        dataRow.addNewTableCell().setText(r.getCitizenship_id() != null ? r.getCitizenship_id() : "");
-                        dataRow.addNewTableCell().setText(r.getDecision_date() != null ? r.getDecision_date().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getFine_amount() != null ? r.getFine_amount().toString() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getAuthority_detected() != null ? r.getAuthority_detected() : "");
+                        dataRow.getCell(2).setText(r.getCitizenship_id() != null ? r.getCitizenship_id() : "");
+                        dataRow.getCell(3).setText(r.getDecision_date() != null ? r.getDecision_date().toString() : "");
+                        dataRow.getCell(4).setText(r.getFine_amount() != null ? r.getFine_amount().toString() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -518,13 +599,12 @@ public class DocxGenerator {
                     int number = 1;
                     for (MzEntity r : result.getMzEntities()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getDiseaseCode() != null ? r.getDiseaseCode() : "");
-                        dataRow.addNewTableCell().setText(r.getReg() != null ? r.getReg() : "");
-                        dataRow.addNewTableCell().setText(r.getStatusMz() != null ? r.getStatusMz() : "");
-                        dataRow.addNewTableCell().setText(r.getMedicalOrg() != null ? r.getMedicalOrg() : "");
-                        number++;
-                    }
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getDiseaseCode() != null ? r.getDiseaseCode() : "");
+                        dataRow.getCell(2).setText(r.getReg() != null ? r.getReg() : "");
+                        dataRow.getCell(3).setText(r.getStatusMz() != null ? r.getStatusMz() : "");
+                        dataRow.getCell(4).setText(r.getMedicalOrg() != null ? r.getMedicalOrg() : "");
+                        number++;                  }
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
@@ -540,13 +620,12 @@ public class DocxGenerator {
                     int number = 1;
                     for (WantedListEntity r : result.getWantedListEntities()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(r.getDays() != null ? r.getDays().toString() : "");
-                        dataRow.addNewTableCell().setText(r.getOrgan() != null ? r.getOrgan() : "");
-                        dataRow.addNewTableCell().setText(r.getStatus() != null ? r.getStatus() : "");
-                        dataRow.addNewTableCell().setText(r.getRelevanceDate() != null ? r.getRelevanceDate().toString() : "");
-                        number++;
-                    }
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(r.getDays() != null ? r.getDays().toString() : "");
+                        dataRow.getCell(2).setText(r.getOrgan() != null ? r.getOrgan() : "");
+                        dataRow.getCell(3).setText(r.getStatus() != null ? r.getStatus() : "");
+                        dataRow.getCell(4).setText(r.getRelevanceDate() != null ? r.getRelevanceDate().toString() : "");
+                        number++;                    }
                     setMarginBetweenTables(doc);
                     // Save the document as needed
                 }
@@ -588,7 +667,7 @@ public class DocxGenerator {
             pageSize.setH(BigInteger.valueOf(12240));
             try {
                 if (result.getMvUls() != null && !result.getMvUls().isEmpty()) {
-                    creteTitle(doc,"Сведения о юридическом лице");
+                    creteTitle(doc, "Сведения о юридическом лице");
                     XWPFTable table = doc.createTable();
                     table.setWidth("100%");
                     makeTableByProperties(doc, table, "Сведения о юридическом лице", Arrays.asList(
@@ -598,20 +677,25 @@ public class DocxGenerator {
                             "Статус ЮЛ"
                     ));
 
+                    int number = 1;
                     for (MvUl a : result.getMvUls()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(a.getBin() != null ? a.getBin() : "");
-                        dataRow.addNewTableCell().setText(a.getFull_name_kaz() != null ? a.getFull_name_kaz() : "");
-                        dataRow.addNewTableCell().setText(a.getHead_organization() != null ? a.getHead_organization() : "");
-                        dataRow.addNewTableCell().setText(a.getUl_status() != null ? a.getUl_status() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getBin() != null ? a.getBin() : "");
+                        dataRow.getCell(2).setText(a.getFull_name_kaz() != null ? a.getFull_name_kaz() : "");
+                        dataRow.getCell(3).setText(a.getHead_organization() != null ? a.getHead_organization() : "");
+                        dataRow.getCell(4).setText(a.getUl_status() != null ? a.getUl_status() : "");
+                        number++;
                     }
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
                 System.out.println("Exception while adding MV UL table: " + e.getMessage());
-            }try {
+            }
+
+            try {
                 if (result.getMvUlFounderFls() != null && !result.getMvUlFounderFls().isEmpty()) {
-                    creteTitle(doc,"Сведения об участниках ЮЛ");
+                    creteTitle(doc, "Сведения об участниках ЮЛ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Сведения об участниках ЮЛ", Arrays.asList(
                             "№",
@@ -623,57 +707,50 @@ public class DocxGenerator {
                     int number = 1;
                     for (MvUlFounderFl a : result.getMvUlFounderFls()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-
-                        try {
-                            String name = mvUlRepo.getNameByBin(a.getBin_org());
-                            dataRow.addNewTableCell().setText(name != null ? name : "Нет");
-                        } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
-                        }
-
-                        try {
-                            dataRow.addNewTableCell().setText(a.getReg_date() != null ? a.getReg_date().toString() : "Нет даты");
-                        } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет даты");
-                        }
-
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        String name = mvUlRepo.getNameByBin(a.getBin_org());
+                        dataRow.getCell(1).setText(name != null ? name : "Нет");
+                        dataRow.getCell(2).setText(a.getReg_date() != null ? a.getReg_date().toString() : "Нет даты");
                         number++;
                     }
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
-                System.out.println("Error adding МвUlFounderFl table: " + e.getMessage());
+                System.out.println("Error adding MV Ul Founder Fl table: " + e.getMessage());
             }
+
             try {
                 if (result.getAccountantListEntities() != null && !result.getAccountantListEntities().isEmpty()) {
-                    creteTitle(doc,"Список бухгалтеров");
+                    creteTitle(doc, "Список бухгалтеров");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Список бухгалтеров", Arrays.asList(
                             "№",
                             "ИИН",
                             "Проф.",
                             "Фамилия",
-                            "Имя"));
+                            "Имя"
+                    ));
+
                     int number = 1;
                     for (AccountantListEntity a : result.getAccountantListEntities()) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getIin());
-                        dataRow.addNewTableCell().setText(a.getProf());
-                        dataRow.addNewTableCell().setText(a.getLname());
-                        dataRow.addNewTableCell().setText(a.getFname());
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getIin() != null ? a.getIin() : "");
+                        dataRow.getCell(2).setText(a.getProf() != null ? a.getProf() : "");
+                        dataRow.getCell(3).setText(a.getLname() != null ? a.getLname() : "");
+                        dataRow.getCell(4).setText(a.getFname() != null ? a.getFname() : "");
                         number++;
                     }
-
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
                 System.out.println("Error adding AccountantListEntities table: " + e.getMessage());
-            }try {
+            }
+
+            try {
                 List<Omn> omns = result.getOmns();
                 if (omns != null && !omns.isEmpty()) {
-                    creteTitle(doc,"ОМНС");
+                    creteTitle(doc, "ОМНС");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "ОМНС", Arrays.asList(
                             "РНН",
@@ -687,13 +764,13 @@ public class DocxGenerator {
                     int number = 1;
                     for (Omn a : omns) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getRnn() != null ? a.getRnn() : "");
-                        dataRow.addNewTableCell().setText(a.getTaxpayer_name() != null ? a.getTaxpayer_name() : "");
-                        dataRow.addNewTableCell().setText(a.getTaxpayer_fio() != null ? a.getTaxpayer_fio() : "");
-                        dataRow.addNewTableCell().setText(a.getLeader_fio() != null ? a.getLeader_fio() : "");
-                        dataRow.addNewTableCell().setText(a.getLeader_iin() != null ? a.getLeader_iin() : "");
-                        dataRow.addNewTableCell().setText(a.getLeader_rnn() != null ? a.getLeader_rnn() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getRnn() != null ? a.getRnn() : "");
+                        dataRow.getCell(2).setText(a.getTaxpayer_name() != null ? a.getTaxpayer_name() : "");
+                        dataRow.getCell(3).setText(a.getTaxpayer_fio() != null ? a.getTaxpayer_fio() : "");
+                        dataRow.getCell(4).setText(a.getLeader_fio() != null ? a.getLeader_fio() : "");
+                        dataRow.getCell(5).setText(a.getLeader_iin() != null ? a.getLeader_iin() : "");
+                        dataRow.getCell(6).setText(a.getLeader_rnn() != null ? a.getLeader_rnn() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -705,11 +782,13 @@ public class DocxGenerator {
             try {
                 List<Equipment> equipmentList = result.getEquipment();
                 if (equipmentList != null && !equipmentList.isEmpty()) {
-                    creteTitle(doc,"Транспорт");
+                    creteTitle(doc, "Транспорт");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Транспорт", Arrays.asList(
+                            "№",
                             "Адрес",
                             "Гос. Номер",
+                            "Номер серии рег.",
                             "Номер серии рег.",
                             "Дата регистрации",
                             "Причина",
@@ -724,18 +803,18 @@ public class DocxGenerator {
                     int number = 1;
                     for (Equipment a : equipmentList) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getOwner_address() != null ? a.getOwner_address() : "");
-                        dataRow.addNewTableCell().setText(a.getGov_number() != null ? a.getGov_number() : "");
-                        dataRow.addNewTableCell().setText(a.getReg_series_num() != null ? a.getReg_series_num() : "");
-                        dataRow.addNewTableCell().setText(a.getReg_date() != null ? a.getReg_date() : "");
-                        dataRow.addNewTableCell().setText(a.getReg_reason() != null ? a.getReg_reason() : "");
-                        dataRow.addNewTableCell().setText(a.getVin() != null ? a.getVin() : "");
-                        dataRow.addNewTableCell().setText(a.getEquipment_spec() != null ? a.getEquipment_spec() : "");
-                        dataRow.addNewTableCell().setText(a.getEquipment_type() != null ? a.getEquipment_type() : "");
-                        dataRow.addNewTableCell().setText(a.getEquipment_form() != null ? a.getEquipment_form() : "");
-                        dataRow.addNewTableCell().setText(a.getBrand() != null ? a.getBrand() : "");
-                        dataRow.addNewTableCell().setText(a.getEquipment_model() != null ? a.getEquipment_model() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getOwner_address() != null ? a.getOwner_address() : "");
+                        dataRow.getCell(2).setText(a.getGov_number() != null ? a.getGov_number() : "");
+                        dataRow.getCell(3).setText(a.getReg_series_num() != null ? a.getReg_series_num() : "");
+                        dataRow.getCell(4).setText(a.getReg_date() != null ? a.getReg_date() : "");
+                        dataRow.getCell(5).setText(a.getReg_reason() != null ? a.getReg_reason() : "");
+                        dataRow.getCell(6).setText(a.getVin() != null ? a.getVin() : "");
+                        dataRow.getCell(7).setText(a.getEquipment_spec() != null ? a.getEquipment_spec() : "");
+                        dataRow.getCell(8).setText(a.getEquipment_type() != null ? a.getEquipment_type() : "");
+                        dataRow.getCell(9).setText(a.getEquipment_form() != null ? a.getEquipment_form() : "");
+                        dataRow.getCell(10).setText(a.getBrand() != null ? a.getBrand() : "");
+                        dataRow.getCell(11).setText(a.getEquipment_model() != null ? a.getEquipment_model() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -747,9 +826,10 @@ public class DocxGenerator {
             try {
                 List<Msh> mshes = result.getMshes();
                 if (mshes != null && !mshes.isEmpty()) {
-                    creteTitle(doc,"МШЭС");
+                    creteTitle(doc, "МШЭС");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "МШЭС", Arrays.asList(
+                            "№",
                             "Тип оборудования",
                             "Модель оборудования",
                             "VIN",
@@ -760,16 +840,11 @@ public class DocxGenerator {
                     int number = 1;
                     for (Msh a : mshes) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getEquipmentType() != null ? a.getEquipmentType() : "");
-                        dataRow.addNewTableCell().setText(a.getEquipmentModel() != null ? a.getEquipmentModel() : "");
-                        dataRow.addNewTableCell().setText(a.getVin() != null ? a.getVin() : "");
-                        dataRow.addNewTableCell().setText(a.getGovNumber() != null ? a.getGovNumber() : "");
-                        try {
-                            dataRow.addNewTableCell().setText(a.getRegDate() != null ? a.getRegDate().toString() : "Нет");
-                        } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
-                        }
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(2).setText(a.getEquipmentModel() != null ? a.getEquipmentModel() : "");
+                        dataRow.getCell(3).setText(a.getVin() != null ? a.getVin() : "");
+                        dataRow.getCell(4).setText(a.getGovNumber() != null ? a.getGovNumber() : "");
+                        dataRow.getCell(5).setText(a.getRegDate() != null ? a.getRegDate().toString() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -796,14 +871,14 @@ public class DocxGenerator {
                     int number = 1;
                     for (Dormant a : dormants) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getRnn() != null ? a.getRnn() : "");
-                        dataRow.addNewTableCell().setText(a.getTaxpayer_name() != null ? a.getTaxpayer_name() : "");
-                        dataRow.addNewTableCell().setText(a.getTaxpayer_fio() != null ? a.getTaxpayer_fio() : "");
-                        dataRow.addNewTableCell().setText(a.getLeader_fio() != null ? a.getLeader_fio() : "");
-                        dataRow.addNewTableCell().setText(a.getLeader_iin() != null ? a.getLeader_iin() : "");
-                        dataRow.addNewTableCell().setText(a.getLeader_rnn() != null ? a.getLeader_rnn() : "");
-                        dataRow.addNewTableCell().setText(a.getOrder_date() != null ? a.getOrder_date() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getRnn() != null ? a.getRnn() : "");
+                        dataRow.getCell(2).setText(a.getTaxpayer_name() != null ? a.getTaxpayer_name() : "");
+                        dataRow.getCell(3).setText(a.getTaxpayer_fio() != null ? a.getTaxpayer_fio() : "");
+                        dataRow.getCell(4).setText(a.getLeader_fio() != null ? a.getLeader_fio() : "");
+                        dataRow.getCell(5).setText(a.getLeader_iin() != null ? a.getLeader_iin() : "");
+                        dataRow.getCell(6).setText(a.getLeader_rnn() != null ? a.getLeader_rnn() : "");
+                        dataRow.getCell(7).setText(a.getOrder_date() != null ? a.getOrder_date() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -815,7 +890,7 @@ public class DocxGenerator {
             try {
                 List<Bankrot> bankrots = result.getBankrots();
                 if (bankrots != null && !bankrots.isEmpty()) {
-                    creteTitle(doc,"Банкроты");
+                    creteTitle(doc, "Банкроты");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Банкроты", Arrays.asList(
                             "№",
@@ -826,15 +901,15 @@ public class DocxGenerator {
 
                     int number = 1;
                     for (Bankrot a : bankrots) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getDocument() != null ? a.getDocument() : "");
+                        XWPFTableRow dataRow = table.getRow(number);
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getDocument() != null ? a.getDocument() : "");
                         try {
-                            dataRow.addNewTableCell().setText(a.getUpdate_dt() != null ? a.getUpdate_dt().toString() : "Дата отсутствует");
+                            dataRow.getCell(2).setText(a.getUpdate_dt() != null ? a.getUpdate_dt().toString() : "Дата отсутствует");
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Дата отсутствует");
+                            dataRow.getCell(2).setText("Дата отсутствует");
                         }
-                        dataRow.addNewTableCell().setText(a.getReason() != null ? a.getReason() : "");
+                        dataRow.getCell(3).setText(a.getReason() != null ? a.getReason() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -846,7 +921,7 @@ public class DocxGenerator {
             try {
                 List<Adm> adms = result.getAdms();
                 if (adms != null && !adms.isEmpty()) {
-                    creteTitle(doc,"Администрация");
+                    creteTitle(doc, "Администрация");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Администрация", Arrays.asList(
                             "№",
@@ -863,17 +938,17 @@ public class DocxGenerator {
 
                     int number = 1;
                     for (Adm a : adms) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getMaterial_num() != null ? a.getMaterial_num() : "");
-                        dataRow.addNewTableCell().setText(a.getReg_date() != null ? a.getReg_date() : "");
-                        dataRow.addNewTableCell().setText(a.getFifteen() != null ? a.getFifteen() : "");
-                        dataRow.addNewTableCell().setText(a.getSixteen() != null ? a.getSixteen() : "");
-                        dataRow.addNewTableCell().setText(a.getSeventeen() != null ? a.getSeventeen() : "");
-                        dataRow.addNewTableCell().setText(a.getUl_org_name() != null ? a.getUl_org_name() : "");
-                        dataRow.addNewTableCell().setText(a.getUl_adress() != null ? a.getUl_adress() : "");
-                        dataRow.addNewTableCell().setText(a.getVehicle_brand() != null ? a.getVehicle_brand() : "");
-                        dataRow.addNewTableCell().setText(a.getState_auto_num() != null ? a.getState_auto_num() : "");
+                        XWPFTableRow dataRow = table.getRow(number);
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getMaterial_num() != null ? a.getMaterial_num() : "");
+                        dataRow.getCell(2).setText(a.getReg_date() != null ? a.getReg_date() : "");
+                        dataRow.getCell(3).setText(a.getFifteen() != null ? a.getFifteen() : "");
+                        dataRow.getCell(4).setText(a.getSixteen() != null ? a.getSixteen() : "");
+                        dataRow.getCell(5).setText(a.getSeventeen() != null ? a.getSeventeen() : "");
+                        dataRow.getCell(6).setText(a.getUl_org_name() != null ? a.getUl_org_name() : "");
+                        dataRow.getCell(7).setText(a.getUl_adress() != null ? a.getUl_adress() : "");
+                        dataRow.getCell(8).setText(a.getVehicle_brand() != null ? a.getVehicle_brand() : "");
+                        dataRow.getCell(9).setText(a.getState_auto_num() != null ? a.getState_auto_num() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -885,7 +960,7 @@ public class DocxGenerator {
             try {
                 List<Criminals> criminals = result.getCriminals();
                 if (criminals != null && !criminals.isEmpty()) {
-                    creteTitle(doc,"Преступления");
+                    creteTitle(doc, "Преступления");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Преступления", Arrays.asList(
                             "№",
@@ -901,26 +976,28 @@ public class DocxGenerator {
 
                     int number = 1;
                     for (Criminals a : criminals) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getCourt_name() != null ? a.getCourt_name() : "");
-                        dataRow.addNewTableCell().setText(a.getCourt_dt() != null ? a.getCourt_dt() : "");
-                        dataRow.addNewTableCell().setText(a.getDecision() != null ? a.getDecision() : "");
-                        dataRow.addNewTableCell().setText(a.getCrime_name() != null ? a.getCrime_name() : "");
-                        dataRow.addNewTableCell().setText(a.getSentence() != null ? a.getSentence() : "");
-                        dataRow.addNewTableCell().setText(a.getAdd_info() != null ? a.getAdd_info() : "");
-                        dataRow.addNewTableCell().setText(a.getTreatment() != null ? a.getTreatment() : "");
-                        dataRow.addNewTableCell().setText(a.getErdr() != null ? a.getErdr() : "");
+                        XWPFTableRow dataRow = table.getRow(number);
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getCourt_name() != null ? a.getCourt_name() : "");
+                        dataRow.getCell(2).setText(a.getCourt_dt() != null ? a.getCourt_dt() : "");
+                        dataRow.getCell(3).setText(a.getDecision() != null ? a.getDecision() : "");
+                        dataRow.getCell(4).setText(a.getCrime_name() != null ? a.getCrime_name() : "");
+                        dataRow.getCell(5).setText(a.getSentence() != null ? a.getSentence() : "");
+                        dataRow.getCell(6).setText(a.getAdd_info() != null ? a.getAdd_info() : "");
+                        dataRow.getCell(7).setText(a.getTreatment() != null ? a.getTreatment() : "");
+                        dataRow.getCell(8).setText(a.getErdr() != null ? a.getErdr() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
                 }
             } catch (Exception e) {
                 System.out.println("Error adding Criminals table: " + e.getMessage());
-            }try {
+            }
+
+            try {
                 List<BlockEsf> blockEsfs = result.getBlockEsfs();
                 if (blockEsfs != null && !blockEsfs.isEmpty()) {
-                    creteTitle(doc,"Блокировка ЕСФ");
+                    creteTitle(doc, "Блокировка ЕСФ");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Блокировка ЕСФ", Arrays.asList(
                             "№",
@@ -931,22 +1008,22 @@ public class DocxGenerator {
 
                     int number = 1;
                     for (BlockEsf a : blockEsfs) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
+                        XWPFTableRow dataRow = table.getRow(number);
+                        dataRow.getCell(0).setText(String.valueOf(number));
                         try {
-                            dataRow.addNewTableCell().setText(a.getStart_dt().toString());
+                            dataRow.getCell(1).setText(a.getStart_dt().toString());
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
+                            dataRow.getCell(1).setText("Нет");
                         }
                         try {
-                            dataRow.addNewTableCell().setText(a.getEnd_dt().toString());
+                            dataRow.getCell(2).setText(a.getEnd_dt().toString());
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
+                            dataRow.getCell(2).setText("Нет");
                         }
                         try {
-                            dataRow.addNewTableCell().setText(a.getUpdate_dt().toString());
+                            dataRow.getCell(3).setText(a.getUpdate_dt().toString());
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
+                            dataRow.getCell(3).setText("Нет");
                         }
                         number++;
                     }
@@ -959,7 +1036,7 @@ public class DocxGenerator {
             try {
                 List<NdsEntity> ndsEntities = result.getNdsEntities();
                 if (ndsEntities != null && !ndsEntities.isEmpty()) {
-                    creteTitle(doc,"Объекты НДС");
+                    creteTitle(doc, "Объекты НДС");
                     XWPFTable table = doc.createTable();
                     makeTableByProperties(doc, table, "Объекты НДС", Arrays.asList(
                             "№",
@@ -971,23 +1048,23 @@ public class DocxGenerator {
 
                     int number = 1;
                     for (NdsEntity a : ndsEntities) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
+                        XWPFTableRow dataRow = table.getRow(number);
+                        dataRow.getCell(0).setText(String.valueOf(number));
                         try {
-                            dataRow.addNewTableCell().setText(a.getStartDt().toString());
+                            dataRow.getCell(1).setText(a.getStartDt().toString());
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
+                            dataRow.getCell(1).setText("Нет");
                         }
                         try {
-                            dataRow.addNewTableCell().setText(a.getEndDt().toString());
+                            dataRow.getCell(2).setText(a.getEndDt().toString());
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
+                            dataRow.getCell(2).setText("Нет");
                         }
-                        dataRow.addNewTableCell().setText(a.getReason() != null ? a.getReason() : "");
+                        dataRow.getCell(3).setText(a.getReason() != null ? a.getReason() : "");
                         try {
-                            dataRow.addNewTableCell().setText(a.getUpdateDt().toString());
+                            dataRow.getCell(4).setText(a.getUpdateDt().toString());
                         } catch (Exception e) {
-                            dataRow.addNewTableCell().setText("Нет");
+                            dataRow.getCell(4).setText("Нет");
                         }
                         number++;
                     }
@@ -997,49 +1074,48 @@ public class DocxGenerator {
                 System.out.println("Error adding NdsEntity table: " + e.getMessage());
             }
 
-            try {
-                List<MvRnOld> mvRnOlds = result.getMvRnOlds();
-                if (mvRnOlds != null && !mvRnOlds.isEmpty()) {
-                    creteTitle(doc,"Прежний адрес прописки");
-                    XWPFTable table = doc.createTable();
-                    makeTableByProperties(doc, table, "Прежний адрес прописки", Arrays.asList(
-                            "№",
-                            "Назначение использования",
-                            "Статус недвижимости",
-                            "Адрес",
-                            "История адресов",
-                            "Тип собственности",
-                            "Вид собственности",
-                            "Статус характеристики недвижимости",
-                            "Дата регистрации в реестре",
-                            "Дата окончания регистрации",
-                            "Возникновение права в реестре",
-                            "Статус в реестре"
-                    ));
-
-                    int number = 1;
-                    for (MvRnOld a : mvRnOlds) {
-                        XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getIntended_use_rus() != null ? a.getIntended_use_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getEstate_status_rus() != null ? a.getEstate_status_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getAddress_rus() != null ? a.getAddress_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getAddress_history_rus() != null ? a.getAddress_history_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getType_of_property_rus() != null ? a.getType_of_property_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getProperty_type_rus() != null ? a.getProperty_type_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getEstate_characteristic_status_rus() != null ? a.getEstate_characteristic_status_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getRegister_reg_date() != null ? a.getRegister_reg_date() : "");
-                        dataRow.addNewTableCell().setText(a.getRegister_end_date() != null ? a.getRegister_end_date() : "");
-                        dataRow.addNewTableCell().setText(a.getRegister_emergence_rights_rus() != null ? a.getRegister_emergence_rights_rus() : "");
-                        dataRow.addNewTableCell().setText(a.getRegister_status_rus() != null ? a.getRegister_status_rus() : "");
-                        number++;
-                    }
-                    setMarginBetweenTables(doc);
-                }
-            } catch (Exception e) {
-                System.out.println("Error adding MvRnOld table: " + e.getMessage());
-            }
-
+//            try {
+//                List<MvRnOld> mvRnOlds = result.getMvRnOlds();
+//                if (mvRnOlds != null && !mvRnOlds.isEmpty()) {
+//                    creteTitle(doc, "Прежний адрес прописки");
+//                    XWPFTable table = doc.createTable();
+//                    makeTableByProperties(doc, table, "Прежний адрес прописки", Arrays.asList(
+//                            "№",
+//                            "Назначение использования",
+//                            "Статус недвижимости",
+//                            "Адрес",
+//                            "История адресов",
+//                            "Тип собственности",
+//                            "Вид собственности",
+//                            "Статус характеристики недвижимости",
+//                            "Дата регистрации в реестре",
+//                            "Дата окончания регистрации",
+//                            "Возникновение права в реестре",
+//                            "Статус в реестре"
+//                    ));
+//
+//                    int number = 1;
+//                    for (MvRnOld a : mvRnOlds) {
+//                        XWPFTableRow dataRow = table.getRow(number);
+//                        dataRow.getCell(0).setText(String.valueOf(number));
+//                        dataRow.getCell(1).setText(a.getType_of_property_rus() != null ? a.getProperty_type_rus() : "");
+//                        dataRow.getCell(2).setText(a.getEstate_status_rus() != null ? a.getProperty_status() : "");
+//                        dataRow.getCell(3).setText(a.getAddress() != null ? a.getAddress() : "");
+//                        dataRow.getCell(4).setText(a.getAddress_history() != null ? a.getAddress_history() : "");
+//                        dataRow.getCell(5).setText(a.getProperty_type() != null ? a.getProperty_type() : "");
+//                        dataRow.getCell(6).setText(a.getOwnership_type() != null ? a.getOwnership_type() : "");
+//                        dataRow.getCell(7).setText(a.getProperty_status() != null ? a.getProperty_status() : "");
+//                        dataRow.getCell(8).setText(a.getReg_date() != null ? a.getReg_date().toString() : "");
+//                        dataRow.getCell(9).setText(a.getEnd_reg_date() != null ? a.getEnd_reg_date().toString() : "");
+//                        dataRow.getCell(10).setText(a.getRight_occur_date() != null ? a.getRight_occur_date().toString() : "");
+//                        dataRow.getCell(11).setText(a.getReg_status() != null ? a.getReg_status() : "");
+//                        number++;
+//                    }
+//                    setMarginBetweenTables(doc);
+//                }
+//            } catch (Exception e) {
+//                System.out.println("Error adding MvRnOld table: " + e.getMessage());
+//            }
             try {
                 List<FpgTempEntity> fpgTempEntities = result.getFpgTempEntities();
                 if (fpgTempEntities != null && !fpgTempEntities.isEmpty()) {

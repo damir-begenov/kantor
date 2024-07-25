@@ -2,16 +2,7 @@ package kz.dossier.dto;
 
 import java.util.List;
 
-import kz.dossier.modelsDossier.Equipment;
-import kz.dossier.modelsDossier.FlPensionFinal;
-import kz.dossier.modelsDossier.MilitaryAccounting2Entity;
-import kz.dossier.modelsDossier.MillitaryAccount;
-import kz.dossier.modelsDossier.MvAutoFl;
-import kz.dossier.modelsDossier.MvRnOld;
-import kz.dossier.modelsDossier.MvUlFounderFl;
-import kz.dossier.modelsDossier.MvUlLeader;
-import kz.dossier.modelsDossier.School;
-import kz.dossier.modelsDossier.Universities;
+import kz.dossier.modelsDossier.*;
 
 public class AdditionalInfoDTO {
     private List<Universities> universities;
@@ -21,8 +12,7 @@ public class AdditionalInfoDTO {
 
     private List<MvAutoFl> mvAutoFls;
     private List<Equipment> equipment;
-    private List<MillitaryAccount> millitaryAccounts;
-    private List<MilitaryAccounting2Entity> militaryAccounting2Entities;
+    private List<MilitaryAccountingDTO> militaryAccounting2Entities;
 
     private List<MvUlLeader> ul_leaderList; //Сведения об участии в ЮЛ
     private List<FlPensionFinal> flPensionContrs;
@@ -54,9 +44,6 @@ public class AdditionalInfoDTO {
         if (this.mvAutoFls != null && !this.mvAutoFls.isEmpty()) {
             ++s;
         }
-        if (this.millitaryAccounts != null && !this.millitaryAccounts.isEmpty()) {
-            ++s;
-        }
         if (this.militaryAccounting2Entities != null && !this.militaryAccounting2Entities.isEmpty()) {
             ++s;
         }
@@ -82,12 +69,6 @@ public class AdditionalInfoDTO {
     public List<FlPensionFinal> getFlPensionContrs() {
         return flPensionContrs;
     }
-    public List<MilitaryAccounting2Entity> getMilitaryAccounting2Entities() {
-        return militaryAccounting2Entities;
-    }
-    public List<MillitaryAccount> getMillitaryAccounts() {
-        return millitaryAccounts;
-    }
     public List<MvAutoFl> getMvAutoFls() {
         return mvAutoFls;
     }
@@ -109,12 +90,14 @@ public class AdditionalInfoDTO {
     public void setFlPensionContrs(List<FlPensionFinal> flPensionContrs) {
         this.flPensionContrs = flPensionContrs;
     }
-    public void setMilitaryAccounting2Entities(List<MilitaryAccounting2Entity> militaryAccounting2Entities) {
+    public void setMilitaryAccounting2Entities(List<MilitaryAccountingDTO> militaryAccounting2Entities) {
         this.militaryAccounting2Entities = militaryAccounting2Entities;
     }
-    public void setMillitaryAccounts(List<MillitaryAccount> millitaryAccounts) {
-        this.millitaryAccounts = millitaryAccounts;
+
+    public List<MilitaryAccountingDTO> getMilitaryAccounting2Entities() {
+        return militaryAccounting2Entities;
     }
+
     public void setMvAutoFls(List<MvAutoFl> mvAutoFls) {
         this.mvAutoFls = mvAutoFls;
     }

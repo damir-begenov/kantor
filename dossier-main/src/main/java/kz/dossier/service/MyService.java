@@ -860,6 +860,7 @@ public class MyService {
             nodes.setHaveRisk(false);
         }
         int dirFounderQuantity = directorFounderService.getDirectorOrFounder(IIN).getQuantity();
+        System.out.println(dirFounderQuantity);
         if(dirFounderQuantity!=0){
             nodes.setIsDirector(true);
         } else{

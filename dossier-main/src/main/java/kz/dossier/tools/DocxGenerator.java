@@ -1129,8 +1129,8 @@ public class DocxGenerator {
                     int number = 1;
                     for (FpgTempEntity a : fpgTempEntities) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getBeneficiary() != null ? a.getBeneficiary() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getBeneficiary() != null ? a.getBeneficiary() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -1157,16 +1157,16 @@ public class DocxGenerator {
                     int number = 1;
                     for (Pdl a : pdls) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getIin() != null ? a.getIin() : "");
-                        dataRow.addNewTableCell().setText(a.getOrganization_fullname() != null ? a.getOrganization_fullname() : "");
-                        dataRow.addNewTableCell().setText(a.getFio() != null ? a.getFio() : "");
-                        dataRow.addNewTableCell().setText(a.getOrgan() != null ? a.getOrgan() : "");
-                        dataRow.addNewTableCell().setText(a.getOblast() != null ? a.getOblast() : "");
-                        dataRow.addNewTableCell().setText(a.getSpouse_fio() != null ? a.getSpouse_fio() : "");
-                        dataRow.addNewTableCell().setText(a.getSpouse_organ() != null ? a.getSpouse_organ() : "");
-                        dataRow.addNewTableCell().setText(a.getSpouse_position() != null ? a.getSpouse_position() : "");
-                        dataRow.addNewTableCell().setText(a.getSpouse_iin() != null ? a.getSpouse_iin() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getIin() != null ? a.getIin() : "");
+                        dataRow.getCell(2).setText(a.getOrganization_fullname() != null ? a.getOrganization_fullname() : "");
+                        dataRow.getCell(3).setText(a.getFio() != null ? a.getFio() : "");
+                        dataRow.getCell(4).setText(a.getOrgan() != null ? a.getOrgan() : "");
+                        dataRow.getCell(5).setText(a.getOblast() != null ? a.getOblast() : "");
+                        dataRow.getCell(6).setText(a.getSpouse_fio() != null ? a.getSpouse_fio() : "");
+                        dataRow.getCell(7).setText(a.getSpouse_organ() != null ? a.getSpouse_organ() : "");
+                        dataRow.getCell(8).setText(a.getSpouse_position() != null ? a.getSpouse_position() : "");
+                        dataRow.getCell(9).setText(a.getSpouse_iin() != null ? a.getSpouse_iin() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);
@@ -1192,13 +1192,13 @@ public class DocxGenerator {
                     int number = 1;
                     for (CommodityProducer a : commodityProducers) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getSspName() != null ? a.getSspName() : "");
-                        dataRow.addNewTableCell().setText(String.valueOf(a.getCount()));
-                        dataRow.addNewTableCell().setText(a.getProducer() != null ? a.getProducer() : "");
-                        dataRow.addNewTableCell().setText(a.getStatus() != null ? a.getStatus() : "");
-                        dataRow.addNewTableCell().setText(a.getRegion() != null ? a.getRegion() : "");
-                        dataRow.addNewTableCell().setText(a.getSztp() != null ? a.getSztp() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getSspName() != null ? a.getSspName() : "");
+                        dataRow.getCell(2).setText(String.valueOf(a.getCount()));
+                        dataRow.getCell(3).setText(a.getProducer() != null ? a.getProducer() : "");
+                        dataRow.getCell(4).setText(a.getStatus() != null ? a.getStatus() : "");
+                        dataRow.getCell(5).setText(a.getRegion() != null ? a.getRegion() : "");
+                        dataRow.getCell(6).setText(a.getSztp() != null ? a.getSztp() : "");
                     number++;
                     }
                     setMarginBetweenTables(doc);
@@ -1231,23 +1231,23 @@ public class DocxGenerator {
 
                     XWPFTableRow dataRow = table.createRow();
                     try {
-                        dataRow.addNewTableCell().setText(regAddressUlEntity.getRegDate().toString());
+                        dataRow.getCell(0).setText(regAddressUlEntity.getRegDate().toString());
                     } catch (Exception e) {
-                        dataRow.addNewTableCell().setText("");
+                        dataRow.getCell(0).setText("");
                     }
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getOrgNameRu() != null ? regAddressUlEntity.getOrgNameRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrRegionRu() != null ? regAddressUlEntity.getRegAddrRegionRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrDistrictRu() != null ? regAddressUlEntity.getRegAddrDistrictRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrRuralDistrictRu() != null ? regAddressUlEntity.getRegAddrRuralDistrictRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrLocalityRu() != null ? regAddressUlEntity.getRegAddrLocalityRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrStreetRu() != null ? regAddressUlEntity.getRegAddrStreetRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrBuildingNum() != null ? regAddressUlEntity.getRegAddrBuildingNum() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrBlockNum() != null ? regAddressUlEntity.getRegAddrBlockNum() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrBuildingBodyNum() != null ? regAddressUlEntity.getRegAddrBuildingBodyNum() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getRegAddrOffice() != null ? regAddressUlEntity.getRegAddrOffice() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getOkedNameRu() != null ? regAddressUlEntity.getOkedNameRu() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getUl_status() != null ? regAddressUlEntity.getUl_status() : "");
-                    dataRow.addNewTableCell().setText(regAddressUlEntity.getActive() ? "Активен" : "Неактивен");
+                    dataRow.getCell(1).setText(regAddressUlEntity.getOrgNameRu() != null ? regAddressUlEntity.getOrgNameRu() : "");
+                    dataRow.getCell(2).setText(regAddressUlEntity.getRegAddrRegionRu() != null ? regAddressUlEntity.getRegAddrRegionRu() : "");
+                    dataRow.getCell(3).setText(regAddressUlEntity.getRegAddrDistrictRu() != null ? regAddressUlEntity.getRegAddrDistrictRu() : "");
+                    dataRow.getCell(4).setText(regAddressUlEntity.getRegAddrRuralDistrictRu() != null ? regAddressUlEntity.getRegAddrRuralDistrictRu() : "");
+                    dataRow.getCell(5).setText(regAddressUlEntity.getRegAddrLocalityRu() != null ? regAddressUlEntity.getRegAddrLocalityRu() : "");
+                    dataRow.getCell(6).setText(regAddressUlEntity.getRegAddrStreetRu() != null ? regAddressUlEntity.getRegAddrStreetRu() : "");
+                    dataRow.getCell(7).setText(regAddressUlEntity.getRegAddrBuildingNum() != null ? regAddressUlEntity.getRegAddrBuildingNum() : "");
+                    dataRow.getCell(8).setText(regAddressUlEntity.getRegAddrBlockNum() != null ? regAddressUlEntity.getRegAddrBlockNum() : "");
+                    dataRow.getCell(9).setText(regAddressUlEntity.getRegAddrBuildingBodyNum() != null ? regAddressUlEntity.getRegAddrBuildingBodyNum() : "");
+                    dataRow.getCell(10).setText(regAddressUlEntity.getRegAddrOffice() != null ? regAddressUlEntity.getRegAddrOffice() : "");
+                    dataRow.getCell(11).setText(regAddressUlEntity.getOkedNameRu() != null ? regAddressUlEntity.getOkedNameRu() : "");
+                    dataRow.getCell(12).setText(regAddressUlEntity.getUl_status() != null ? regAddressUlEntity.getUl_status() : "");
+                    dataRow.getCell(13).setText(regAddressUlEntity.getActive() ? "Активен" : "Неактивен");
 
                     setMarginBetweenTables(doc);
                 }
@@ -1270,11 +1270,11 @@ public class DocxGenerator {
                     int number = 1;
                     for (SvedenyaObUchastnikovUlEntity a : svedenyaObUchastnikovUlEntities) {
                         XWPFTableRow dataRow = table.createRow();
-                        dataRow.addNewTableCell().setText(String.valueOf(number));
-                        dataRow.addNewTableCell().setText(a.getFIOorUlName() != null ? a.getFIOorUlName() : "");
-                        dataRow.addNewTableCell().setText(a.getIdentificator() != null ? a.getIdentificator() : "");
-                        dataRow.addNewTableCell().setText(a.getReg_date() != null ? a.getReg_date() : "");
-                        dataRow.addNewTableCell().setText(a.getRisk() != null ? a.getRisk() : "");
+                        dataRow.getCell(0).setText(String.valueOf(number));
+                        dataRow.getCell(1).setText(a.getFIOorUlName() != null ? a.getFIOorUlName() : "");
+                        dataRow.getCell(2).setText(a.getIdentificator() != null ? a.getIdentificator() : "");
+                        dataRow.getCell(3).setText(a.getReg_date() != null ? a.getReg_date() : "");
+                        dataRow.getCell(4).setText(a.getRisk() != null ? a.getRisk() : "");
                         number++;
                     }
                     setMarginBetweenTables(doc);

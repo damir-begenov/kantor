@@ -85,13 +85,13 @@ public class DoseirController {
     }
 
     @GetMapping("/sameAddressFl")
-    public List<SearchResultModelFL> sameAddressFls(@RequestBody String iin) {
+    public List<SearchResultModelFL> sameAddressFls(@RequestParam String iin) {
         System.out.println(iin);
         return myService.getByAddressUsingIin(iin);
     }
 
     @GetMapping("/sameAddressUl")
-    public List<SearchResultModelUl> sameAddressFls(@RequestBody UlAddressInfo params) {
+    public List<SearchResultModelUl> sameAddressFls(@RequestParam UlAddressInfo params) {
         return myService.getByAddress(params);
     }
 

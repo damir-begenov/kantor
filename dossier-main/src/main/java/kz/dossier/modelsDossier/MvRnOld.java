@@ -9,10 +9,20 @@ import jakarta.persistence.Table;
 @Table(name = "mv_rn", schema = "imp_rn")
 public class MvRnOld {
     @Nullable
-    @Id
-
 
     private String cadastral_number;
+    @Id
+    @Nullable
+    private String rka_code;
+
+    public String getRka_code() {
+        return rka_code;
+    }
+
+    public void setRka_code(String rka_code) {
+        this.rka_code = rka_code;
+    }
+
     @Nullable
 
     private String estate_remove_date;

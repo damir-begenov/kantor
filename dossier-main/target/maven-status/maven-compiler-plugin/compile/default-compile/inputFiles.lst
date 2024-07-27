@@ -1,6 +1,12 @@
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/AdditionalInfoDTO.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/AddressInfo.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/EducationDTO.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/PensionListDTO.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/RnDTO.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/UlAddressInfo.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/dto/UlCardDTO.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/extractor/Mv_fl_extractor.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/AdvocateListEntity.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/AuditorsListEntity.java
@@ -14,6 +20,7 @@
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FLRiskDto.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FlContacts.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FlFirstRowDto.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FlFounderLeaderDTO.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FlPensionContr.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FlPensionFinal.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/FlPensionMini.java
@@ -24,10 +31,12 @@
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/Lawyers.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/Logs.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MilitaryAccounting2Entity.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MilitaryAccountingDTO.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MillitaryAccount.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/Msh.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MvAutoFl.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MvFl.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MvFlAddress.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MvIinDoc.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MvRnOld.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/MvUl.java
@@ -42,6 +51,7 @@
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/QoldauSubsidy.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/RegAddressFl.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/RegAddressUlEntity.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/RegistrationTemp.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/School.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/SearchResultModelFL.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/modelsDossier/SearchResultModelUl.java
@@ -105,6 +115,7 @@
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MilitaryAccounting2Repo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MshRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvAutoFlRepo.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvFlAddressRepository.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvFlRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvIinDocRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvRnOldRepo.java
@@ -123,13 +134,17 @@
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/QoldauRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegAddressFlRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegAddressUlEntityRepo.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegistrationTempRepository.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/SchoolRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/TIpEntityRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/TaxOutEntityRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/UniversitiesRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/WantedListRepo.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/repositoryDossier/militaryAccountRepo.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/service/DirectorFounderService.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/service/FlRiskServiceImpl.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/service/MyService.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/service/PhotoService.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/service/RnService.java
+/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/tools/DocxGenerator.java
 /Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-main/src/main/java/kz/dossier/tools/PdfGenerator.java

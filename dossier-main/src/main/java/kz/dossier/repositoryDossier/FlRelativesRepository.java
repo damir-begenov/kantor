@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface FlRelativesRepository extends JpaRepository<FlRelatives, Long>  {
-    @Query(value = "select rel.ru_name as name, * ,rel.test_column_relation as test from imp_zags.fl_relatives(:iin) " +
+    @Query(value = "select rel.ru_name as name, * ,rel.test_column_relation as test from imp_zags.fl_relations_3_level(:iin) " +
             "left join dictionary.d_relations rel on rel.id=cast(\"RELATION\" as int) " +
             " where case\n" +
             "    when :iin='910707300201' then \"IIN\" not in('880830300877')\n" +

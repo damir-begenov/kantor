@@ -63,54 +63,90 @@ public class DocxGenerator {
     }
 
     public void generateDoccc(NodesFL result, ByteArrayOutputStream baos) throws IOException {
-        try (XWPFDocument doc = new XWPFDocument()) {
-            CTDocument1 document = doc.getDocument();
-            CTBody body = document.getBody();
+            try (XWPFDocument doc = new XWPFDocument()) {
+                CTDocument1 document = doc.getDocument();
+                CTBody body = document.getBody();
 
-            if (!body.isSetSectPr()) {
-                body.addNewSectPr();
-            }
-            CTSectPr section = body.getSectPr();
+                if (!body.isSetSectPr()) {
+                    body.addNewSectPr();
+                }
+                CTSectPr section = body.getSectPr();
 
-            if (!section.isSetPgSz()) {
-                section.addNewPgSz();
-            }
-            CTPageSz pageSize = section.getPgSz();
+                if(!section.isSetPgSz()) {
+                    section.addNewPgSz();
+                }
+                CTPageSz pageSize = section.getPgSz();
 
-            pageSize.setW(BigInteger.valueOf(15840));
-            pageSize.setH(BigInteger.valueOf(12240));
+                pageSize.setW(BigInteger.valueOf(15840));
+                pageSize.setH(BigInteger.valueOf(12240));
 
-            creteTitle(doc, "Сведения о физическом лице");
+                try {
+                    if (result.getMvFls() != null || result.getMvFls().size() < 0) {
+                        creteTitle(doc,"Сведения о физическом лице");
+                        XWPFTable table = doc.createTable();
+                        makeTableByProperties(doc, table, "Сведения о физическом лице", Arrays.asList(
+                                "Фото",
+                                "ИИН",
+                                "ФИО",
+                                "Резидент",
+                                "Национальность",
+                                "Дата смерти"));
 
-            XWPFTable table = doc.createTable();
+                        XWPFTableRow row1 = table.createRow();
+                        XWPFTableCell cell1 = row1.getCell(0);
 
+                        XWPFParagraph paragraph2 = cell1.addParagraph();
 
-            XWPFTableRow row1 = table.getRow(0);
-            row1.getCell(0).setText("First Row, First Column");
-            row1.addNewTableCell().setText("First Row, Second Column");
-            row1.addNewTableCell().setText("First Row, Third Column");
+                        setCellPadding(cell1, 200, 200, 200, 200);
+                        XWPFRun run1 = paragraph2.createRun();
 
-            //Creating second Row
-            XWPFTableRow row2 = table.createRow();
-            row2.getCell(0).setText("Second Row, First Column");
-            row2.getCell(1).setText("Second Row, Second Column");
-            row2.getCell(2).setText("Second Row, Third Column");
+                        byte[] imageBytes = result.getPhotoDbf().get(0).getPhoto();
+                        ByteArrayInputStream imageStream = new ByteArrayInputStream(imageBytes);
+                        int imageType = XWPFDocument.PICTURE_TYPE_PNG; // Change according to your image type (e.g., PICTURE_TYPE_JPEG)
+                        run1.addPicture(imageStream, imageType, "image.png", Units.toEMU(75), Units.toEMU(100));
+                        row1.getCell(1).setText(result.getMvFls().get(0).getIin());
+                        row1.getCell(2).setText(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic());
+                        row1.getCell(3).setText(result.getMvFls().get(0).isIs_resident() ? "ДА" : "НЕТ");
+                        row1.getCell(4).setText(result.getMvFls().get(0).getNationality_ru_name());
+                        row1.getCell(5).setText(result.getMvFls().get(0).getDeath_date() !=null ? result.getMvFls().get(0).getDeath_date() : "Отсутсвует");
+                        setMarginBetweenTables(doc);
+                    }
+                } catch (Exception e) {
+                    System.out.println("Mv_Fl table add exception");
+                }
+                try {
+                    if (result.getMvRnOlds() != null && result.getMvRnOlds().size() > 0) {
+                        creteTitle(doc, "Адреса прописки");
 
-            //create third row
-            XWPFTableRow row3 = table.createRow();
-            row3.getCell(0).setText("Third Row, First Column");
-            row3.getCell(1).setText("Third Row, Second Column");
-            row3.getCell(2).setText("Third Row, Third Column");
+                        XWPFTable table = doc.createTable();
+                        makeTableByProperties(doc, table, "Адреса прописки", Arrays.asList(
+                                "Страна",
+                                "Город",
+                                "Адрес",
+                                "Регион",
+                                "Дата прописки"
+                        ));
 
-
-
-
-
+                        // Populate the table with data
+                        for (RegAddressFl regAddressFl : result.getRegAddressFls()) {
+                            XWPFTableRow row = table.createRow();
+                            row.getCell(0).setText(regAddressFl.getCountry());
+                            row.getCell(1).setText(regAddressFl.getCity());
+                            row.getCell(2).setText(regAddressFl.getDistrict());
+                            row.getCell(3).setText(regAddressFl.getRegion());
+                            row.getCell(4).setText(regAddressFl.getReg_date());
+                        }
+                        setMarginBetweenTables(doc);
+                    }
+                } catch (Exception e) {
+                    System.out.println("MV_Rn_Old table add exception");
+                }
             doc.write(baos);
             baos.close();
-
         }
     }
+
+
 
     public void generateDoc(NodesFL result, ByteArrayOutputStream baos) throws IOException, InvalidFormatException {
         try (XWPFDocument doc = new XWPFDocument()) {

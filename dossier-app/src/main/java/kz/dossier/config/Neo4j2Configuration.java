@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @EnableNeo4jRepositories(basePackages = "kz.dossier.neo4j2.repository", transactionManagerRef = "neo4j2TransactionManager", neo4jTemplateRef = "neo4j2Template")
 @EnableTransactionManagement
-public class Neo4j2Configuration {
+public class  Neo4j2Configuration {
 
     @Value("${spring.neo4j2.uri}")
     private String neo4jUri;

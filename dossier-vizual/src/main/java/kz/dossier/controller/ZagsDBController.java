@@ -19,7 +19,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3000)
 @RestController
-@RequestMapping("/api/pandora/zags")
+@RequestMapping("/api/pandora/itapz")
 public class ZagsDBController {
     @Autowired
 

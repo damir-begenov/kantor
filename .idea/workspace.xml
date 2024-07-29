@@ -4,23 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="Some Changes from">
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GosZakupDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GosZakupDetailsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GosZakupForAll.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/SamrukDetailsDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/SamrukKazynaForAll.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/SubsidiyDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Goszakup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/GoszkupRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/SamrukRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/SamrukDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/SamrukDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/QoldauSubsidy.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/QoldauSubsidy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" afterDir="false" />
-    </list>
+    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="Some Changes from" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,7 +177,7 @@
       <workItem from="1721710245103" duration="15328000" />
       <workItem from="1722228963502" duration="4959000" />
       <workItem from="1722252473598" duration="128000" />
-      <workItem from="1722252652726" duration="29283000" />
+      <workItem from="1722252652726" duration="29756000" />
     </task>
     <task id="LOCAL-00001" summary="jk">
       <option name="closed" value="true" />

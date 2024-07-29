@@ -3,6 +3,7 @@ package kz.dossier.dto;
 import java.util.List;
 
 import kz.dossier.modelsDossier.*;
+import kz.dossier.modelsRisk.Pdl;
 
 public class AdditionalInfoDTO {
     private List<Universities> universities;
@@ -16,6 +17,12 @@ public class AdditionalInfoDTO {
 
     private List<MvUlLeader> ul_leaderList; //Сведения об участии в ЮЛ
     private List<FlPensionFinal> flPensionContrs;
+
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
     private int number;
 
     public int getNumber() {

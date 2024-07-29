@@ -4,10 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="jk">
+    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="Some Changes from">
+      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/SamrukDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/ChangeFio.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/Samruk.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/ChangeFioRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/LawyersRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/Neo4j2Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/Neo4j2Configuration.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dossier-vizual/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-vizual/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/WebSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/WebSecurity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-app/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-app/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/target/classes/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-app/target/classes/kz/dossier/config/WebSecurity.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/target/classes/kz/dossier/config/WebSecurity.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/AdditionalInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/AdditionalInfoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Pdl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Pdl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/controller/DoseirController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/AdditionalInfoDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/AdditionalInfoDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/GeneralInfoDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/GeneralInfoDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Pdl.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Pdl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,9 +86,9 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Rebasing v001&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;v001&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/damirbegenov/Desktop/farhatMultiV1/dossier-multi-test/dossier-app/src/main/resources/fonts&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User8/Desktop/kantor&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -104,6 +125,13 @@
       <recent name="kz.dossier.controller" />
     </key>
   </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
   <component name="RunManager" selected="Spring Boot.DossierApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="multiMaven" />
@@ -133,6 +161,8 @@
       </method>
     </configuration>
     <configuration name="DossierApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="dossier-app" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
@@ -168,6 +198,8 @@
       <workItem from="1721643747189" duration="11603000" />
       <workItem from="1721710245103" duration="15328000" />
       <workItem from="1722228963502" duration="4959000" />
+      <workItem from="1722252473598" duration="128000" />
+      <workItem from="1722252652726" duration="10456000" />
     </task>
     <task id="LOCAL-00001" summary="jk">
       <option name="closed" value="true" />
@@ -193,7 +225,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="jk" />
-    <option name="LAST_COMMIT_MESSAGE" value="jk" />
+    <MESSAGE value="Some Changes from" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some Changes from" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

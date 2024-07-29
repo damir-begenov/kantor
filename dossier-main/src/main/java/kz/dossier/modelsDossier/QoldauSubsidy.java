@@ -43,42 +43,35 @@ public class QoldauSubsidy {
     @Nullable
 
     @Column(name = "subsidies_amount")
-    @Transient
 
     private Double subsidiesAmount;
     @Nullable
 
     @Column(name = "rejection_reason")
-    @Transient
 
     private String rejectionReason;
     @Nullable
 
     @Column(name = "note_to_decision")
-    @Transient
 
     private String noteToDecision;
     @Nullable
 
     @Column(name = "ip_submission_app")
-    @Transient
 
     private String ipSubmissionApp;
     @Nullable
 
     @Column(name = "ip_withdrawal_app")
-    @Transient
 
     private String ipWithdrawalApp;
     @Nullable
 
     @Column(name = "ip_accentance_app")
-    @Transient
     private String ipAcceptanceApp;
     @Nullable
 
     @Column(name = "ip_rejection_app")
-    @Transient
     private String ipRejectionApp;
     @Nullable
 

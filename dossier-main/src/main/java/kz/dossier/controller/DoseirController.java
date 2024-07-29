@@ -3,13 +3,7 @@ package kz.dossier.controller;
 
 import com.lowagie.text.*;
 
-import kz.dossier.dto.AdditionalInfoDTO;
-import kz.dossier.dto.AddressInfo;
-import kz.dossier.dto.GeneralInfoDTO;
-import kz.dossier.dto.PensionListDTO;
-import kz.dossier.dto.RnDTO;
-import kz.dossier.dto.UlAddressInfo;
-import kz.dossier.dto.UlCardDTO;
+import kz.dossier.dto.*;
 import jakarta.servlet.http.HttpServletResponse;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.repositoryDossier.EsfAll2Repo;
@@ -74,6 +68,7 @@ public class DoseirController {
     RnService rnService;
 
 
+
     @GetMapping("/ulCard")
     public UlCardDTO getUlCard(@RequestParam String bin) {
         return myService.getUlCard(bin);
@@ -126,10 +121,37 @@ public class DoseirController {
 //        return myService.getFlRelativesInfo();
 //    }
 
-//    @GetMapping("/samruk-sum-by-year")
-//    public SamrukDTO getSamrukByBin(@RequestParam String bin) {
-//        return myService.samrukByBin(bin);
-//    }
+    @GetMapping("/get-subsidiy")
+    public List<SubsidiyDTO> getSubsidiy(String bin) {
+        return myService.getSubsidies(bin);
+    }
+    @GetMapping("/goszakup-sum-by-year")
+    public GosZakupForAll getGosZakupByBin(@RequestParam String bin) {
+        return myService.gosZakupByBin(bin);
+    }
+
+    @GetMapping("/goszakup-page")
+    public List<GosZakupDetailsDTO> getGoszakupDetails(@RequestParam String bin, @RequestParam Integer year, @RequestParam String isSupplier) {
+        if (isSupplier.equals("true")) {
+            return myService.getGosZakupDetails(bin, year, true);
+        } else {
+            return myService.getGosZakupDetails(bin, year, false);
+        }
+    }
+
+    @GetMapping("/samruk-sum-by-year")
+    public SamrukKazynaForAll getSamrukByBin(@RequestParam String bin) {
+        return myService.samrukByBin(bin);
+    }
+
+    @GetMapping("/samruk-page")
+    public List<SamrukDetailsDTO> getSamrukDetails(@RequestParam String bin, @RequestParam Integer year, @RequestParam String isSupplier) {
+        if (isSupplier.equals("true")) {
+            return myService.getSamrukDetailsBySupplier(bin, year);
+        } else {
+            return myService.getSamrukDetailsByCustomer(bin, year);
+        }
+    }
 
     @GetMapping("/profile")
     public NodesFL getProfile(@RequestParam String iin) {

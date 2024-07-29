@@ -1,16 +1,12 @@
 package kz.dossier.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import kz.dossier.dto.*;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.*;
-import kz.dossier.dto.AdditionalInfoDTO;
-import kz.dossier.dto.AddressInfo;
-import kz.dossier.dto.GeneralInfoDTO;
-import kz.dossier.dto.PensionListDTO;
-import kz.dossier.dto.UlAddressInfo;
-import kz.dossier.dto.UlCardDTO;
 import kz.dossier.extractor.Mv_fl_extractor;
+import org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.sql.rowset.serial.SerialBlob;
 import java.lang.reflect.Field;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -174,6 +171,286 @@ public class MyService {
     private AutoPostanovkaRepo autoPostanovkaRepo;
     @Autowired
     private AutoSnyatieRepo autoSnyatieRepo;
+
+    @Autowired
+    private SamrukRepo samrukRepo;
+    @Autowired
+    private GoszkupRepo goszkupRepo;
+
+    @Autowired
+    private QoldauRepo qoldauRepo;
+
+    public List<SubsidiyDTO> getSubsidies(String bin) {
+        List<QoldauSubsidy> subsidies = new ArrayList<>();
+        try {
+            subsidies = qoldauRepo.getByIIN(bin);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+
+        return transformSubsidiesDTO(subsidies);
+    }
+
+    private List<SubsidiyDTO> transformSubsidiesDTO(List<QoldauSubsidy> subsidies) {
+        List<SubsidiyDTO> result = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMaximumFractionDigits(0);
+        subsidies.forEach(x -> {
+            SubsidiyDTO obj = new SubsidiyDTO();
+            obj.setDenyingReason(x.getRejectionReason() != null ? x.getRejectionReason().toString() : "");
+            obj.setIp1(x.getIpSubmissionApp() != null ? x.getIpSubmissionApp().toString() : "");
+            obj.setIp2(x.getIpWithdrawalApp() != null ? x.getIpWithdrawalApp().toString() : "");
+            obj.setIp3(x.getIpAcceptanceApp() != null ? x.getIpAcceptanceApp().toString() : "");
+            obj.setIp4(x.getIpRejectionApp() != null ? x.getIpRejectionApp().toString() : "");
+            obj.setSum(x.getSubsidiesAmount() != null ? df.format(x.getSubsidiesAmount()) : "");
+            obj.setDateOfDenying(x.getRejectionDate() != null ? x.getRejectionDate().toString() : "");
+            obj.setDateOfTaking(x.getDateOfAcceptance() != null ? x.getDateOfAcceptance().toString() : "");
+            obj.setStatus(x.getApplicationStatus() != null ? x.getApplicationStatus() : "");
+            obj.setNameOfTeller(x.getApplicantName() != null ? x.getApplicantName() : "");
+            obj.setDate(x.getDateOfApplication() != null ? x.getDateOfApplication().toString() : "");
+            obj.setOblast(x.getRegion() != null ? x.getRegion() : "");
+            obj.setName(x.getName() != null ? x.getName() : "");
+
+            result.add(obj);
+        });
+
+        return result;
+    }
+
+
+
+    private List<GosZakupDTO> transforToGosZakupDto(List<Goszakup> goszakups, Boolean countSupplier) {
+        List<GosZakupDTO> result = new ArrayList<>();
+        Map<Integer, List<Goszakup>> goszakupsGroupedByYear = goszakups.stream()
+                .collect(Collectors.groupingBy( s -> {
+                    Date date = s.getSignDate();
+                    return (date != null) ? ((java.sql.Date) date).toLocalDate().getYear() : 0;
+                }));
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMaximumFractionDigits(0);
+        goszakupsGroupedByYear.forEach((year, goszakupList) -> {
+            GosZakupDTO obj = new GosZakupDTO();
+            Double totalAmount = goszakupList.stream()
+                    .mapToDouble(Goszakup::getContractSumWnds)
+                    .sum();
+            obj.setSum(df.format(totalAmount));
+            obj.setPeriod(year != null ? year.toString() : "");
+            if (countSupplier) {
+                Long distinctCustomer = goszakupList.stream()
+                        .map(Goszakup::getSupplierBin)
+                        .distinct()
+                        .count();
+                obj.setOpposite(distinctCustomer);
+            } else {
+                Long distinctCustomer = goszakupList.stream()
+                        .map(Goszakup::getCustomerBin)
+                        .distinct()
+                        .count();
+                obj.setOpposite(distinctCustomer);
+            }
+            obj.setNumber((long) goszakupList.size());
+
+            result.add(obj);
+        });
+        return result;
+    }
+
+    public GosZakupForAll gosZakupByBin(String bin) {
+        GosZakupForAll result = new GosZakupForAll();
+        try {
+            List<Goszakup> goszakups = goszkupRepo.getBySupplierBin(bin);
+            if (goszakups != null) {
+                List<GosZakupDTO> whenSupplier = transforToGosZakupDto(goszakups, false);
+                result.setWhenSupplier(whenSupplier);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<Goszakup> goszakups = goszkupRepo.getByCustomerBin(bin);
+            if (goszkupRepo != null) {
+                List<GosZakupDTO> whenCustomer = transforToGosZakupDto(goszakups, true);
+                result.setWhenCustomer(whenCustomer);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+        return result;
+    }
+
+    private List<GosZakupDetailsDTO> tranformToGosZakupDetails(List<Goszakup> goszakups, Boolean searchSupplier) {
+        List<GosZakupDetailsDTO> result = new ArrayList<>();
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMaximumFractionDigits(0);
+        goszakups.forEach(x -> {
+            GosZakupDetailsDTO obj = new GosZakupDetailsDTO();
+            try {
+                obj.setAmount(df.format(x.getContractSumWnds()));
+            } catch (Exception e) {
+                obj.setAmount("");
+            }
+
+            obj.setDate(x.getSignDate() != null ? x.getSignDate().toString() : null);
+            obj.setMethodOfBuying(x.getFaktTradeMethodsId() != null ? x.getFaktTradeMethodsId().toString() : null);
+            if (searchSupplier) {
+                obj.setOppositeBin(x.getSupplierBin() != null ? x.getSupplierBin().toString() : null);
+            } else {
+                obj.setOppositeBin(x.getCustomerBin() != null ? x.getCustomerBin().toString() : null);
+            }
+
+            obj.setContractNumber(x.getContractNumber() != null ? x.getContractNumber().toString() : null);
+            obj.setDealStatus(x.getRefContractStatusId() != null ? x.getRefContractStatusId().toString() : null);
+            obj.setDealType(x.getRefContractTypeId() != null ? x.getRefContractTypeId().toString() : null);
+            String name = new String();
+            try {
+                name = mv_ul_repo.getNameByBin(obj.getOppositeBin());
+                obj.setNameOfOpposite(name != null ? name : "");
+            } catch (Exception e) {
+                obj.setNameOfOpposite("");
+                System.out.println(e);
+            }
+            result.add(obj);
+        });
+        return result;
+    }
+
+    public List<GosZakupDetailsDTO> getGosZakupDetails(String bin, Integer year, Boolean isSupplier) {
+        List<Goszakup> goszakups = new ArrayList<>();
+        if(isSupplier) {
+            try {
+                goszakups = goszkupRepo.getBySupplierBinAndYear(bin, year);
+            } catch (Exception e) {
+                return new ArrayList<>();
+            }
+            return tranformToGosZakupDetails(goszakups, false);
+        } else {
+            try {
+                goszakups = goszkupRepo.getByCustomerBinAndYear(bin, year);
+            } catch (Exception e) {
+                return new ArrayList<>();
+            }
+            return tranformToGosZakupDetails(goszakups, true);
+
+        }
+    }
+
+    private List<SamrukDTO> tranformToSamrukDTO(List<Samruk> samruks, Boolean countSupplier) {
+        List<SamrukDTO> result = new ArrayList<>();
+
+        Map<Integer, List<Samruk>> samruksGroupedByYear = samruks.stream()
+                .collect(Collectors.groupingBy( s -> {
+                    Date date = s.getContract_date();
+                    return (date != null) ? ((java.sql.Date) date).toLocalDate().getYear() : 0;
+                }));
+        DecimalFormat df = new DecimalFormat("#");
+        df.setMaximumFractionDigits(0);
+
+        samruksGroupedByYear.forEach((year, samrukList) -> {
+            SamrukDTO obj = new SamrukDTO();
+            Double totalAmount = samrukList.stream()
+                    .mapToDouble(Samruk::getAmount_with_nds)
+                    .sum();
+            obj.setSum(df.format(totalAmount));
+            obj.setPeriod(year != null ? year.toString() : "");
+            if (countSupplier) {
+                Long distinctCustomer = samrukList.stream()
+                        .map(Samruk::getCustomer)
+                        .distinct()
+                        .count();
+                obj.setCustomers(distinctCustomer);
+            } else {
+                Long distinctCustomer = samrukList.stream()
+                        .map(Samruk::getSupplier)
+                        .distinct()
+                        .count();
+                obj.setCustomers(distinctCustomer);
+            }
+
+            obj.setNumber((long) samrukList.size());
+
+            result.add(obj);
+        });
+
+        return result;
+    }
+
+
+
+    private List<SamrukDetailsDTO> tranformToSamrukDetails(List<Samruk> samruks, Boolean searchSupplier) {
+        List<SamrukDetailsDTO> result = new ArrayList<>();
+        samruks.forEach(x -> {
+            SamrukDetailsDTO obj = new SamrukDetailsDTO();
+            obj.setAmount(x.getAmount_with_nds() != null ? x.getAmount_with_nds().toString() : null);
+            obj.setDate(x.getContract_date() != null ? x.getContract_date().toString() : null);
+            obj.setMethodOfBuying(x.getPurchase_method() != null ? x.getPurchase_method().toString() : null);
+            if(searchSupplier) {
+                obj.setOppositeBin(x.getSupplier() != null ? x.getSupplier().toString() : null);
+            } else {
+                obj.setOppositeBin(x.getCustomer() != null ? x.getCustomer().toString() : null);
+            }
+
+            obj.setNumberOfDeal(x.getContract_number() != null ? x.getContract_number().toString() : null);
+            obj.setStatusOfDeal(x.getContract_status() != null ? x.getContract_status().toString() : null);
+            obj.setTypeOfDeal(x.getContract_type() != null ? x.getContract_type().toString() : null);
+            String name = new String();
+            try {
+                name = mv_ul_repo.getNameByBin(obj.getOppositeBin());
+                obj.setNameOfOpposite(name != null ? name : "");
+            } catch (Exception e) {
+                obj.setNameOfOpposite("");
+                System.out.println(e);
+            }
+            result.add(obj);
+        });
+        return result;
+    }
+    public List<SamrukDetailsDTO> getSamrukDetailsBySupplier(String bin, Integer year) {
+        List<Samruk> samruks = new ArrayList<>();
+        try {
+            samruks = samrukRepo.getBySupplierAndYear(bin, year);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+
+        return tranformToSamrukDetails(samruks, false);
+    }
+
+    public List<SamrukDetailsDTO> getSamrukDetailsByCustomer(String bin, Integer year) {
+        List<Samruk> samruks = new ArrayList<>();
+        try {
+            samruks = samrukRepo.getByCustomerAndYear(bin, year);
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+        return tranformToSamrukDetails(samruks, true);
+    }
+    public SamrukKazynaForAll samrukByBin(String bin) {
+        SamrukKazynaForAll result = new SamrukKazynaForAll();
+        try {
+            List<Samruk> samruks = samrukRepo.getBySupplier(bin);
+            if (samruks != null) {
+                List<SamrukDTO> whenSupplier = tranformToSamrukDTO(samruks, false);
+                result.setWhenSupplier(whenSupplier);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<Samruk> samruks = samrukRepo.getByCustomer(bin);
+            if (samruks != null) {
+                List<SamrukDTO> whenCustomer = tranformToSamrukDTO(samruks, true);
+                result.setWhenCustomer(whenCustomer);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+
+        return result;
+    }
+ 
     public UlCardDTO getUlCard(String bin) {
         UlCardDTO ulCardDTO = new UlCardDTO();
         try {

@@ -1,10 +1,10 @@
 package kz.dossier.dto;
 
-public class SamrukDTO {
+public class GosZakupDTO {
     private String period;
     private String sum;
     private Long number;
-    private Long Customers;
+    private Long opposite;
 
     public String getPeriod() {
         return period;
@@ -30,11 +30,11 @@ public class SamrukDTO {
         this.number = number;
     }
 
-    public Long getCustomers() {
-        return Customers;
+    public Long getOpposite() {
+        return opposite;
     }
 
-    public void setCustomers(Long customers) {
-        Customers = customers;
+    public void setOpposite(Long opposite) {
+        this.opposite = opposite;
     }
 }

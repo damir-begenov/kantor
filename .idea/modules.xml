@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/dossier-app/dossier-app.iml" filepath="$PROJECT_DIR$/dossier-app/dossier-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/dossier-common/dossier-common.iml" filepath="$PROJECT_DIR$/dossier-common/dossier-common.iml" />
     </modules>
   </component>

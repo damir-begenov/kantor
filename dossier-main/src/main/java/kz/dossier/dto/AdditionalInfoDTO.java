@@ -9,6 +9,7 @@ public class AdditionalInfoDTO {
     private List<School> schools;
 
     private List<MvRnOld> mvRnOlds; //mvRn
+    private List<CommodityProducer> commodityProducers;
 
     private List<MvAutoFl> mvAutoFls;
     private List<Equipment> equipment;
@@ -50,11 +51,26 @@ public class AdditionalInfoDTO {
         if (this.ul_leaderList != null && !this.ul_leaderList.isEmpty()) {
             ++s;
         }
+        if (this.commodityProducers != null && !this.commodityProducers.isEmpty()) {
+            ++s;
+        }
 
         this.number = ++s;
     }
 
     List<PensionListDTO> pensions;
+
+    public List<CommodityProducer> getCommodityProducers() {
+        return commodityProducers;
+    }
+
+    public void setCommodityProducers(List<CommodityProducer> commodityProducers) {
+        this.commodityProducers = commodityProducers;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public List<PensionListDTO> getPensions() {
         return pensions;

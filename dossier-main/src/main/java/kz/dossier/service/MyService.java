@@ -150,7 +150,8 @@ public class MyService {
     private KuisRepo kuisRepo;
     @Autowired
     MvFlAddressRepository mvFlAddressRepository;
-
+    @Autowired
+    IndividualEntrepreneurRepo individualEntrepreneurRepo;
     @Autowired
     private RegistrationTempRepository registrationTempRepository;
 
@@ -681,6 +682,12 @@ public class MyService {
                     fls.add(fl.get());
                 }
             }
+            try {
+                List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
+                generalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
+            }catch (Exception e){
+                System.out.println(e);
+            }
             List<SearchResultModelFL> result = findWithoutPhoto(fls);
             generalInfoDTO.setSameAddressFls(result);
         }
@@ -741,6 +748,11 @@ public class MyService {
             List<MvRnOld> mvRnOlds = mv_rn_oldRepo.getUsersByLike(iin);
             List<MvRnOld> list = setNamesByBin(mvRnOlds);
             additionalInfoDTO.setMvRnOlds(list);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }try {
+            List<CommodityProducer> commodityProducers = commodityProducerRepo.getiin_binByIIN(iin);
+            additionalInfoDTO.setCommodityProducers(commodityProducers);
         } catch (Exception e){
             System.out.println("Error:" + e);
         }

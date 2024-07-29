@@ -1,11 +1,13 @@
 package kz.dossier.service;
 
 import kz.dossier.modelsDossier.FLRiskDto;
+import kz.dossier.modelsRisk.Adm;
 import kz.dossier.repositoryDossier.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -80,9 +82,11 @@ public class FlRiskServiceImpl {
         }
 
         try {
-            flRiskDto.setAdms(admRepo.getUsersByLike(iin));
+            List<Adm> admList = admRepo.getUsersByLike(iin);
+            flRiskDto.setAdms(admList);
         } catch (Exception e) {
             // Catch block left empty
+            System.out.println("adms" + e);
         }
 
         try {

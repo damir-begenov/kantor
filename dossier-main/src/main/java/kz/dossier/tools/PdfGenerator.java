@@ -8,6 +8,7 @@ import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.FlPensionMiniRepo;
 import kz.dossier.repositoryDossier.MvUlRepo;
+import kz.dossier.service.MyService;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.util.Units;
 import org.apache.poi.xwpf.usermodel.*;
@@ -26,6 +27,8 @@ import java.util.List;
 public class PdfGenerator {
     @Autowired
     FlPensionMiniRepo flPensionMiniRepo;
+    @Autowired
+    MyService myService;
     private MvUlRepo mvUlRepo;
     private PdfPTable tryAddCell(PdfPTable table, String add, String string) {
         if (string != null) {
@@ -66,46 +69,49 @@ public class PdfGenerator {
         heading.setPadding(4);
         heading.setColspan(6);
         heading.setHorizontalAlignment(Element.ALIGN_CENTER);
+try {
+    heading.setPhrase(new Phrase("Сведения о физическом лице", font));
+    table.addCell(heading);
+    font.setColor(CMYKColor.BLACK);
 
+    cell.setPhrase(new Phrase("Фото", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("ИИН", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("ФИО", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("Резидент", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("Национальность", font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase("Дата смерти", font));
+    table.addCell(cell);
+    table.addCell(Image.getInstance(result.getPhotoDbf().get(0).getPhoto()));
+
+    cell.setPhrase(new Phrase(result.getMvFls().get(0).getIin(), font));
+    table.addCell(cell);
+    cell.setPhrase(new Phrase(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic(), font));
+    table.addCell(cell);
+
+    if (result.getMvFls().get(0).isIs_resident()) {
+        cell.setPhrase(new Phrase("ДА", font));
+    } else {
+        cell.setPhrase(new Phrase("НЕТ", font));
+    }
+    table.addCell(cell);
+    cell.setPhrase(new Phrase(result.getMvFls().get(0).getNationality_ru_name(), font));
+    table.addCell(cell);
+    if (result.getMvFls().get(0).getDeath_date() == null || result.getMvFls().get(0).getDeath_date().isEmpty()) {
+        cell.setPhrase(new Phrase("Отсутсвует", font));
+    } else {
+        cell.setPhrase(new Phrase(result.getMvFls().get(0).getDeath_date(), font));
+    }
+    table.addCell(cell);
+    document.add(table);
+}catch (Exception e){
+    System.out.println(e);
+}
         // ОСНОВНАЯ ИНФА ОБ ФЛ
-        heading.setPhrase(new Phrase("Сведения о физическом лице", font));
-        table.addCell(heading);
-        font.setColor(CMYKColor.BLACK);
-
-        cell.setPhrase(new Phrase("Фото", font));
-        table.addCell(cell);
-        cell.setPhrase(new Phrase("ИИН", font));
-        table.addCell(cell);
-        cell.setPhrase(new Phrase("ФИО", font));
-        table.addCell(cell);
-        cell.setPhrase(new Phrase("Резидент", font));
-        table.addCell(cell);
-        cell.setPhrase(new Phrase("Национальность", font));
-        table.addCell(cell);
-        cell.setPhrase(new Phrase("Дата смерти", font));
-        table.addCell(cell);
-        table.addCell(Image.getInstance(result.getPhotoDbf().get(0).getPhoto()));
-
-        cell.setPhrase(new Phrase(result.getMvFls().get(0).getIin(), font));
-        table.addCell(cell);
-        cell.setPhrase(new Phrase(result.getMvFls().get(0).getLast_name() + "\n" + result.getMvFls().get(0).getFirst_name() + "\n" + result.getMvFls().get(0).getPatronymic(), font));
-        table.addCell(cell);
-
-        if (result.getMvFls().get(0).isIs_resident()) {
-            cell.setPhrase(new Phrase("ДА", font));
-        } else {
-            cell.setPhrase(new Phrase("НЕТ", font));
-        }
-        table.addCell(cell);
-        cell.setPhrase(new Phrase(result.getMvFls().get(0).getNationality_ru_name(), font));
-        table.addCell(cell);
-        if (result.getMvFls().get(0).getDeath_date() == null || result.getMvFls().get(0).getDeath_date().isEmpty()) {
-            cell.setPhrase(new Phrase("Отсутсвует", font));
-        } else {
-            cell.setPhrase(new Phrase(result.getMvFls().get(0).getDeath_date(), font));
-        }
-        table.addCell(cell);
-        document.add(table);
         // АДДРЕСА ФЛ
         List<RegAddressFl> addressFls = result.getRegAddressFls();
         if (addressFls != null && addressFls.size()!=0) {
@@ -162,6 +168,31 @@ public class PdfGenerator {
                 docTable.addCell(new Phrase(r.getIssue_date().toString(), font));
                 docTable.addCell(new Phrase(r.getExpiry_date().toString(), font));
                 docTable.addCell(new Phrase(r.getDoc_type_ru_name(), font));
+            }
+            document.add(docTable);
+        }    List<FlRelativiesDTO> flRelativiesDTOS = myService.getRelativesInfo(result.getMvIinDocs().get(0).getIin());
+        if (flRelativiesDTOS != null && !flRelativiesDTOS.isEmpty()) {
+            PdfPTable docTable = new PdfPTable(5);
+            docTable.setWidthPercentage(100f);
+            docTable.setWidths(new float[] {1, 1, 1, 1, 1});
+            docTable.setSpacingBefore(5);
+            heading.setColspan(5);
+            heading.setPhrase(new Phrase("Статус по отношению к родственнику", font));
+            docTable.addCell(heading);
+            cell.setPhrase(new Phrase("ФИО", font));
+            docTable.addCell(cell);
+            cell.setPhrase(new Phrase("Дата регистрации брака", font));
+            docTable.addCell(cell);
+            cell.setPhrase(new Phrase("Дата расторжения брака", font));
+            docTable.addCell(cell);
+            cell.setPhrase(new Phrase("ИИН", font));
+            docTable.addCell(cell);
+            for (FlRelativiesDTO flRelativiesDTO : flRelativiesDTOS) {
+                docTable.addCell(new Phrase(flRelativiesDTO.getRelative_type() != null ? flRelativiesDTO.getRelative_type() : "", font));
+                docTable.addCell(new Phrase(flRelativiesDTO.getParent_fio() != null ? flRelativiesDTO.getParent_fio() : "", font));
+                docTable.addCell(new Phrase(flRelativiesDTO.getMarriage_reg_date() != null ? flRelativiesDTO.getMarriage_reg_date().toString() : "", font));
+                docTable.addCell(new Phrase(flRelativiesDTO.getMarriage_divorce_date() != null ? flRelativiesDTO.getMarriage_divorce_date().toString() : "", font));
+                docTable.addCell(new Phrase(flRelativiesDTO.getParent_iin() != null ? flRelativiesDTO.getParent_iin() : "", font));
             }
             document.add(docTable);
         }

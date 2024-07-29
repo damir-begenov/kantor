@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "mv_ul_leader", schema = "imp_kfm_ul_old")
+@Table(name = "ul_leader", schema = "imp_kfm_ul")
 public class MvUlLeader {
     @Id
     private UUID id;

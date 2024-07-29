@@ -1,9 +1,6 @@
 package kz.dossier.modelsDossier;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "imp_notary.advocate_list")
@@ -23,8 +20,6 @@ public class AdvocateListEntity {
 
     @Column(name = "status")
     private String status;
-
-
 
     public String getIin() {
         return iin;

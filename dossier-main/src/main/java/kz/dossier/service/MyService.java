@@ -153,12 +153,27 @@ public class MyService {
     @Autowired
     IndividualEntrepreneurRepo individualEntrepreneurRepo;
     @Autowired
+    IpgoEmailEntityRepo ipgoEmailEntityRepo;
+    @Autowired
     private RegistrationTempRepository registrationTempRepository;
     @Autowired
     private LawyersRepo lawyersRepo;
     @Autowired
     private ChangeFioRepo changeFioRepo;
-
+    @Autowired
+    private KxRepo kxRepo;
+    @Autowired
+    private AutoTransportRepo autoTransportRepo;
+    @Autowired
+    private AviaTransportRepo aviaTransportRepo;
+    @Autowired
+    private TrainsRepo trainsRepo;
+    @Autowired
+    private WaterTransportRepo waterTransportRepo;
+    @Autowired
+    private AutoPostanovkaRepo autoPostanovkaRepo;
+    @Autowired
+    private AutoSnyatieRepo autoSnyatieRepo;
     public UlCardDTO getUlCard(String bin) {
         UlCardDTO ulCardDTO = new UlCardDTO();
         try {
@@ -670,6 +685,77 @@ public class MyService {
             System.out.println(e);
         }
         try {
+            List<KX> kxes = kxRepo.getKxIin(iin);
+            if (kxes != null) {
+                generalInfoDTO.setKxes(kxes);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }try {
+            List<AccountantListEntity> accountantListEntities = accountantListEntityRepo.getUsersByLike(iin);
+            if (accountantListEntities != null) {
+                generalInfoDTO.setAccountantListEntities(accountantListEntities);
+                try {
+                    for(AccountantListEntity accountantListEntity: accountantListEntities){
+                        accountantListEntity.setBinName(mv_ul_repo.getNameByBin(accountantListEntity.getBin()));
+                    }
+                } catch (Exception e) {
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<AdvocateListEntity> advocateListEntities = advocateListEntityRepo.getUsersByLike(iin);
+            if (advocateListEntities != null) {
+                generalInfoDTO.setAdvocateListEntities(advocateListEntities);
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<IpgoEmailEntity> ipgoEmailEntities = ipgoEmailEntityRepo.getUsersByLike(iin);
+            if (ipgoEmailEntities != null) {
+                generalInfoDTO.setIpgoEmailEntities(ipgoEmailEntities);
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<AuditorsListEntity> auditorsListEntities = auditorsListEntityRepo.getUsersByLike(iin);
+            if (auditorsListEntities != null) {
+                generalInfoDTO.setAuditorsListEntities(auditorsListEntities);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<BailiffListEntity> bailiffListEntities = bailiffListEntityRepo.getUsersByLike(iin);
+            if (bailiffListEntities != null) {
+                generalInfoDTO.setBailiffListEntities(bailiffListEntities);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<MvUlFounderFl> mvUlFounderFls = mvUlFounderFlRepo.getUsersByLikeIIN(iin);
+            if (mvUlFounderFls != null) {
+                generalInfoDTO.setMvUlFounderFls(mvUlFounderFls);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<MvUlLeaderEntity> mvUlLeaders = mvUlLeaderEntityRepo.getUsersByLikeIin(iin);
+            if (mvUlLeaders != null) {
+                generalInfoDTO.setUl_leaderList(mvUlLeaders);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
             List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
             if(address != null) {
                 AddressInfo addressInfo = new AddressInfo();
@@ -791,6 +877,7 @@ public class MyService {
             } catch (Exception e) {
                 System.out.println("mv_auto_fl Error: " + e);
             }
+
         } catch (Exception e){
             System.out.println("mv_auto_fl WRAP Error:" + e);
         }
@@ -801,25 +888,61 @@ public class MyService {
             System.out.println("Error:" + e);
         }
         try {
+            List<Trains> trains =  trainsRepo.getByIIN(iin);
+            additionalInfoDTO.setTrains(trains);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            List<WaterTransport> waterTransports =  waterTransportRepo.getWaterByIin(iin);
+            additionalInfoDTO.setWaterTransports(waterTransports);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            List<AutoTransport> autoTransports =  autoTransportRepo.getAutoByIin(iin);
+            additionalInfoDTO.setAutoTransports(autoTransports);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            List<Equipment> equipment =  equipment_repo.getUsersByLike(iin);
+            additionalInfoDTO.setEquipment(equipment);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            additionalInfoDTO.setAutoPostanovkas(autoPostanovkaRepo.getAutoPostanovkaByIin(iin));
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            additionalInfoDTO.setAutoSnyaties(autoSnyatieRepo.getAutoSnyatieByIin(iin));
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
+            List<AviaTransport> aviaTransports =  aviaTransportRepo.getAviaByIin(iin);
+            additionalInfoDTO.setAviaTransports(aviaTransports);
+        } catch (Exception e){
+            System.out.println("Error:" + e);
+        }
+        try {
             additionalInfoDTO.setUniversities(uniRepo.getByIIN(iin));
         } catch (Exception e){
             System.out.println("Error:" + e);
         }
+
         try {
             additionalInfoDTO.setSchools(schoolRepo.getByIIN(iin));
         } catch (Exception e){
             System.out.println("Error:" + e);
-        }
-        try {
-            List<MvUlLeader> mv_ul_leaders =  mvUlLeaderRepository.findAllByIin(iin);
-            try {
-                additionalInfoDTO.setUl_leaderList(mv_ul_leaders);
-            } catch (Exception e) {
-                System.out.println("mv_ul_leader Error: " + e);
-            }
+        }try {
+            additionalInfoDTO.setCommodityProducers(commodityProducerRepo.getiin_binByIIN(iin));
         } catch (Exception e){
-            System.out.println("mv_ul_leader WRAP Error:" + e);
+            System.out.println("Error:" + e);
         }
+
         try {
             List<String> companyBins = flPensionContrRepo.getUsersByLikeCompany(iin);
         

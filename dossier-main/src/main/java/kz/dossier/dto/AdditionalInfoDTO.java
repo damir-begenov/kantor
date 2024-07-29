@@ -13,16 +13,35 @@ public class AdditionalInfoDTO {
     private List<CommodityProducer> commodityProducers;
 
     private List<MvAutoFl> mvAutoFls;
+    private List<AutoTransport> autoTransports; // управление
+    private List<AviaTransport> aviaTransports;
+    private List<WaterTransport> waterTransports;
+    private List<AutoPostanovka> autoPostanovkas;
+    private List<AutoSnyatie> autoSnyaties;
+
+    public List<AutoSnyatie> getAutoSnyaties() {
+        return autoSnyaties;
+    }
+
+    public void setAutoSnyaties(List<AutoSnyatie> autoSnyaties) {
+        this.autoSnyaties = autoSnyaties;
+    }
+
+    public List<AutoPostanovka> getAutoPostanovkas() {
+        return autoPostanovkas;
+    }
+
+    public void setAutoPostanovkas(List<AutoPostanovka> autoPostanovkas) {
+        this.autoPostanovkas = autoPostanovkas;
+    }
+
+    private List<Trains> trains;
     private List<Equipment> equipment;
     private List<MilitaryAccountingDTO> militaryAccounting2Entities;
 
-    private List<MvUlLeader> ul_leaderList; //Сведения об участии в ЮЛ
     private List<FlPensionFinal> flPensionContrs;
 
 
-    public void setNumber(int number) {
-        this.number = number;
-    }
 
     private int number;
 
@@ -55,9 +74,6 @@ public class AdditionalInfoDTO {
         if (this.militaryAccounting2Entities != null && !this.militaryAccounting2Entities.isEmpty()) {
             ++s;
         }
-        if (this.ul_leaderList != null && !this.ul_leaderList.isEmpty()) {
-            ++s;
-        }
         if (this.commodityProducers != null && !this.commodityProducers.isEmpty()) {
             ++s;
         }
@@ -73,6 +89,14 @@ public class AdditionalInfoDTO {
 
     public void setCommodityProducers(List<CommodityProducer> commodityProducers) {
         this.commodityProducers = commodityProducers;
+    }
+
+    public List<AutoTransport> getAutoTransports() {
+        return autoTransports;
+    }
+
+    public void setAutoTransports(List<AutoTransport> autoTransports) {
+        this.autoTransports = autoTransports;
     }
 
     public void setNumber(int number) {
@@ -101,12 +125,26 @@ public class AdditionalInfoDTO {
     public List<School> getSchools() {
         return schools;
     }
-    public List<MvUlLeader> getUl_leaderList() {
-        return ul_leaderList;
-    }
     public List<Universities> getUniversities() {
         return universities;
     }
+
+    public List<Trains> getTrains() {
+        return trains;
+    }
+
+    public void setTrains(List<Trains> trains) {
+        this.trains = trains;
+    }
+
+    public List<WaterTransport> getWaterTransports() {
+        return waterTransports;
+    }
+
+    public void setWaterTransports(List<WaterTransport> waterTransports) {
+        this.waterTransports = waterTransports;
+    }
+
     public void setEquipment(List<Equipment> equipment) {
         this.equipment = equipment;
     }
@@ -130,12 +168,15 @@ public class AdditionalInfoDTO {
     public void setSchools(List<School> schools) {
         this.schools = schools;
     }
-    public void setUl_leaderList(List<MvUlLeader> ul_leaderList) {
-        this.ul_leaderList = ul_leaderList;
-    }
     public void setUniversities(List<Universities> universities) {
         this.universities = universities;
     }
-    
 
+    public List<AviaTransport> getAviaTransports() {
+        return aviaTransports;
+    }
+
+    public void setAviaTransports(List<AviaTransport> aviaTransports) {
+        this.aviaTransports = aviaTransports;
+    }
 }

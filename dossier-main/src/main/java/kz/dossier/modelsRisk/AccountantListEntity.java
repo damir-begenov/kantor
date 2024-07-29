@@ -1,10 +1,7 @@
 package kz.dossier.modelsRisk;
 
+import jakarta.persistence.*;
 import org.jetbrains.annotations.Nullable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "imp_notary.accountant_list")
@@ -31,7 +28,16 @@ public class AccountantListEntity {
 
     @Column(name = "fname")
     private String fname;
+    @Transient
+    private String binName;
 
+    public String getBinName() {
+        return binName;
+    }
+
+    public void setBinName(String binName) {
+        this.binName = binName;
+    }
 
     @Nullable
     public String getBin() {

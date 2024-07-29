@@ -83,6 +83,7 @@ public class FlRiskServiceImpl {
 
         try {
             List<Adm> admList = admRepo.getUsersByLike(iin);
+            flRiskDto.setAdms(admList);
         } catch (Exception e) {
             // Catch block left empty
             System.out.println("adms" + e);

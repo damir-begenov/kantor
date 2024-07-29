@@ -6,7 +6,7 @@ import jakarta.persistence.Table;
 import java.util.UUID;
 
 @Entity
-@Table(name = "ul_founder_fl", schema = "initial_data")
+@Table(name = "ul_founder_fl", schema = "imp_kfm_fl")
 
 public class MvUlFounderFl {
     @Id

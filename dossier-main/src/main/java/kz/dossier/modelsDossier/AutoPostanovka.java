@@ -33,6 +33,8 @@ public class AutoPostanovka {
     private String seats;
     @Column(name = "Категория правообладателя")
     private String license_category;
+    @Column(name = "БИН субъекта")
+    private String bin;
 
 
 }

@@ -12,9 +12,11 @@ import kz.dossier.repositoryDossier.MvAutoFlRepo;
 import kz.dossier.repositoryDossier.NewPhotoRepo;
 import kz.dossier.security.models.log;
 import kz.dossier.security.repository.LogRepo;
+import kz.dossier.security.services.LogsService;
 import kz.dossier.service.FlRiskServiceImpl;
 import kz.dossier.service.MyService;
 import kz.dossier.service.RnService;
+import kz.dossier.service.ULAdditionalService;
 import kz.dossier.tools.DocxGenerator;
 import kz.dossier.tools.PdfGenerator;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -31,6 +33,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -66,6 +69,21 @@ public class DoseirController {
     DocxGenerator docxGenerator;
     @Autowired
     RnService rnService;
+    @Autowired
+    ULAdditionalService ulAdditionalService;
+    @Autowired
+    LogsService logsService;
+
+    @GetMapping("/additionalInfoUL")
+    public ULAdditionalInfoDTO getAdditionalUL(String bin, Principal principal) {
+        String email = principal.getName();
+        log log = new log();
+        log.setDate(LocalDateTime.now());
+        log.setObwii("Искал ЮЛ в Досье" + ": " + bin);
+        log.setUsername(email);
+        logRepo.save(log);
+        return ulAdditionalService.additionalByBin(bin);
+    }
 
 
 
@@ -96,7 +114,14 @@ public class DoseirController {
     }
 
     @GetMapping("/generalInfo")
-    public GeneralInfoDTO getGeneralInfo(@RequestParam String iin) {
+    public GeneralInfoDTO getGeneralInfo(@RequestParam String iin, Principal principal) {
+        String email = principal.getName();
+
+        log log = new log();
+        log.setDate(LocalDateTime.now());
+        log.setObwii("Искал ФЛ в Досье" + ": " + iin);
+        log.setUsername(email);
+        logRepo.save(log);
         return myService.generalInfoByIin(iin);
     }
 

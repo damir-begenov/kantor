@@ -9,4 +9,6 @@ import java.util.List;
 public interface AutoPostanovkaRepo extends JpaRepository<AutoPostanovka, Long> {
     @Query(value = "select * from transport.постановка where \"ИИН\" = ?1 ", nativeQuery = true)
     List<AutoPostanovka> getAutoPostanovkaByIin(String iin);
+    @Query(value = "select * from transport.постановка where \"БИН субъекта\" = ?1 ", nativeQuery = true)
+    List<AutoPostanovka> getAutoPostanovkaByBin(String bin);
 }

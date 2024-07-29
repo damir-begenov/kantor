@@ -409,7 +409,11 @@ public class MyService {
     public List<SamrukDetailsDTO> getSamrukDetailsBySupplier(String bin, Integer year) {
         List<Samruk> samruks = new ArrayList<>();
         try {
-            samruks = samrukRepo.getBySupplierAndYear(bin, year);
+            if (year == 0) {
+                samruks = samrukRepo.getBySupplierAndNullYear(bin);
+            } else {
+                samruks = samrukRepo.getBySupplierAndYear(bin, year);
+            }
         } catch (Exception e) {
             return new ArrayList<>();
         }
@@ -420,7 +424,11 @@ public class MyService {
     public List<SamrukDetailsDTO> getSamrukDetailsByCustomer(String bin, Integer year) {
         List<Samruk> samruks = new ArrayList<>();
         try {
-            samruks = samrukRepo.getByCustomerAndYear(bin, year);
+            if (year == 0) {
+                samruks = samrukRepo.getByCustomerAndNullYear(bin);
+            } else {
+                samruks = samrukRepo.getByCustomerAndYear(bin, year);
+            }
         } catch (Exception e) {
             return new ArrayList<>();
         }
@@ -1022,6 +1030,7 @@ public class MyService {
                 generalInfoDTO.setMvUlFounderFls(mvUlFounderFls);
             }
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println(e);
         }
         try {

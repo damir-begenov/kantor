@@ -24,10 +24,13 @@ public class Role {
   @Enumerated(EnumType.STRING)
   private ERole name;
   @ElementCollection
+  @Transient
   private List<String> relations;
 
   @ElementCollection
+  @Transient
   private List<String> person_properties;
   @ElementCollection
+  @Transient
   private List<String> company_properties;
 }

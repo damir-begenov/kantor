@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -21,5 +22,13 @@ public class LogController {
         List<log> result = logRepo.findByUsernameAndInput(username, value);
         return result;
     }
+
+    @GetMapping("/logs")
+    public List<log> searchByIdAndId(Principal principal) {
+        String username = principal.getName();
+        List<log> result = logRepo.findByUsername(username);
+        return result;
+    }
+
 
 }

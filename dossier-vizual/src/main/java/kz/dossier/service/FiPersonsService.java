@@ -770,7 +770,7 @@ public class FiPersonsService {
     private doubleReturn ConstructDoubleReturn(Long User, List<Persons> personsList, List<Company> companies) {
         List<Nodes> nodes = new ArrayList<>();
         List<relationModel> edges = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
         for (Company object: companies) {
             if (!ids.contains(object.getId())) {
                 ids.add(object.getId());
@@ -1637,7 +1637,7 @@ public class FiPersonsService {
             }
         }
         doubleReturn doubleReturn = new doubleReturn(nodes, edges);
-        for (String id: ids) {
+        for (Long id: ids) {
             System.out.println(id);
         }
         doubleReturn newe = CountAll(doubleReturn);

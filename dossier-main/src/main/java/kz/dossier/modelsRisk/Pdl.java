@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "pdl", schema = "imp_kfm_fl")
 public class Pdl {
-
     @Id
     @Nullable
     private String id;

@@ -154,6 +154,10 @@ public class MyService {
     IndividualEntrepreneurRepo individualEntrepreneurRepo;
     @Autowired
     private RegistrationTempRepository registrationTempRepository;
+    @Autowired
+    private LawyersRepo lawyersRepo;
+    @Autowired
+    private ChangeFioRepo changeFioRepo;
 
     public UlCardDTO getUlCard(String bin) {
         UlCardDTO ulCardDTO = new UlCardDTO();
@@ -657,39 +661,68 @@ public class MyService {
     //General info by iin
     public GeneralInfoDTO generalInfoByIin(String iin) {
         GeneralInfoDTO generalInfoDTO = new GeneralInfoDTO();
-        List<FlContacts> contacts = flContactsRepo.findAllByIin(iin);
-        if (contacts != null) {
-            generalInfoDTO.setContacts(contacts);
+        try {
+            List<FlContacts> contacts = flContactsRepo.findAllByIin(iin);
+            if (contacts != null) {
+                generalInfoDTO.setContacts(contacts);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
-        if(address != null) {
-            AddressInfo addressInfo = new AddressInfo();
-            if (address.size() > 0) {
-                addressInfo.setRegion(address.get(0).getRegion());
-                addressInfo.setDistrict(address.get(0).getDistrict());
-                addressInfo.setCity(address.get(0).getCity());
-                addressInfo.setStreet(address.get(0).getStreet());
-                addressInfo.setBuilding(address.get(0).getBuilding());
-                addressInfo.setKorpus(address.get(0).getKorpus());
-                addressInfo.setApartment_number(address.get(0).getApartment_number());
-            }
-
-            List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
-            List<MvFl> fls = new ArrayList<>();
-            for (RegAddressFl ad : units) {
-                Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
-                if (fl.isPresent()) {
-                    fls.add(fl.get());
+        try {
+            List<RegAddressFl> address = regAddressFlRepo.getByPermanentIin(iin);
+            if(address != null) {
+                AddressInfo addressInfo = new AddressInfo();
+                if (address.size() > 0) {
+                    addressInfo.setRegion(address.get(0).getRegion());
+                    addressInfo.setDistrict(address.get(0).getDistrict());
+                    addressInfo.setCity(address.get(0).getCity());
+                    addressInfo.setStreet(address.get(0).getStreet());
+                    addressInfo.setBuilding(address.get(0).getBuilding());
+                    addressInfo.setKorpus(address.get(0).getKorpus());
+                    addressInfo.setApartment_number(address.get(0).getApartment_number());
                 }
+
+                List<RegAddressFl> units = regAddressFlRepo.getByAddress(addressInfo.getRegion(), addressInfo.getDistrict(), addressInfo.getCity(), addressInfo.getStreet(), addressInfo.getBuilding(), addressInfo.getKorpus(), addressInfo.getApartment_number());
+                List<MvFl> fls = new ArrayList<>();
+                for (RegAddressFl ad : units) {
+                    Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+                    if (fl.isPresent()) {
+                        fls.add(fl.get());
+                    }
+                }
+                List<SearchResultModelFL> result = findWithoutPhoto(fls);
+                generalInfoDTO.setSameAddressFls(result);
             }
-            try {
-                List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
-                generalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
-            }catch (Exception e){
-                System.out.println(e);
+        } catch (Exception e) {
+            System.out.println(e);
+        } try {
+            List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
+            generalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        try {
+            List<Lawyers> lawyers = lawyersRepo.getByIin(iin);
+            if (lawyers != null) {
+                generalInfoDTO.setLawyers(lawyers);
             }
-            List<SearchResultModelFL> result = findWithoutPhoto(fls);
-            generalInfoDTO.setSameAddressFls(result);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            Optional<ChangeFio> changeFio = changeFioRepo.getByIin(iin);
+            if (changeFio.isPresent()) {
+                generalInfoDTO.setChangeFio(changeFio.get());
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<Pdl> pdls = pdlReposotory.getByIIN(iin);
+            generalInfoDTO.setPdls(pdls);
+        } catch (Exception e) {
+            System.out.println(e);
         }
         return generalInfoDTO;
     }
@@ -699,7 +732,7 @@ public class MyService {
         List<PensionListDTO> pensions = new ArrayList<>();
         List<Map<String, Object>> fl_pension_contrss = new ArrayList<>();
         fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin, Integer.parseInt(year));
-        
+
 
         for (Map<String, Object> pen : fl_pension_contrss) {
             PensionListDTO pensionListEntity = new PensionListDTO();
@@ -748,11 +781,6 @@ public class MyService {
             List<MvRnOld> mvRnOlds = mv_rn_oldRepo.getUsersByLike(iin);
             List<MvRnOld> list = setNamesByBin(mvRnOlds);
             additionalInfoDTO.setMvRnOlds(list);
-        } catch (Exception e){
-            System.out.println("Error:" + e);
-        }try {
-            List<CommodityProducer> commodityProducers = commodityProducerRepo.getiin_binByIIN(iin);
-            additionalInfoDTO.setCommodityProducers(commodityProducers);
         } catch (Exception e){
             System.out.println("Error:" + e);
         }

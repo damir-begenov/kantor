@@ -105,8 +105,6 @@ public class DoseirController {
         return myService.generalInfoByIin(iin);
     }
 
-
-
     @GetMapping("/additionalInfo")
     public AdditionalInfoDTO getAdditionalInfo(@RequestParam String iin) {
         return myService.additionalInfoByIin(iin);
@@ -128,6 +126,10 @@ public class DoseirController {
 //        return myService.getFlRelativesInfo();
 //    }
 
+//    @GetMapping("/samruk-sum-by-year")
+//    public SamrukDTO getSamrukByBin(@RequestParam String bin) {
+//        return myService.samrukByBin(bin);
+//    }
 
     @GetMapping("/profile")
     public NodesFL getProfile(@RequestParam String iin) {

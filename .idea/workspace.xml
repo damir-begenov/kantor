@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="aadx">
+    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="Some Changes from">
+      <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULGeneralInfoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/SamrukRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/SamrukRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULAdditionalInfoDTO.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULULMemberDTO.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FPG.java" afterDir="false" />
@@ -96,6 +101,147 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="kz.dossier.security.models" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dossier-app/src/main/resources/fonts" />
+      <recent name="$PROJECT_DIR$/dossier-vizual/src/main/resources" />
+      <recent name="$PROJECT_DIR$/dossier-esf/src/main/java/kz/dossier" />
+      <recent name="$PROJECT_DIR$/dossier-esf" />
+      <recent name="$PROJECT_DIR$/dossier-vizual/src/main/java/kz/dossier/serviceViz" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dossier-app/src/main/resources/fonts" />
+      <recent name="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools" />
+      <recent name="$PROJECT_DIR$/dossier-app/src/main/resources" />
+      <recent name="$PROJECT_DIR$/dossier-main/src/main" />
+      <recent name="$PROJECT_DIR$/dossier-app/src/main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="kz.dossier.security.services" />
+      <recent name="kz.dossier.config" />
+      <recent name="kz.dossier.controller" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DossierApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="multiMaven" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="multiMaven" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DossierApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="dossier-common" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kz.dossier.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DossierApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="dossier-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DsaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="dsa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.dsa.DsaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.DossierApplication (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="" />
+      <created>1721298141321</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721298141321</updated>
+      <workItem from="1721298142399" duration="160000" />
+      <workItem from="1721303709904" duration="40000" />
+      <workItem from="1721303804916" duration="17908000" />
+      <workItem from="1721381892065" duration="12121000" />
+      <workItem from="1721643747189" duration="11603000" />
+      <workItem from="1721710245103" duration="15328000" />
+      <workItem from="1722228963502" duration="4959000" />
+      <workItem from="1722252473598" duration="128000" />
+      <workItem from="1722252652726" duration="10456000" />
+    </task>
+    <task id="LOCAL-00001" summary="jk">
+      <option name="closed" value="true" />
+      <created>1721664838082</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721664838082</updated>
+    </task>
+    <task id="LOCAL-00002" summary="jk">
+      <option name="closed" value="true" />
+      <created>1721835027002</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721835027002</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Some Changes from">
+      <option name="closed" value="true" />
+      <created>1722265586788</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722265586788</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="jk" />
+    <MESSAGE value="aadx" />
+    <MESSAGE value="Some Changes from" />
+    <option name="LAST_COMMIT_MESSAGE" value="Some Changes from" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
 }</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />

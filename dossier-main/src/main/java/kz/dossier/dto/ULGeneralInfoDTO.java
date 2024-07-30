@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Data
 public class ULGeneralInfoDTO {
+    private Double percentage;
     private Optional<MvUl> mvUlList;
     private RegAddressUlEntity regAddressUlEntity;
     private List<Pdl> pdls;

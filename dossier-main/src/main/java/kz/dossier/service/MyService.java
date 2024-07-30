@@ -181,35 +181,50 @@ public class MyService {
 
 
     public ULGeneralInfoDTO getUlGeneral(String bin){
+        int total = 6;
+        int actual = 0;
         ULGeneralInfoDTO ulGeneralInfoDTO = new ULGeneralInfoDTO();
         try {
             ulGeneralInfoDTO.setMvUlList(mv_ul_repo.getUlByBin(bin));
+            actual++;
         }catch (Exception e){
             System.out.println(e);
         }try {
             ulGeneralInfoDTO.setRegAddressUlEntity(regAddressUlEntityRepo.findByBin(bin));
+            actual++;
+
         }catch (Exception e){
             System.out.println(e);
         }
         try {
             ulGeneralInfoDTO.setCommodityProducers(commodityProducerRepo.getiin_binByIIN(bin));
+            actual++;
+
         }catch (Exception e){
             System.out.println(e);
         }
         try {
             ulGeneralInfoDTO.setFlContacts(flContactsRepo.findAllByIin(bin));
+            actual++;
+
         }catch (Exception e){
             System.out.println(e);
         }try {
             ulGeneralInfoDTO.setAccountantListEntities(accountantListEntityRepo.getUsersByLikeBIN(bin));
+            actual++;
+
         }catch (Exception e){
             System.out.println(e);
         }
         try {
             ulGeneralInfoDTO.setPdls(pdlReposotory.getByBin(bin));
+            actual++;
+
         }catch (Exception e){
             System.out.println(e);
         }
+        Double percentage = (double) (actual * 100 / total);
+
         return ulGeneralInfoDTO;
 
     }
@@ -996,9 +1011,12 @@ public class MyService {
     //General info by iin
     public GeneralInfoDTO generalInfoByIin(String iin) {
         GeneralInfoDTO generalInfoDTO = new GeneralInfoDTO();
+        int total = 13;
+        int actual = 0;
         try {
             List<FlContacts> contacts = flContactsRepo.findAllByIin(iin);
             if (contacts != null) {
+                actual++;
                 generalInfoDTO.setContacts(contacts);
             }
         } catch (Exception e) {
@@ -1007,6 +1025,8 @@ public class MyService {
         try {
             List<KX> kxes = kxRepo.getKxIin(iin);
             if (kxes != null) {
+                actual++;
+
                 generalInfoDTO.setKxes(kxes);
             }
         } catch (Exception e) {
@@ -1014,6 +1034,8 @@ public class MyService {
         }try {
             List<AccountantListEntity> accountantListEntities = accountantListEntityRepo.getUsersByLike(iin);
             if (accountantListEntities != null) {
+                actual++;
+
                 generalInfoDTO.setAccountantListEntities(accountantListEntities);
                 try {
                     for(AccountantListEntity accountantListEntity: accountantListEntities){
@@ -1028,6 +1050,8 @@ public class MyService {
         try {
             List<AdvocateListEntity> advocateListEntities = advocateListEntityRepo.getUsersByLike(iin);
             if (advocateListEntities != null) {
+                actual++;
+
                 generalInfoDTO.setAdvocateListEntities(advocateListEntities);
 
             }
@@ -1037,6 +1061,8 @@ public class MyService {
         try {
             List<IpgoEmailEntity> ipgoEmailEntities = ipgoEmailEntityRepo.getUsersByLike(iin);
             if (ipgoEmailEntities != null) {
+                actual++;
+
                 generalInfoDTO.setIpgoEmailEntities(ipgoEmailEntities);
 
             }
@@ -1046,6 +1072,8 @@ public class MyService {
         try {
             List<AuditorsListEntity> auditorsListEntities = auditorsListEntityRepo.getUsersByLike(iin);
             if (auditorsListEntities != null) {
+                actual++;
+
                 generalInfoDTO.setAuditorsListEntities(auditorsListEntities);
             }
         } catch (Exception e) {
@@ -1054,6 +1082,8 @@ public class MyService {
         try {
             List<BailiffListEntity> bailiffListEntities = bailiffListEntityRepo.getUsersByLike(iin);
             if (bailiffListEntities != null) {
+                actual++;
+
                 generalInfoDTO.setBailiffListEntities(bailiffListEntities);
             }
         } catch (Exception e) {
@@ -1062,6 +1092,8 @@ public class MyService {
         try {
             List<MvUlFounderFl> mvUlFounderFls = mvUlFounderFlRepo.getUsersByLikeIIN(iin);
             if (mvUlFounderFls != null) {
+                actual++;
+
                 generalInfoDTO.setMvUlFounderFls(mvUlFounderFls);
             }
         } catch (Exception e) {
@@ -1071,6 +1103,8 @@ public class MyService {
         try {
             List<MvUlLeaderEntity> mvUlLeaders = mvUlLeaderEntityRepo.getUsersByLikeIin(iin);
             if (mvUlLeaders != null) {
+                actual++;
+
                 generalInfoDTO.setUl_leaderList(mvUlLeaders);
             }
         } catch (Exception e) {
@@ -1081,6 +1115,8 @@ public class MyService {
             if(address != null) {
                 AddressInfo addressInfo = new AddressInfo();
                 if (address.size() > 0) {
+                    actual++;
+
                     addressInfo.setRegion(address.get(0).getRegion());
                     addressInfo.setDistrict(address.get(0).getDistrict());
                     addressInfo.setCity(address.get(0).getCity());
@@ -1105,13 +1141,18 @@ public class MyService {
             System.out.println(e);
         } try {
             List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
+            actual++;
+
             generalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
         }catch (Exception e){
             System.out.println(e);
         }
         try {
             List<Lawyers> lawyers = lawyersRepo.getByIin(iin);
+
             if (lawyers != null) {
+                actual++;
+
                 generalInfoDTO.setLawyers(lawyers);
             }
         } catch (Exception e) {
@@ -1120,6 +1161,8 @@ public class MyService {
         try {
             Optional<ChangeFio> changeFio = changeFioRepo.getByIin(iin);
             if (changeFio.isPresent()) {
+                actual++;
+
                 generalInfoDTO.setChangeFio(changeFio.get());
             }
         } catch (Exception e) {
@@ -1127,10 +1170,14 @@ public class MyService {
         }
         try {
             List<Pdl> pdls = pdlReposotory.getByIIN(iin);
+            actual++;
+
             generalInfoDTO.setPdls(pdls);
         } catch (Exception e) {
             System.out.println(e);
         }
+        Double percentage = Double.valueOf(actual * 100 / total);
+        generalInfoDTO.setPercent(percentage);
         return generalInfoDTO;
     }
 

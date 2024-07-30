@@ -7,7 +7,17 @@ import kz.dossier.modelsDossier.AccountantListEntity;
 import kz.dossier.modelsRisk.Pdl;
 
 public class GeneralInfoDTO {
+    private Double percent;
     private List<FlContacts> contacts;
+
+    public Double getPercent() {
+        return percent;
+    }
+
+    public void setPercent(Double percent) {
+        this.percent = percent;
+    }
+
     private List<SearchResultModelFL> sameAddressFls;
     private List<IndividualEntrepreneur> individualEntrepreneurs;
     private List<KX> kxes;
@@ -30,6 +40,7 @@ public class GeneralInfoDTO {
     public List<MvUlFounderFl> getMvUlFounderFls() {
         return mvUlFounderFls;
     }
+
 
     public void setMvUlFounderFls(List<MvUlFounderFl> mvUlFounderFls) {
         this.mvUlFounderFls = mvUlFounderFls;

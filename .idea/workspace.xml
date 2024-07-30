@@ -1,299 +1,226 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-    <component name="AutoImportSettings">
-        <option name="autoReloadType" value="SELECTIVE" />
-    </component>
-    <component name="ChangeListManager">
-        <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="aadx">
-            <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/UlRiskDTO.java" afterDir="false" />
-            <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/VerificationField.java" afterDir="false" />
-            <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/VerificationFieldRepo.java" afterDir="false" />
-            <change afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/UlRiskServiceImpl.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/DossierDataSourceConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/src/main/java/kz/dossier/config/DossierDataSourceConfiguration.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-app/target/classes/kz/dossier/config/DossierDataSourceConfiguration.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-app/target/classes/kz/dossier/config/DossierDataSourceConfiguration.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/controller/DoseirController.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/AdditionalInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/AdditionalInfoDTO.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULGeneralInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULGeneralInfoDTO.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FLRiskDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/FLRiskDto.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NdsEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/NdsEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NodesFL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NodesFL.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NodesUL.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/NodesUL.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/RegAddressUlEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/RegAddressUlEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/AccountantListEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/AccountantListEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Adm.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Adm.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Bankrot.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Bankrot.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/BeneficiariesList.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/BeneficiariesList.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/BlockEsf.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/BlockEsf.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsAbroad.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsAbroad.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsJustified.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ConvictsJustified.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Criminals.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Criminals.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Dismissal.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Dismissal.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/DrugAddicts.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/DrugAddicts.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/FirstCreditBureauEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/FirstCreditBureauEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/FpgTempEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsDossier/FpgTempEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ImmoralLifestyle.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/ImmoralLifestyle.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Incapacitated.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Incapacitated.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Kuis.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Kuis.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/MzEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/MzEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/OpgEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/OpgEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Pdl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/Pdl.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/WantedListEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/modelsRisk/WantedListEntity.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/AccountantListEntityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/AccountantListEntityRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FpgTempEntityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/FpgTempEntityRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/KuisRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/KuisRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/KxRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/KxRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvFlAddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/MvFlAddressRepository.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/NdsEntityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/NdsEntityRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegAddressUlEntityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/RegAddressUlEntityRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/TaxOutEntityRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/repositoryDossier/TaxOutEntityRepo.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/FlRiskServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/FlRiskServiceImpl.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools/DocxGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools/DocxGenerator.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools/PdfGenerator.java" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/AdditionalInfoDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/AdditionalInfoDTO.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/GeneralInfoDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/dto/GeneralInfoDTO.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/FLRiskDto.class" beforeDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/NdsEntity.class" beforeDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/NodesFL.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/NodesFL.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/NodesUL.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/NodesUL.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/RegAddressUlEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsDossier/RegAddressUlEntity.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/AccountantListEntity.class" beforeDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Adm.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Adm.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Bankrot.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Bankrot.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/BeneficiariesList.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/BeneficiariesList.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/BlockEsf.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/BlockEsf.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Criminals.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Criminals.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Dismissal.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Dismissal.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/DrugAddicts.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/DrugAddicts.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/FpgTempEntity.class" beforeDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/ImmoralLifestyle.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/ImmoralLifestyle.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Kuis.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/Kuis.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/MzEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/MzEntity.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/OpgEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/OpgEntity.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/WantedListEntity.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/modelsRisk/WantedListEntity.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/AccountantListEntityRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/AccountantListEntityRepo.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/FpgTempEntityRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/FpgTempEntityRepo.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/KuisRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/KuisRepo.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/NdsEntityRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/NdsEntityRepo.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/RegAddressUlEntityRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/RegAddressUlEntityRepo.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/TaxOutEntityRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/repositoryDossier/TaxOutEntityRepo.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/FlRiskServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/FlRiskServiceImpl.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/service/MyService.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/tools/DocxGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/tools/DocxGenerator.class" afterDir="false" />
-            <change beforePath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/tools/PdfGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/target/classes/kz/dossier/tools/PdfGenerator.class" afterDir="false" />
-        </list>
-        <option name="SHOW_DIALOG" value="false" />
-        <option name="HIGHLIGHT_CONFLICTS" value="true" />
-        <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
-        <option name="LAST_RESOLUTION" value="IGNORE" />
-    </component>
-    <component name="FileTemplateManagerImpl">
-        <option name="RECENT_TEMPLATES">
-            <list>
-                <option value="AnnotationType" />
-                <option value="Interface" />
-                <option value="Class" />
-            </list>
-        </option>
-    </component>
-    <component name="Git.Settings">
-        <favorite-branches>
-            <branch-storage>
-                <map>
-                    <entry type="LOCAL">
-                        <value>
-                            <list>
-                                <branch-info repo="$PROJECT_DIR$" source="v001" />
-                            </list>
-                        </value>
-                    </entry>
-                </map>
-            </branch-storage>
-        </favorite-branches>
-        <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    </component>
-    <component name="JpbToolWindowState">
-        <option name="isToolWindowVisible" value="false" />
-    </component>
-    <component name="MarkdownSettingsMigration">
-        <option name="stateVersion" value="1" />
-    </component>
-    <component name="ProjectColorInfo">{
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="aadx">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/GeneralInfoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULGeneralInfoDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/dto/ULGeneralInfoDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/MyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/ULAdditionalService.java" beforeDir="false" afterPath="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/service/ULAdditionalService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="AnnotationType" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="v001" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
         &quot;associatedIndex&quot;: 1
         }</component>
-    <component name="ProjectId" id="2jPob7bMB77eO3Pieumw7sqYrew" />
-    <component name="ProjectLevelVcsManager">
-        <ConfirmationsSetting value="2" id="Add" />
-    </component>
-    <component name="ProjectViewState">
-        <option name="hideEmptyMiddlePackages" value="true" />
-        <option name="showLibraryContents" value="true" />
-    </component>
-    <component name="PropertiesComponent">{
-        &quot;keyToString&quot;: {
-        &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-        &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-        &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-        &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-        &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-        &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-        &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-        &quot;git-widget-placeholder&quot;: &quot;v001&quot;,
-        &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-        &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Desktop/kantor/kantor/dossier-main/src/main/java/kz/dossier/modelsRisk&quot;,
-        &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-        &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-        &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-        &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-        &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-        &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-        &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-        &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-        &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
-        &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
-        }
-        }</component>
-    <component name="RecentsManager">
-        <key name="CreateClassDialog.RecentsKey">
-            <recent name="kz.dossier.security.models" />
-        </key>
-        <key name="CopyFile.RECENT_KEYS">
-            <recent name="C:\Users\User\Desktop\kantor\kantor\dossier-main\src\main\java\kz\dossier\modelsRisk" />
-            <recent name="$PROJECT_DIR$/dossier-app/src/main/resources/fonts" />
-            <recent name="$PROJECT_DIR$/dossier-vizual/src/main/resources" />
-            <recent name="$PROJECT_DIR$/dossier-esf/src/main/java/kz/dossier" />
-            <recent name="$PROJECT_DIR$/dossier-esf" />
-        </key>
-        <key name="MoveFile.RECENT_KEYS">
-            <recent name="$PROJECT_DIR$/dossier-app/src/main/resources/fonts" />
-            <recent name="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools" />
-            <recent name="$PROJECT_DIR$/dossier-app/src/main/resources" />
-            <recent name="$PROJECT_DIR$/dossier-main/src/main" />
-            <recent name="$PROJECT_DIR$/dossier-app/src/main" />
-        </key>
-        <key name="CopyClassDialog.RECENTS_KEY">
-            <recent name="kz.dossier.security.services" />
-            <recent name="kz.dossier.config" />
-            <recent name="kz.dossier.controller" />
-        </key>
-    </component>
-    <component name="RunDashboard">
-        <option name="configurationTypes">
-            <set>
-                <option value="SpringBootApplicationConfigurationType" />
-            </set>
-        </option>
-    </component>
-    <component name="RunManager" selected="Spring Boot.DossierApplication">
-        <configuration default="true" type="JetRunConfigurationType">
-            <module name="multiMaven" />
-            <method v="2">
-                <option name="Make" enabled="true" />
-            </method>
-        </configuration>
-        <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-            <module name="multiMaven" />
-            <option name="filePath" />
-            <method v="2">
-                <option name="Make" enabled="true" />
-            </method>
-        </configuration>
-        <configuration name="DossierApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-            <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-            <module name="dossier-common" />
-            <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
-            <extension name="coverage">
-                <pattern>
-                    <option name="PATTERN" value="kz.dossier.*" />
-                    <option name="ENABLED" value="true" />
-                </pattern>
-            </extension>
-            <method v="2">
-                <option name="Make" enabled="true" />
-            </method>
-        </configuration>
-        <configuration name="DossierApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-            <option name="ALTERNATIVE_JRE_PATH" value="21" />
-            <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-            <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
-            <module name="dossier-app" />
-            <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
-            <method v="2">
-                <option name="Make" enabled="true" />
-            </method>
-        </configuration>
-        <configuration name="DsaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-            <module name="dsa" />
-            <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.dsa.DsaApplication" />
-            <method v="2">
-                <option name="Make" enabled="true" />
-            </method>
-        </configuration>
-        <recent_temporary>
-            <list>
-                <item itemvalue="Spring Boot.DossierApplication (1)" />
-            </list>
-        </recent_temporary>
-    </component>
-    <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
-    <component name="TaskManager">
-        <task active="true" id="Default" summary="Default task">
-            <changelist id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="" />
-            <created>1721298141321</created>
-            <option name="number" value="Default" />
-            <option name="presentableId" value="Default" />
-            <updated>1721298141321</updated>
-            <workItem from="1721298142399" duration="160000" />
-            <workItem from="1721303709904" duration="40000" />
-            <workItem from="1721303804916" duration="17908000" />
-            <workItem from="1721381892065" duration="12121000" />
-            <workItem from="1721643747189" duration="11603000" />
-            <workItem from="1721710245103" duration="15328000" />
-            <workItem from="1722228963502" duration="4959000" />
-            <workItem from="1722252473598" duration="128000" />
-            <workItem from="1722252652726" duration="10456000" />
-            <workItem from="1722298291847" duration="758000" />
-        </task>
-        <task id="LOCAL-00001" summary="jk">
-            <option name="closed" value="true" />
-            <created>1721664838082</created>
-            <option name="number" value="00001" />
-            <option name="presentableId" value="LOCAL-00001" />
-            <option name="project" value="LOCAL" />
-            <updated>1721664838082</updated>
-        </task>
-        <task id="LOCAL-00002" summary="jk">
-            <option name="closed" value="true" />
-            <created>1721835027002</created>
-            <option name="number" value="00002" />
-            <option name="presentableId" value="LOCAL-00002" />
-            <option name="project" value="LOCAL" />
-            <updated>1721835027002</updated>
-        </task>
-        <task id="LOCAL-00003" summary="Some Changes from">
-            <option name="closed" value="true" />
-            <created>1722265586788</created>
-            <option name="number" value="00003" />
-            <option name="presentableId" value="LOCAL-00003" />
-            <option name="project" value="LOCAL" />
-            <updated>1722265586788</updated>
-        </task>
-        <option name="localTasksCounter" value="4" />
-        <servers />
-    </component>
-    <component name="TypeScriptGeneratedFilesManager">
-        <option name="version" value="3" />
-    </component>
-    <component name="VcsManagerConfiguration">
-        <MESSAGE value="jk" />
-        <MESSAGE value="aadx" />
-        <MESSAGE value="Some Changes from" />
-        <option name="LAST_COMMIT_MESSAGE" value="Some Changes from" />
-    </component>
-    <component name="XSLT-Support.FileAssociations.UIState">
-        <expand />
-        <select />
-    </component>
+  <component name="ProjectId" id="2jPob7bMB77eO3Pieumw7sqYrew" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "v001",
+    "jdk.selected.JAVA_MODULE": "21",
+    "last_opened_file_path": "C:/Users/User/Desktop/kantor/kantor/dossier-main/src/main/java/kz/dossier/modelsRisk",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "terminal",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="kz.dossier.security.models" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\User\Desktop\kantor\kantor\dossier-main\src\main\java\kz\dossier\modelsRisk" />
+      <recent name="$PROJECT_DIR$/dossier-app/src/main/resources/fonts" />
+      <recent name="$PROJECT_DIR$/dossier-vizual/src/main/resources" />
+      <recent name="$PROJECT_DIR$/dossier-esf/src/main/java/kz/dossier" />
+      <recent name="$PROJECT_DIR$/dossier-esf" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/dossier-app/src/main/resources/fonts" />
+      <recent name="$PROJECT_DIR$/dossier-main/src/main/java/kz/dossier/tools" />
+      <recent name="$PROJECT_DIR$/dossier-app/src/main/resources" />
+      <recent name="$PROJECT_DIR$/dossier-main/src/main" />
+      <recent name="$PROJECT_DIR$/dossier-app/src/main" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="kz.dossier.security.services" />
+      <recent name="kz.dossier.config" />
+      <recent name="kz.dossier.controller" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.DossierApplication">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="multiMaven" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="multiMaven" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DossierApplication (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="dossier-common" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="kz.dossier.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DossierApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
+      <module name="dossier-app" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.DossierApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DsaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="dsa" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="kz.dossier.dsa.DsaApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.DossierApplication (1)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8d850808-ce4f-49b1-890f-5cdffe4168fe" name="Changes" comment="" />
+      <created>1721298141321</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1721298141321</updated>
+      <workItem from="1721298142399" duration="160000" />
+      <workItem from="1721303709904" duration="40000" />
+      <workItem from="1721303804916" duration="17908000" />
+      <workItem from="1721381892065" duration="12121000" />
+      <workItem from="1721643747189" duration="11603000" />
+      <workItem from="1721710245103" duration="15328000" />
+      <workItem from="1722228963502" duration="4959000" />
+      <workItem from="1722252473598" duration="128000" />
+      <workItem from="1722252652726" duration="10456000" />
+      <workItem from="1722298291847" duration="758000" />
+    </task>
+    <task id="LOCAL-00001" summary="jk">
+      <option name="closed" value="true" />
+      <created>1721664838082</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1721664838082</updated>
+    </task>
+    <task id="LOCAL-00002" summary="jk">
+      <option name="closed" value="true" />
+      <created>1721835027002</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1721835027002</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Some Changes from">
+      <option name="closed" value="true" />
+      <created>1722265586788</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1722265586788</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="jk" />
+    <MESSAGE value="Some Changes from" />
+    <MESSAGE value="aadx" />
+    <option name="LAST_COMMIT_MESSAGE" value="aadx" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
 </project>

@@ -1,9 +1,8 @@
 package kz.dossier.service;
 
 import kz.dossier.dto.ULAdditionalInfoDTO;
-import kz.dossier.dto.ULULMemberDTO;
+import kz.dossier.dto.*;
 import kz.dossier.modelsDossier.*;
-import kz.dossier.modelsRisk.FpgTempEntity;
 import kz.dossier.repositoryDossier.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

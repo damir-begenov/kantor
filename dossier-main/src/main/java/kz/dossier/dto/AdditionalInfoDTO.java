@@ -7,6 +7,25 @@ import kz.dossier.modelsDossier.*;
 public class AdditionalInfoDTO {
     private List<Universities> universities;
     private List<School> schools;
+    private List<MvUlLeaderEntity> ul_leaderList; //Сведения об участии в ЮЛ
+
+    public List<MvUlLeaderEntity> getUl_leaderList() {
+        return ul_leaderList;
+    }
+
+    public void setUl_leaderList(List<MvUlLeaderEntity> ul_leaderList) {
+        this.ul_leaderList = ul_leaderList;
+    }
+
+    private List<KX> kxes;
+
+    public List<KX> getKxes() {
+        return kxes;
+    }
+
+    public void setKxes(List<KX> kxes) {
+        this.kxes = kxes;
+    }
 
     private List<MvRnOld> mvRnOlds; //mvRn
     private List<CommodityProducer> commodityProducers;

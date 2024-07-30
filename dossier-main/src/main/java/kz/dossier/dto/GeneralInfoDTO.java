@@ -20,22 +20,13 @@ public class GeneralInfoDTO {
 
     private List<SearchResultModelFL> sameAddressFls;
     private List<IndividualEntrepreneur> individualEntrepreneurs;
-    private List<KX> kxes;
+
     private List<AccountantListEntity> accountantListEntities; // БУХГАЛТЭРЫ
     private List<AdvocateListEntity> advocateListEntities;
     private List<AuditorsListEntity> auditorsListEntities;
     private List<BailiffListEntity> bailiffListEntities; //частный суд исполнитель
     private List<IpgoEmailEntity> ipgoEmailEntities;
     private List<MvUlFounderFl> mvUlFounderFls;
-    private List<MvUlLeaderEntity> ul_leaderList; //Сведения об участии в ЮЛ
-
-    public void setUl_leaderList(List<MvUlLeaderEntity> ul_leaderList) {
-        this.ul_leaderList = ul_leaderList;
-    }
-
-    public List<MvUlLeaderEntity> getUl_leaderList() {
-        return ul_leaderList;
-    }
 
     public List<MvUlFounderFl> getMvUlFounderFls() {
         return mvUlFounderFls;
@@ -84,13 +75,6 @@ public class GeneralInfoDTO {
 
     private List<Pdl> pdls;
 
-    public List<KX> getKxes() {
-        return kxes;
-    }
-
-    public void setKxes(List<KX> kxes) {
-        this.kxes = kxes;
-    }
 
     public List<AccountantListEntity> getAccountantListEntities() {
         return accountantListEntities;

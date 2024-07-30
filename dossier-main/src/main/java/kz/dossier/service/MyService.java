@@ -769,9 +769,16 @@ public class MyService {
             List<MvFlAddress> mvFlAddresses = mvFlAddressRepository.getMvFlAddressByRnAddress(addressInfo.getRnRegAddress());
             List<MvFl> fls = new ArrayList<>();
             for (MvFlAddress ad : mvFlAddresses) {
-                Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
-                if (fl.isPresent()) {
-                    fls.add(fl.get());
+                try {
+                    Optional<MvFl> fl = mv_FlRepo.getByIin(ad.getIin());
+                    if (fl.isPresent()) {
+                        fls.add(fl.get());
+                    }
+                } catch (Exception e) {
+                    MvFl obj = new MvFl();
+                    obj.setIin(ad.getIin());
+                    obj.setLast_name(ad.getFio());
+                    fls.add(obj);
                 }
             }
             List<SearchResultModelFL> result = findWithoutPhoto(fls);
@@ -782,16 +789,21 @@ public class MyService {
 
     public List<SearchResultModelUl> getByAddress(String bin) {
         RegAddressUlEntity addressUlEntity = regAddressUlEntityRepo.findByBin(bin);
-        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressUlEntity.getRegAddrStreetRu(), addressUlEntity.getRegAddrBuildingNum(),bin);
+        System.out.println(addressUlEntity.getRegAddrDistrictRu() + " " + addressUlEntity.getRegAddrStreetRu() + " " + addressUlEntity.getRegAddrBuildingNum());
+        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressUlEntity.getRegAddrRegionRu(), addressUlEntity.getRegAddrDistrictRu(), addressUlEntity.getRegAddrStreetRu(), addressUlEntity.getRegAddrBuildingNum(),bin );
+//        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByFullAddress(addressUlEntity.getRegAddrRegionRu(), addressUlEntity.getRegAddrDistrictRu(), addressUlEntity.getRegAddrLocalityRu(), addressUlEntity.getRegAddrStreetRu(), addressUlEntity.getRegAddrBuildingNum(), bin);
+
         List<SearchResultModelUl> list = new ArrayList<>();
         for (RegAddressUlEntity l: units) {
-            Optional<MvUl> ul = mv_ul_repo.getUlByBin(l.getBin());
-            if (ul.isPresent()) {
-                SearchResultModelUl res = new SearchResultModelUl();
-                res.setBin(ul.get().getBin());
-                res.setName(ul.get().getShort_name());
-                res.setRegion(addressUlEntity.getRegAddrRegionRu() + " " + addressUlEntity.getRegAddrDistrictRu() + " " + addressUlEntity.getRegAddrStreetRu() + " " + addressUlEntity.getRegAddrBuildingNum());
-                list.add(res);
+            if (l.getActive()) {
+                Optional<MvUl> ul = mv_ul_repo.getUlByBin(l.getBin());
+                if (ul.isPresent()) {
+                    SearchResultModelUl res = new SearchResultModelUl();
+                    res.setBin(ul.get().getBin());
+                    res.setName(ul.get().getShort_name());
+                    res.setRegion(addressUlEntity.getRegAddrRegionRu() + " " + addressUlEntity.getRegAddrDistrictRu() + " " + addressUlEntity.getRegAddrStreetRu() + " " + addressUlEntity.getRegAddrBuildingNum());
+                    list.add(res);
+                }
             }
         }
         return list;
@@ -1023,15 +1035,6 @@ public class MyService {
             System.out.println(e);
         }
         try {
-            List<KX> kxes = kxRepo.getKxIin(iin);
-            if (kxes != null) {
-                actual++;
-
-                generalInfoDTO.setKxes(kxes);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }try {
             List<AccountantListEntity> accountantListEntities = accountantListEntityRepo.getUsersByLike(iin);
             if (accountantListEntities != null) {
                 actual++;
@@ -1098,16 +1101,6 @@ public class MyService {
             }
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println(e);
-        }
-        try {
-            List<MvUlLeaderEntity> mvUlLeaders = mvUlLeaderEntityRepo.getUsersByLikeIin(iin);
-            if (mvUlLeaders != null) {
-                actual++;
-
-                generalInfoDTO.setUl_leaderList(mvUlLeaders);
-            }
-        } catch (Exception e) {
             System.out.println(e);
         }
         try {
@@ -1230,6 +1223,24 @@ public class MyService {
             }
             }
         } catch (Exception e){
+        }
+        try {
+            List<KX> kxes = kxRepo.getKxIin(iin);
+            if (kxes != null) {
+
+                additionalInfoDTO.setKxes(kxes);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        try {
+            List<MvUlLeaderEntity> mvUlLeaders = mvUlLeaderEntityRepo.getUsersByLikeIin(iin);
+            if (mvUlLeaders != null) {
+
+                additionalInfoDTO.setUl_leaderList(mvUlLeaders);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
         }
         try {
             List<MvRnOld> mvRnOlds = mv_rn_oldRepo.getUsersByLike(iin);

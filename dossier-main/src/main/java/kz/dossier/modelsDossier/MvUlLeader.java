@@ -12,7 +12,8 @@ import java.util.UUID;
 public class MvUlLeader {
     @Id
     private UUID id;
-    private String bin_org;
+    @Column(name = "bin_org")
+    private String binOrg;
     private Date reg_date;
     private String iin;
     @Column(name = "lastname")
@@ -41,11 +42,11 @@ public class MvUlLeader {
     }
 
     public String getBin_org() {
-        return bin_org;
+        return binOrg;
     }
 
     public void setBin_org(String bin_org) {
-        this.bin_org = bin_org;
+        this.binOrg = bin_org;
     }
 
     public Date getReg_date() {

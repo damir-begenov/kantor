@@ -10,7 +10,8 @@ import java.util.UUID;
 @Node("Person")
 public class Persons {
     @Id
-    public String id;
+    @GeneratedValue
+    public Long id;
     @Property("ИИН")
     public String IIN;
     @Property("Имя")
@@ -74,11 +75,11 @@ public class Persons {
     @Property("Статус смерти")
     public String Death_Status;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

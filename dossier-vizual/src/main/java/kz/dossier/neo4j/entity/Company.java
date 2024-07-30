@@ -9,7 +9,7 @@ import java.util.List;
 public class Company {
     @Id
     @GeneratedValue
-    private String id;
+    private Long id;
     public String PersonID;
     @Property("БИН")
     public String IINBIN;
@@ -195,11 +195,11 @@ public class Company {
         this.DFO_AFF_UL = DFO_AFF_UL;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

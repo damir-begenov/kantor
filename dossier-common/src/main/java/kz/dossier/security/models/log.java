@@ -25,8 +25,10 @@ public class log {
 
     private String username;
     @ElementCollection
+    @Transient
     private List<String> request_body;
     @ElementCollection
+    @Transient
     private List<String> request_rels;
     private Integer limit_;
     private Integer depth_;

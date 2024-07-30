@@ -3,12 +3,12 @@ package kz.dossier.neo4j.entity.DTO;
 import java.util.Map;
 
 public class relationModel {
-    private String from;
-    private String to;
+    private Long from;
+    private Long to;
     private String type;
     private Map<String, Object> properties;
 
-    public relationModel(String start, String end, Map<String, Object> propertiesModels) {
+    public relationModel(Long start, Long end, Map<String, Object> propertiesModels) {
         this.from = start;
         this.to = end;
         this.properties = propertiesModels;
@@ -22,19 +22,19 @@ public class relationModel {
         return properties;
     }
 
-    public String getFrom() {
+    public Long getFrom() {
         return from;
     }
 
-    public void setFrom(String from) {
+    public void setFrom(Long from) {
         this.from = from;
     }
 
-    public String getTo() {
+    public Long getTo() {
         return to;
     }
 
-    public void setTo(String to) {
+    public void setTo(Long to) {
         this.to = to;
     }
 

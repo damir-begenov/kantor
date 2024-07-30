@@ -302,7 +302,7 @@ public class ZAGSDBService {
     private doubleReturn ConstructDoubleReturn(Long User, List<PersonZags> personsList) {
         List<Nodes> nodes = new ArrayList<>();
         List<relationModel> edges = new ArrayList<>();
-        List<String> ids = new ArrayList<>();
+        List<Long> ids = new ArrayList<>();
         for (PersonZags object : personsList) {
             if (!ids.contains(object.getId())) {
                 ids.add(object.getId());
@@ -334,7 +334,7 @@ public class ZAGSDBService {
 
         }
         doubleReturn doubleReturn = new doubleReturn(nodes, edges);
-        for (String id : ids) {
+        for (Long id : ids) {
             System.out.println(id);
         }
         return doubleReturn;

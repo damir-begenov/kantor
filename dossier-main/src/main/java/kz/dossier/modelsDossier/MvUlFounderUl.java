@@ -8,7 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "initial_data.ul_founder_ul")
+@Table(name = "imp_kfm_ul.ul_founder_ul")
 public class MvUlFounderUl {
 
     @Id

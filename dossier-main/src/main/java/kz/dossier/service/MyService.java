@@ -6,7 +6,6 @@ import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.repositoryDossier.*;
 import kz.dossier.extractor.Mv_fl_extractor;
-import org.apache.xpath.operations.Bool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -179,6 +178,41 @@ public class MyService {
 
     @Autowired
     private QoldauRepo qoldauRepo;
+
+
+    public ULGeneralInfoDTO getUlGeneral(String bin){
+        ULGeneralInfoDTO ulGeneralInfoDTO = new ULGeneralInfoDTO();
+        try {
+            ulGeneralInfoDTO.setMvUlList(mv_ul_repo.getUlByBin(bin));
+        }catch (Exception e){
+            System.out.println(e);
+        }try {
+            ulGeneralInfoDTO.setRegAddressUlEntity(regAddressUlEntityRepo.findByBin(bin));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        try {
+            ulGeneralInfoDTO.setCommodityProducers(commodityProducerRepo.getiin_binByIIN(bin));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        try {
+            ulGeneralInfoDTO.setFlContacts(flContactsRepo.findAllByIin(bin));
+        }catch (Exception e){
+            System.out.println(e);
+        }try {
+            ulGeneralInfoDTO.setAccountantListEntities(accountantListEntityRepo.getUsersByLikeBIN(bin));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        try {
+            ulGeneralInfoDTO.setPdls(pdlReposotory.getByBin(bin));
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return ulGeneralInfoDTO;
+
+    }
 
     public List<SubsidiyDTO> getSubsidies(String bin) {
         List<QoldauSubsidy> subsidies = new ArrayList<>();
@@ -731,9 +765,9 @@ public class MyService {
         return new ArrayList<>();
     }
 
-    public List<SearchResultModelUl> getByAddress(UlAddressInfo addressInfo) {
-        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressInfo.getReg_addr_region_ru(),
-        addressInfo.getReg_addr_district_ru(),addressInfo.getReg_addr_rural_district_ru(), addressInfo.getReg_addr_locality_ru(), addressInfo.getReg_addr_street_ru(), addressInfo.getReg_addr_bulding_num(), addressInfo.getReg_addr_block_num(), addressInfo.getReg_addr_builing_body_num(), addressInfo.getReg_addr_office());
+    public List<SearchResultModelUl> getByAddress(String bin) {
+        RegAddressUlEntity addressUlEntity = regAddressUlEntityRepo.findByBin(bin);
+        List<RegAddressUlEntity> units = regAddressUlEntityRepo.getByAddress(addressUlEntity.getRegAddrStreetRu(), addressUlEntity.getRegAddrBuildingNum(),bin);
         List<SearchResultModelUl> list = new ArrayList<>();
         for (RegAddressUlEntity l: units) {
             Optional<MvUl> ul = mv_ul_repo.getUlByBin(l.getBin());
@@ -741,6 +775,7 @@ public class MyService {
                 SearchResultModelUl res = new SearchResultModelUl();
                 res.setBin(ul.get().getBin());
                 res.setName(ul.get().getShort_name());
+                res.setRegion(addressUlEntity.getRegAddrRegionRu() + " " + addressUlEntity.getRegAddrDistrictRu() + " " + addressUlEntity.getRegAddrStreetRu() + " " + addressUlEntity.getRegAddrBuildingNum());
                 list.add(res);
             }
         }

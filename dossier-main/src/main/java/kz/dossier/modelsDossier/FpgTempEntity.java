@@ -1,4 +1,4 @@
-package kz.dossier.modelsRisk;
+package kz.dossier.modelsDossier;
 
 import org.jetbrains.annotations.Nullable;
 import jakarta.persistence.Column;

@@ -1,6 +1,6 @@
 package kz.dossier.repositoryDossier;
 
-import kz.dossier.modelsDossier.NdsEntity;
+import kz.dossier.modelsRisk.NdsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

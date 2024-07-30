@@ -1,10 +1,11 @@
 package kz.dossier.modelsRisk;
 
-import org.jetbrains.annotations.Nullable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Date;
 
 @Entity

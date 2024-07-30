@@ -1,8 +1,12 @@
-package kz.dossier.modelsDossier;
+package kz.dossier.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import kz.dossier.modelsDossier.FpgTempEntity;
+import kz.dossier.modelsDossier.Msh;
+import kz.dossier.modelsRisk.NdsEntity;
 import kz.dossier.modelsRisk.*;
+import kz.dossier.modelsRisk.OpgEntity;
 import lombok.Data;
 
 import java.lang.reflect.Field;
@@ -15,8 +19,6 @@ import java.util.List;
 public class FLRiskDto {
 
     private String iin;
-    private List<AccountantListEntity> accountantListEntities; //--Осужденные
-    private List<Adm> adms; //--Сведения Минздрава
     private List<Bankrot> bankrots; //--Принудительное лечение
     private List<BlockEsf> blockEsfs;
     private List<ConvictsJustified> convictsJustifieds; //--Снятые с учета по НДС
@@ -28,9 +30,7 @@ public class FLRiskDto {
     private List<Kuis> kuis; //--Участие в рисковых ЮЛ
     private List<Incapacitated> incapacitateds; //--Участие в рисковых ЮЛ
     private List<FirstCreditBureauEntity> firstCreditBureauEntities; //--Сироты
-    private List<FpgTempEntity> fpgTempEntities; //--Бездействующие
     private List<ImmoralLifestyle> immoralLifestyles; //--Отсутствие по месту нахождения(ОМН)
-    private List<Msh> mshes;//--карточки
     private List<MzEntity> mzEntities; //--Осужденныен по статьям
     private List<NdsEntity> ndsEntities; //--1Д
     private List<Omn> omns;

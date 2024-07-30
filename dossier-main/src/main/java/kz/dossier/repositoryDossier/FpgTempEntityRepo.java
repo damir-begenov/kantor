@@ -1,7 +1,7 @@
 package kz.dossier.repositoryDossier;
 
 
-import kz.dossier.modelsRisk.FpgTempEntity;
+import kz.dossier.modelsDossier.FpgTempEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

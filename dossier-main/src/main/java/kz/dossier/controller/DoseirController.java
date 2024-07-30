@@ -15,21 +15,16 @@ import kz.dossier.security.repository.LogRepo;
 import kz.dossier.service.FlRiskServiceImpl;
 import kz.dossier.service.MyService;
 import kz.dossier.service.RnService;
+import kz.dossier.service.UlRiskServiceImpl;
 import kz.dossier.tools.DocxGenerator;
 import kz.dossier.tools.PdfGenerator;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -66,7 +61,8 @@ public class DoseirController {
     DocxGenerator docxGenerator;
     @Autowired
     RnService rnService;
-
+    @Autowired
+    UlRiskServiceImpl ulRiskService;
 
 
     @GetMapping("/ulCard")
@@ -86,8 +82,8 @@ public class DoseirController {
     }
 
     @GetMapping("/sameAddressUl")
-    public List<SearchResultModelUl> sameAddressFls(@RequestParam UlAddressInfo params) {
-        return myService.getByAddress(params);
+    public List<SearchResultModelUl> sameAddressUls(@RequestParam String bin) {
+        return myService.getByAddress(bin);
     }
 
     @GetMapping("/rnDetails")
@@ -98,6 +94,10 @@ public class DoseirController {
     @GetMapping("/generalInfo")
     public GeneralInfoDTO getGeneralInfo(@RequestParam String iin) {
         return myService.generalInfoByIin(iin);
+    }
+    @GetMapping("/generalInfoUl")
+    public ULGeneralInfoDTO getGeneralInfoUl(@RequestParam String bin) {
+        return myService.getUlGeneral(bin);
     }
 
     @GetMapping("/additionalInfo")
@@ -161,6 +161,10 @@ public class DoseirController {
     @GetMapping("/getRiskByIin")
     public FLRiskDto getRisk(@RequestParam String iin){
         return flRiskService.findFlRiskByIin(iin);
+    }
+    @GetMapping("/getRiskByBin")
+    public UlRiskDTO getRiskBin(@RequestParam String bin){
+        return ulRiskService.findULRiskByIin(bin);
     }
     @GetMapping("/getFirstRowByIin")
     public FlFirstRowDto getFirstRow(@RequestParam String iin){

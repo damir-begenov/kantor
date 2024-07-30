@@ -1,6 +1,7 @@
 package kz.dossier.modelsDossier;
 
 import kz.dossier.modelsRisk.*;
+import kz.dossier.modelsRisk.OpgEntity;
 
 import java.util.List;
 import java.util.Map;

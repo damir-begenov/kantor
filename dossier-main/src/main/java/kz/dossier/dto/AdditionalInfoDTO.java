@@ -3,7 +3,6 @@ package kz.dossier.dto;
 import java.util.List;
 
 import kz.dossier.modelsDossier.*;
-import kz.dossier.modelsRisk.Pdl;
 
 public class AdditionalInfoDTO {
     private List<Universities> universities;

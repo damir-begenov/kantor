@@ -3,23 +3,19 @@ package kz.dossier.tools;
 import com.lowagie.text.*;
 import com.lowagie.text.Document;
 import com.lowagie.text.pdf.*;
-import com.lowagie.text.pdf.parser.PdfTextExtractor;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
+import kz.dossier.modelsRisk.ConvictsJustified;
+import kz.dossier.modelsRisk.ConvictsTerminatedByRehab;
 import kz.dossier.repositoryDossier.FlPensionMiniRepo;
 import kz.dossier.repositoryDossier.MvUlRepo;
 import kz.dossier.service.MyService;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.util.Units;
-import org.apache.poi.xwpf.usermodel.*;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 
 import java.io.*;
-import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;

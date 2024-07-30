@@ -1,7 +1,6 @@
 package kz.dossier.repositoryDossier;
 
 import kz.dossier.modelsDossier.KX;
-import kz.dossier.modelsRisk.Dismissal;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

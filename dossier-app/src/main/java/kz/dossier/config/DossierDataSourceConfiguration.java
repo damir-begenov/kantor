@@ -3,6 +3,8 @@ package kz.dossier.config;
 import com.zaxxer.hikari.HikariDataSource;
 import kz.dossier.modelsDossier.*;
 import kz.dossier.modelsRisk.*;
+import kz.dossier.modelsRisk.ImmoralLifestyle;
+import kz.dossier.modelsRisk.Orphans;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;

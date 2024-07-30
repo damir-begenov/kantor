@@ -1,13 +1,11 @@
 package kz.dossier.service;
 
-import kz.dossier.modelsDossier.FLRiskDto;
-import kz.dossier.modelsRisk.Adm;
+import kz.dossier.dto.FLRiskDto;
 import kz.dossier.repositoryDossier.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -45,8 +43,7 @@ public class FlRiskServiceImpl {
     private WantedListRepo wantedListRepo;
     @Autowired
     DormantRepo dormantRepo;
-    @Autowired
-    MshRepo mshRepo;
+
     @Autowired
     BeneficiariesListRepo beneficiariesListRepo;
     @Autowired
@@ -81,13 +78,7 @@ public class FlRiskServiceImpl {
             // Catch block left empty
         }
 
-        try {
-            List<Adm> admList = admRepo.getUsersByLike(iin);
-            flRiskDto.setAdms(admList);
-        } catch (Exception e) {
-            // Catch block left empty
-            System.out.println("adms" + e);
-        }
+
 
         try {
             flRiskDto.setCriminals(criminalsRepo.getcriminalsByByIIN(iin));
@@ -137,17 +128,6 @@ public class FlRiskServiceImpl {
             // Catch block left empty
         }
 
-        try {
-            flRiskDto.setFpgTempEntities(fpgTempEntityRepo.getUsersByLike(iin));
-        } catch (Exception e) {
-            // Catch block left empty
-        }
-
-        try {
-            flRiskDto.setMshes(mshRepo.getUsersByLike(iin));
-        } catch (Exception e) {
-            // Catch block left empty
-        }
 
         try {
             flRiskDto.setConvictsAbroads(convictsAbroadRepo.getConvictsAbroadByIIN(iin));
@@ -168,7 +148,7 @@ public class FlRiskServiceImpl {
         }
 
         try {
-            flRiskDto.setOmns(omn_repo.getUsersByLike(iin));
+            flRiskDto.setOmns(omn_repo.getUsersByLikeIin_bin(iin));
         } catch (Exception e) {
             // Catch block left empty
         }
@@ -203,22 +183,22 @@ public class FlRiskServiceImpl {
             // Catch block left empty
         }
 
-        int sum = (Optional.ofNullable(flRiskDto.getAdms()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
+        int sum =
                 (Optional.ofNullable(flRiskDto.getBankrots()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getDormants()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 Optional.ofNullable(flRiskDto.getFirstCreditBureauEntities()).orElse(Collections.emptyList()).size() +
-                (Optional.ofNullable(flRiskDto.getAccountantListEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getConvictsAbroads()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getIncapacitateds()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getKuis()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getDismissals()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
-                (Optional.ofNullable(flRiskDto.getMshes()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getDrugAddicts()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getWantedListEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
+                (Optional.ofNullable(flRiskDto.getBeneficiariesLists()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getOpgEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getOmns()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
-                (Optional.ofNullable(flRiskDto.getFpgTempEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
+                (Optional.ofNullable(flRiskDto.getCriminals()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getNdsEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
+                (Optional.ofNullable(flRiskDto.getBlockEsfs()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getConvictsTerminatedByRehabs()).orElse(Collections.emptyList()).isEmpty() ? 0 : 1) +
                 (Optional.ofNullable(flRiskDto.getImmoralLifestyles()).orElse(Collections.emptyList()).isEmpty() ? 0 : 1);
 

@@ -8,7 +8,7 @@ import jakarta.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "imp_kfm_ul_old.mv_reg_address_ul")
+@Table(name = "imp_kfm_ul.mv_reg_address_ul")
 public class RegAddressUlEntity {
     @Nullable
     @Column(name = "subject_id")

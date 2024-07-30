@@ -3,7 +3,7 @@ package kz.dossier.dto;
 import java.util.List;
 
 import kz.dossier.modelsDossier.*;
-import kz.dossier.modelsRisk.AccountantListEntity;
+import kz.dossier.modelsDossier.AccountantListEntity;
 import kz.dossier.modelsRisk.Pdl;
 
 public class GeneralInfoDTO {

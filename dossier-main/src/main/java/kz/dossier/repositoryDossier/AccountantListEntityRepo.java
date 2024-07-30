@@ -1,6 +1,6 @@
 package kz.dossier.repositoryDossier;
 
-import kz.dossier.modelsRisk.AccountantListEntity;
+import kz.dossier.modelsDossier.AccountantListEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

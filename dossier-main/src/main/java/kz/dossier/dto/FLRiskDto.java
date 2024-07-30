@@ -4,6 +4,7 @@ package kz.dossier.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import kz.dossier.modelsDossier.FpgTempEntity;
 import kz.dossier.modelsDossier.Msh;
+import kz.dossier.modelsDossier.Unemployed;
 import kz.dossier.modelsRisk.NdsEntity;
 import kz.dossier.modelsRisk.*;
 import kz.dossier.modelsRisk.OpgEntity;
@@ -39,6 +40,8 @@ public class FLRiskDto {
     private List<BeneficiariesList> beneficiariesLists;
     private List<WantedListEntity> wantedListEntities;
     private List<DrugAddicts> drugAddicts;
+    private List<Sudispol> sudispols;
+    private List<Unemployed> unemployeds;
     private Double percentage;
     private int quantity; //--количество
 

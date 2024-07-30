@@ -1132,13 +1132,6 @@ public class MyService {
             }
         } catch (Exception e) {
             System.out.println(e);
-        } try {
-            List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
-            actual++;
-
-            generalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
-        }catch (Exception e){
-            System.out.println(e);
         }
         try {
             List<Lawyers> lawyers = lawyersRepo.getByIin(iin);
@@ -1152,12 +1145,25 @@ public class MyService {
             System.out.println(e);
         }
         try {
-            Optional<ChangeFio> changeFio = changeFioRepo.getByIin(iin);
-            if (changeFio.isPresent()) {
-                actual++;
-
-                generalInfoDTO.setChangeFio(changeFio.get());
-            }
+            List<ChangeFioDTO> changeFioDTOS = new ArrayList<>();
+            List<ChangeFio> changeFio = changeFioRepo.getByIin(iin);
+            changeFio.forEach(x -> {
+                ChangeFioDTO obj = new ChangeFioDTO();
+                obj.setDateOfChange(x.getTo_date());
+                String name = "";
+                if (x.getSurname_before() != null) {
+                    name = x.getSurname_before() + " ";
+                }
+                if (x.getName_before() != null) {
+                    name = x.getName_before() + " ";
+                }
+                if (x.getSecondname_before() != null) {
+                    name = x.getSecondname_before();
+                }
+                obj.setHistoricalFIO(name);
+                obj.setReasonOfChange(x.getRemarks() != null ? x.getRemarks() : "");
+            });
+            generalInfoDTO.setChangeFio(changeFioDTOS);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -1240,6 +1246,12 @@ public class MyService {
                 additionalInfoDTO.setUl_leaderList(mvUlLeaders);
             }
         } catch (Exception e) {
+            System.out.println(e);
+        }try {
+            List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
+
+            additionalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
+        }catch (Exception e){
             System.out.println(e);
         }
         try {

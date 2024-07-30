@@ -16,6 +16,15 @@ public class AdditionalInfoDTO {
     public void setUl_leaderList(List<MvUlLeaderEntity> ul_leaderList) {
         this.ul_leaderList = ul_leaderList;
     }
+    private List<IndividualEntrepreneur> individualEntrepreneurs;
+
+    public List<IndividualEntrepreneur> getIndividualEntrepreneurs() {
+        return individualEntrepreneurs;
+    }
+
+    public void setIndividualEntrepreneurs(List<IndividualEntrepreneur> individualEntrepreneurs) {
+        this.individualEntrepreneurs = individualEntrepreneurs;
+    }
 
     private List<KX> kxes;
 

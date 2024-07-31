@@ -46,6 +46,16 @@ public class AdditionalInfoDTO {
     private List<AutoPostanovka> autoPostanovkas;
     private List<AutoSnyatie> autoSnyaties;
 
+    private List<PensionGroupDTO> pensionsGrouped;
+
+    public List<PensionGroupDTO> getPensionsGrouped() {
+        return pensionsGrouped;
+    }
+
+    public void setPensionsGrouped(List<PensionGroupDTO> pensionsGrouped) {
+        this.pensionsGrouped = pensionsGrouped;
+    }
+
     public List<AutoSnyatie> getAutoSnyaties() {
         return autoSnyaties;
     }

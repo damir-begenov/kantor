@@ -193,6 +193,7 @@ public class FlRiskServiceImpl {
                 (Optional.ofNullable(flRiskDto.getDismissals()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getDrugAddicts()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getWantedListEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
+                (Optional.ofNullable(flRiskDto.getConvictsJustifieds()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getBeneficiariesLists()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getOpgEntities()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +
                 (Optional.ofNullable(flRiskDto.getOmns()).orElse(Collections.emptyList()).size() > 0 ? 1 : 0) +

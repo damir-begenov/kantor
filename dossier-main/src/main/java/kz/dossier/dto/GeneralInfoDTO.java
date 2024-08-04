@@ -19,7 +19,6 @@ public class GeneralInfoDTO {
     }
 
     private List<SearchResultModelFL> sameAddressFls;
-    private List<IndividualEntrepreneur> individualEntrepreneurs;
 
     private List<AccountantListEntity> accountantListEntities; // БУХГАЛТЭРЫ
     private List<AdvocateListEntity> advocateListEntities;
@@ -71,7 +70,7 @@ public class GeneralInfoDTO {
     }
 
     private List<Lawyers> lawyers;
-    private ChangeFio changeFio;
+    private List<ChangeFioDTO> changeFio;
 
     private List<Pdl> pdls;
 
@@ -92,19 +91,13 @@ public class GeneralInfoDTO {
         this.pdls = pdls;
     }
 
-    public ChangeFio getChangeFio() {
+    public List<ChangeFioDTO> getChangeFio() {
         return changeFio;
     }
 
 
-    public List<IndividualEntrepreneur> getIndividualEntrepreneurs() {
-        return individualEntrepreneurs;
-    }
 
-    public void setIndividualEntrepreneurs(List<IndividualEntrepreneur> individualEntrepreneurs) {
-        this.individualEntrepreneurs = individualEntrepreneurs;
-    }
-    public void setChangeFio(ChangeFio changeFio) {
+    public void setChangeFio(List<ChangeFioDTO> changeFio) {
         this.changeFio = changeFio;
     }
 

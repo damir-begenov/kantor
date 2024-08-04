@@ -1132,13 +1132,6 @@ public class MyService {
             }
         } catch (Exception e) {
             System.out.println(e);
-        } try {
-            List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
-            actual++;
-
-            generalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
-        }catch (Exception e){
-            System.out.println(e);
         }
         try {
             List<Lawyers> lawyers = lawyersRepo.getByIin(iin);
@@ -1152,12 +1145,25 @@ public class MyService {
             System.out.println(e);
         }
         try {
-            Optional<ChangeFio> changeFio = changeFioRepo.getByIin(iin);
-            if (changeFio.isPresent()) {
-                actual++;
-
-                generalInfoDTO.setChangeFio(changeFio.get());
-            }
+            List<ChangeFioDTO> changeFioDTOS = new ArrayList<>();
+            List<ChangeFio> changeFio = changeFioRepo.getByIin(iin);
+            changeFio.forEach(x -> {
+                ChangeFioDTO obj = new ChangeFioDTO();
+                obj.setDateOfChange(x.getTo_date());
+                String name = "";
+                if (x.getSurname_before() != null) {
+                    name = x.getSurname_before() + " ";
+                }
+                if (x.getName_before() != null) {
+                    name = x.getName_before() + " ";
+                }
+                if (x.getSecondname_before() != null) {
+                    name = x.getSecondname_before();
+                }
+                obj.setHistoricalFIO(name);
+                obj.setReasonOfChange(x.getRemarks() != null ? x.getRemarks() : "");
+            });
+            generalInfoDTO.setChangeFio(changeFioDTOS);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -1240,6 +1246,12 @@ public class MyService {
                 additionalInfoDTO.setUl_leaderList(mvUlLeaders);
             }
         } catch (Exception e) {
+            System.out.println(e);
+        }try {
+            List<IndividualEntrepreneur> individualEntrepreneurs = individualEntrepreneurRepo.getByIin(iin);
+
+            additionalInfoDTO.setIndividualEntrepreneurs(individualEntrepreneurs);
+        }catch (Exception e){
             System.out.println(e);
         }
         try {
@@ -1326,20 +1338,32 @@ public class MyService {
             List<String> companyBins = flPensionContrRepo.getUsersByLikeCompany(iin);
         
             List<PensionListDTO> pensions = new ArrayList<>();
+            List<PensionGroupDTO> result = new ArrayList<>();
             for (String bin : companyBins) {
                 List<Map<String, Object>> fl_pension_contrss = new ArrayList<>();
                 fl_pension_contrss = flPensionContrRepo.getAllByCompanies(iin,bin);
-
+                PensionGroupDTO obj = new PensionGroupDTO();
+                List<PensionListDTO> group = new ArrayList<>();
+                String name = "";
+                if (fl_pension_contrss.get(0).get("P_NAME") != null) {
+                    name = (String)fl_pension_contrss.get(0).get("P_NAME") + ", ";
+                }
+                if (bin != null) {
+                    name = name + bin + ", период ";
+                }
                 List<String> distinctPayDates = fl_pension_contrss.stream()
                         .map(pension -> pension.get("pay_date").toString())
                         .distinct()
                         .collect(Collectors.toList());
 
                 for (String year : distinctPayDates) {
+                    if (year != null) {
+                        name = name + year.replace(".0", "") + ", ";
+                    }
                     PensionListDTO pensionListEntity = new PensionListDTO();
                     pensionListEntity.setBin(bin);
                     pensionListEntity.setName((String)fl_pension_contrss.get(0).get("P_NAME"));
-                    pensionListEntity.setPeriod(year);
+                    pensionListEntity.setPeriod(year.replace(".0", ""));
                     try {
                         double knp010 = fl_pension_contrss.stream()
                             .filter(pension -> pension.get("pay_date").toString().equals(year) && pension.get("KNP").toString().equals("010"))
@@ -1364,11 +1388,16 @@ public class MyService {
 
 
                     pensions.add(pensionListEntity);
+                    group.add(pensionListEntity);
                 }
+                obj.setName(name);
+                obj.setList(group);
+                result.add(obj);
             }
 
             additionalInfoDTO.setPensions(pensions);
             additionalInfoDTO.setNumber();
+            additionalInfoDTO.setPensionsGrouped(result);
         } catch (Exception e){
             System.out.println("Error:" + e);
         }
